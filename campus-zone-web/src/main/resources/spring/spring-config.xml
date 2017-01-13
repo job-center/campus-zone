@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+    ">
+    <!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
+    <!--&lt;!&ndash; 自定义AOP &ndash;&gt;-->
+    <!--<aop:aspectj-autoproxy proxy-target-class="true">-->
+    <!--<aop:include name="controllerAspect"/>-->
+    <!--</aop:aspectj-autoproxy>-->
+
+    <!--perf4j性能监控AOP-->
+    <bean id="timingAspect" class="org.perf4j.slf4j.aop.TimingAspect"/>
+
+
+    <aop:aspectj-autoproxy proxy-target-class="true">
+        <aop:include name="timingAspect"/>
+    </aop:aspectj-autoproxy>
+    <!-- 自动发现bean，包括@Component@Service@Controller等 -->
+    <context:component-scan base-package="**"/>
+
+    <!-- import the dataSource definition -->
+    <import resource="classpath:spring/spring-config-dao.xml"/>
+    <import resource="classpath:spring/spring-config-service.xml"/>
+    <import resource="classpath:spring/spring-config-jredis.xml"/>
+
+    <!--<import resource="spring-config-mail.xml"/>-->
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:deploy_config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 导入dubbo配置文件 -->
+    <!--<import resource="classpath:dubbo/spring-dubbo-*.xml"/>-->
+    <!-- ========================= RESOURCE DEFINITIONS ========================= -->
+
+    <!-- spring mvc setting -->
+
+    <!--配置静态资源-->
+    <mvc:resources mapping="/favicon.ico" location="/static/favicon.ico"/>
+    <mvc:resources mapping="/s.gif" location="/s.gif"/>
+    <mvc:resources mapping="/static/**" location="/static/"/>
+    <!--这个不再需要了，因为静态资源都在上面配置了，所有的请求都由spring来处理，不再需要使用容器的default-servlet-handler来处理了-->
+    <!--<mvc:default-servlet-handler/>-->
+
+
+    <!-- Inteceptor 记录API请求url和执行时间 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!-- 打印请求响应时间 -->
+            <bean class="com.sogou.upd.passport.web.inteceptor.CostTimeInteceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!-- 设置登录后的用户信息 -->
+            <bean class="com.sogou.upd.passport.web.inteceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!-- 检测是否需要登录 -->
+            <bean class="com.sogou.upd.passport.web.inteceptor.LoginRequiredInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!-- 风控  -->
+            <bean class="com.sogou.upd.passport.web.inteceptor.RiskControlInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/internal/**"/>
+            <!-- 内部接口code和ct校验 -->
+            <bean class="com.sogou.upd.passport.web.inteceptor.InterfaceSecurityInteceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+    <bean id="stringHttpMessageConverter"
+          class="org.springframework.http.converter.StringHttpMessageConverter">
+        <property name="supportedMediaTypes">
+            <list>
+                <value>text/plain;charset=UTF-8</value>
+            </list>
+        </property>
+        <property name="writeAcceptCharset" value="false"/>
+        <!--解决响应头Accept-Charset很大，耗费流量的问题-->
+    </bean>
+
+
+    <bean id="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+        <!-- 解决 wap HttpMediaTypeNotAcceptableException: Could not find acceptable representation -->
+        <property name="supportedMediaTypes">
+            <list>
+                <value>application/json;charset=UTF-8</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <ref bean="stringHttpMessageConverter"/>
+                <ref bean="mappingJacksonHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--metrics监控初始化-->
+    <bean id="metrics" class="com.codahale.metrics.MetricRegistry"/>
+
+    <!-- 将其放在RequestMappingHandlerAdapter之后用于解决@ResponseBody乱码问题 -->
+    <mvc:annotation-driven/>
+
+    <!-- 配置Velocity视图解析器 -->
+    <bean id="velocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="cache" value="false"/>
+        <property name="order">
+            <value>1</value>
+        </property>
+        <property name="suffix">
+            <value>.vm</value>
+        </property>
+        <property name="contentType">
+            <value>text/html;charset=UTF-8</value>
+        </property>
+        <property name="toolboxConfigLocation">
+            <value>WEB-INF/velocity/toolbox.xml</value>
+        </property>
+    </bean>
+
+    <!-- 配置Velocity视图解析器 -->
+    <bean id="wapVelocityViewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+        <property name="cache" value="false"/>
+        <property name="order">
+            <value>2</value>
+        </property>
+        <property name="suffix">
+            <value>.wml</value>
+        </property>
+        <property name="contentType">
+            <value>text/vnd.wap.wml;charset=UTF-8</value>
+        </property>
+        <property name="toolboxConfigLocation">
+            <value>WEB-INF/velocity/toolbox.xml</value>
+        </property>
+    </bean>
+
+    <!-- 配置Velocity引擎 -->
+    <bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="resourceLoaderPath">
+            <value>/WEB-INF/velocity/vm/</value>
+        </property>
+        <property name="configLocation">
+            <value>/WEB-INF/velocity/velocity.properties</value>
+        </property>
+    </bean>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设置上传文件的最大尺寸为3MB -->
+        <property name="maxUploadSize">
+            <value>3242880</value>
+        </property>
+    </bean>
+
+    <!--&lt;!&ndash;配置Spring定时器&ndash;&gt;-->
+    <!--&lt;!&ndash; 要调用的工作类 &ndash;&gt;-->
+    <!--<bean id="userLogJob" class="com.sogou.upd.passport.common.utils.UserLogTimerUtil"></bean>-->
+    <!--&lt;!&ndash; 定义调用对象和调用对象的方法 &ndash;&gt;-->
+    <!--<bean id="userLogTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">-->
+    <!--&lt;!&ndash; 调用的类 &ndash;&gt;-->
+    <!--<property name="targetObject">-->
+    <!--<ref bean="userLogJob"/>-->
+    <!--</property>-->
+    <!--&lt;!&ndash; 调用类中的方法 &ndash;&gt;-->
+    <!--<property name="targetMethod">-->
+    <!--<value>run</value>-->
+    <!--</property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; 定义触发时间 &ndash;&gt;-->
+    <!--<bean id="userLogTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">-->
+    <!--<property name="jobDetail">-->
+    <!--<ref bean="userLogTask"/>-->
+    <!--</property>-->
+    <!--&lt;!&ndash; cron表达式 &ndash;&gt;-->
+    <!--<property name="cronExpression">-->
+    <!--<value>0 * 17 * * ?</value>-->
+    <!--</property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序  &ndash;&gt;-->
+    <!--<bean id="startQuertz" lazy-init="false" autowire="no"-->
+    <!--class="org.springframework.scheduling.quartz.SchedulerFactoryBean">-->
+    <!--<property name="triggers">-->
+    <!--<list>-->
+    <!--<ref bean="userLogTrigger"/>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--</bean>-->
+</beans>
