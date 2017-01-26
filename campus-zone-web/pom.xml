@@ -6,19 +6,37 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>web</artifactId>
+    <artifactId>campus-zone-web</artifactId>
     <packaging>war</packaging>
-    <name>web Maven Webapp</name>
+    <name>campus-web</name>
     <url>http://maven.apache.org</url>
     <dependencies>
+
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>campus-zone</groupId>
+            <artifactId>campus-zone-service</artifactId>
+        </dependency>
+
+        <dependency>
+            <artifactId>campus-zone-common</artifactId>
+            <groupId>campus-zone</groupId>
+        </dependency>
+
     </dependencies>
+
     <build>
-        <finalName>web</finalName>
+        <finalName>campus-zone-web</finalName>
+        <!-- define the directory where the file will be replace -->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 </project>

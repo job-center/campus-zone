@@ -10,6 +10,93 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>campus-zone-service</artifactId>
+    <packaging>jar</packaging>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>campus-zone</groupId>
+            <artifactId>campus-zone-manager</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>campus-zone</groupId>
+            <artifactId>campus-zone-common</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <!-- config file operation -->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <delete file="src/main/resources/deploy_config.properties"/>
+                                <copy file="${config_file}" tofile="src/main/resources/deploy_config.properties"/>
+                                <delete file="src/main/resources/mapp_deploy_config.properties"/>
+                                <copy file="${mapp_config_file}"
+                                      tofile="src/main/resources/mapp_deploy_config.properties"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- env config file -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <config_file>
+                    src/main/resources/deploy/deploy_config_DEV.properties
+                </config_file>
+                <mapp_config_file>
+                    src/main/resources/deploy/mapp_deploy_config_DEV.properties
+                </mapp_config_file>
+            </properties>
+            <!-- 默认激活 -->
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <config_file>
+                    src/main/resources/deploy/deploy_config_TEST.properties
+                </config_file>
+                <mapp_config_file>
+                    src/main/resources/deploy/mapp_deploy_config_TEST.properties
+                </mapp_config_file>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <config_file>
+                    src/main/resources/deploy/deploy_config_PROD.properties
+                </config_file>
+                <mapp_config_file>
+                    src/main/resources/deploy/mapp_deploy_config_PROD.properties
+                </mapp_config_file>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
