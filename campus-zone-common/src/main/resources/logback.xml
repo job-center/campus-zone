@@ -4,13 +4,13 @@
 
     <property resource="deploy_config.properties"/>
 
-    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d %5p [%t] %caller{1} %msg %n</pattern>
         </encoder>
     </appender>
 
-    <appender name="root" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="Root" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${log.path}/server.log.%d{yyyy-MM-dd}</fileNamePattern>
             <maxHistory>7</maxHistory>
@@ -20,7 +20,7 @@
         </encoder>
     </appender>
 
-    <appender name="exception" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <appender name="Exception" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${log.path}/exception/exception.log.%d{yyyy-MM-dd}</fileNamePattern>
             <maxHistory>7</maxHistory>
@@ -36,8 +36,28 @@
     </appender>
 
     <root level="${log.level}">
-        <appender-ref ref="console"/>
-        <appender-ref ref="root"/>
-        <appender-ref ref="exception"/>
+        <appender-ref ref="Console"/>
+        <appender-ref ref="Root"/>
+        <appender-ref ref="Exception"/>
     </root>
+
+    <!--start:web服务器性能log-->
+    <appender name="webPerfFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/webperf/perfStats.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%msg %n</pattern>
+        </encoder>
+    </appender>
+    <appender name="webCoalescingStatistics" class="org.perf4j.logback.AsyncCoalescingStatisticsAppender">
+        <!--每分钟分析一次log，做出性能测试-->
+        <param name="TimeSlice" value="60000"/>
+        <appender-ref ref="webPerfFileAppender"/>
+    </appender>
+    <logger name="webTimingLogger" level="info" additivity="false">
+        <appender-ref ref="webCoalescingStatistics"/>
+    </logger>
+
 </configuration>
