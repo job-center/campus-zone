@@ -13,9 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 使用perf4j来监控性能
- *
- * @author lzy.clement
+ * <p>
+ * <br>==========================
+ * <br> company：job-center
+ * <br> system：campus-zone
+ * <br> User：lzy.clement
+ * <br> Date：2017/1/25
+ * <br>==========================
  */
 public class CostTimeInteceptor extends HandlerInterceptorAdapter {
 

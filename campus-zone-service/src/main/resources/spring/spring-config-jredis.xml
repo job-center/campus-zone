@@ -6,60 +6,6 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--&lt;!&ndash; db shard redis util definition &ndash;&gt;-->
-    <!--<bean id="dbShardRedisUtils" class="com.sogou.upd.passport.common.utils.DBShardRedisUtils">-->
-        <!--<property name="shardedJedisPool" ref="shardedJedisPool"/>-->
-    <!--</bean>-->
-    <!--<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">-->
-        <!--<constructor-arg index="0" ref="dbShardPoolConfig"/>-->
-        <!--<constructor-arg index="1">-->
-            <!--<list>-->
-                <!--<ref bean="jedisShardInfo_1"/>-->
-                <!--<ref bean="jedisShardInfo_2"/>-->
-                <!--<ref bean="jedisShardInfo_3"/>-->
-                <!--<ref bean="jedisShardInfo_4"/>-->
-                <!--<ref bean="jedisShardInfo_5"/>-->
-                <!--<ref bean="jedisShardInfo_6"/>-->
-            <!--</list>-->
-        <!--</constructor-arg>-->
-    <!--</bean>-->
-    <!--<bean id="jedisShardInfo_1" class="redis.clients.jedis.JedisShardInfo">-->
-        <!--<constructor-arg index="0" value="${passport.dbredis.shard1.url}"/>-->
-        <!--<constructor-arg index="1" value="${passport.dbredis.shard1.port}" type="int"/>-->
-    <!--</bean>-->
-    <!--<bean id="jedisShardInfo_2" class="redis.clients.jedis.JedisShardInfo">-->
-        <!--<constructor-arg index="0" value="${passport.dbredis.shard2.url}"/>-->
-        <!--<constructor-arg index="1" value="${passport.dbredis.shard2.port}" type="int"/>-->
-    <!--</bean>-->
-    <!--<bean id="jedisShardInfo_3" class="redis.clients.jedis.JedisShardInfo">-->
-        <!--<constructor-arg index="0" value="${passport.dbredis.shard3.url}"/>-->
-        <!--<constructor-arg index="1" value="${passport.dbredis.shard3.port}" type="int"/>-->
-    <!--</bean>-->
-    <!--<bean id="jedisShardInfo_4" class="redis.clients.jedis.JedisShardInfo">-->
-        <!--<constructor-arg index="0" value="${passport.dbredis.shard4.url}"/>-->
-        <!--<constructor-arg index="1" value="${passport.dbredis.shard4.port}" type="int"/>-->
-    <!--</bean>-->
-    <!--<bean id="jedisShardInfo_5" class="redis.clients.jedis.JedisShardInfo">-->
-        <!--<constructor-arg index="0" value="${passport.dbredis.shard5.url}"/>-->
-        <!--<constructor-arg index="1" value="${passport.dbredis.shard5.port}" type="int"/>-->
-    <!--</bean>-->
-    <!--<bean id="jedisShardInfo_6" class="redis.clients.jedis.JedisShardInfo">-->
-        <!--<constructor-arg index="0" value="${passport.dbredis.shard6.url}"/>-->
-        <!--<constructor-arg index="1" value="${passport.dbredis.shard6.port}" type="int"/>-->
-    <!--</bean>-->
-    <!--<bean id="dbShardPoolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
-        <!--<property name="maxTotal" value="1800"/>-->
-        <!--&lt;!&ndash; 由于shard，这里配置一定要注意，过小会导致资源竞争 &ndash;&gt;-->
-        <!--<property name="maxIdle" value="400"/>-->
-        <!--<property name="minIdle" value="400"/>-->
-        <!--<property name="maxWaitMillis" value="1000"/>-->
-        <!--<property name="testOnBorrow" value="false"/>-->
-        <!--&lt;!&ndash;30分钟跑一次idle object eviction线程&ndash;&gt;-->
-        <!--<property name="timeBetweenEvictionRunsMillis" value="180000" />-->
-        <!--&lt;!&ndash; 解决java.net.SocketTimeoutException: connect timed out&ndash;&gt;-->
-        <!--<property name="lifo" value="false" />-->
-    <!--</bean>-->
-
     <!--&lt;!&ndash; cache redis util definition &ndash;&gt;-->
     <!--<bean id="redisUtils" class="com.sogou.upd.passport.common.utils.RedisUtils">-->
         <!--<property name="redisTemplate" ref="cacheTemplate"/>-->
@@ -80,30 +26,6 @@
         <!--<property name="testOnBorrow" value="false"/>-->
         <!--&lt;!&ndash;30分钟跑一次idle object eviction线程&ndash;&gt;-->
         <!--<property name="timeBetweenEvictionRunsMillis" value="180000" />-->
-        <!--&lt;!&ndash; 解决java.net.SocketTimeoutException: connect timed out&ndash;&gt;-->
-        <!--<property name="lifo" value="false" />-->
-    <!--</bean>-->
-
-    <!--&lt;!&ndash; 核心kv redis util definition &ndash;&gt;-->
-    <!--<bean id="coreKvUtils" class="com.sogou.upd.passport.common.utils.CoreKvUtils">-->
-        <!--<property name="coreKvTemplate" ref="coreKvTemplate"/>-->
-    <!--</bean>-->
-    <!--<bean id="coreKvTemplate" class="org.springframework.data.redis.core.StringRedisTemplate"-->
-          <!--p:connectionFactory-ref="kvConnectionFactory"/>-->
-    <!--<bean id="kvConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"-->
-          <!--p:usePool="true">-->
-        <!--<property name="hostName" value="${passport.kv.url}"/>-->
-        <!--<property name="port" value="${passport.kv.port}"/>-->
-        <!--<constructor-arg index="0" ref="kvPoolConfig"/>-->
-    <!--</bean>-->
-    <!--<bean id="kvPoolConfig" class="redis.clients.jedis.JedisPoolConfig">-->
-        <!--<property name="maxTotal" value="400"/>-->
-        <!--<property name="maxIdle" value="200"/>-->
-        <!--<property name="minIdle" value="200"/>-->
-        <!--<property name="maxWaitMillis" value="1000"/>-->
-        <!--<property name="testOnBorrow" value="false"/>-->
-        <!--&lt;!&ndash;30分钟跑一次idle object eviction线程&ndash;&gt;-->
-        <!--&lt;!&ndash;<property name="timeBetweenEvictionRunsMillis" value="180000" />&ndash;&gt;-->
         <!--&lt;!&ndash; 解决java.net.SocketTimeoutException: connect timed out&ndash;&gt;-->
         <!--<property name="lifo" value="false" />-->
     <!--</bean>-->

@@ -1,26 +1,26 @@
-import com.jobcenter.campus.dao.GmPackageHistoryMapper;
+import com.jobcenter.campus.dao.GmPackageHistoryDao;
 import com.jobcenter.campus.entity.GmPackageHistory;
+import com.jobcenter.campus.mapper.GmPackageHistoryMapper;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import javax.annotation.Resource;
 
 /**
  * <p>
  * <br>==========================
- * <br> 公司：优视科技-游戏中心
- * <br> 系统：九游游戏中心客户端 campus-zone
- * <br> 开发：lzy.clement
- * <br> 创建时间：2017/1/26
+ * <br> company：job-center
+ * <br> system：campus-zone
+ * <br> User：lzy.clement
+ * <br> Date：2017/1/25
  * <br>==========================
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/spring-config-service.xml"})
 public class Test {
 
-    @Resource
-    private GmPackageHistoryMapper gmPackageHistoryMapper;
+    @Autowired
+    private GmPackageHistoryDao gmPackageHistoryDao;
 
     @org.junit.Test
     public void test(){
@@ -29,6 +29,12 @@ public class Test {
         gmPackageHistory.setGameId(1234);
         gmPackageHistory.setPlatformId(2);
         gmPackageHistory.setPackageId(1234);
-        gmPackageHistoryMapper.insert(gmPackageHistory);
+        boolean flag = false;
+        if(flag) {
+            gmPackageHistoryDao.insertMapper(gmPackageHistory);
+        } else {
+            gmPackageHistoryDao.insertOriMapper(gmPackageHistory);
+        }
     }
+
 }

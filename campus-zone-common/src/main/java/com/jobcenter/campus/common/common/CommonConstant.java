@@ -3,10 +3,10 @@ package com.jobcenter.campus.common.common;
 /**
  * <p>
  * <br>==========================
- * <br> 公司：job-center
- * <br> 系统：campus-zone
- * <br> 开发：lzy.clement
- * <br> 创建时间：2017/2/3
+ * <br> company：job-center
+ * <br> system：campus-zone
+ * <br> User：lzy.clement
+ * <br> Date：2017/1/25
  * <br>==========================
  */
 public class CommonConstant {

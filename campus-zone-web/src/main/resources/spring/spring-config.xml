@@ -15,17 +15,13 @@
     http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
     ">
     <!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
-    <!--&lt;!&ndash; 自定义AOP &ndash;&gt;-->
-    <!--<aop:aspectj-autoproxy proxy-target-class="true">-->
-    <!--<aop:include name="controllerAspect"/>-->
-    <!--</aop:aspectj-autoproxy>-->
-
     <!--perf4j performance monitor AOP-->
     <!--<bean id="timingAspect" class="org.perf4j.slf4j.aop.TimingAspect"/>-->
 
     <!--<aop:aspectj-autoproxy proxy-target-class="true">-->
         <!--<aop:include name="timingAspect"/>-->
     <!--</aop:aspectj-autoproxy>-->
+
     <!-- auto discovery bean，include @Component@Service@Controller etc. -->
     <context:component-scan base-package="com.jobcenter.campus.web.controller.**"/>
 
@@ -36,9 +32,6 @@
 
     <!-- config the static resources -->
     <mvc:resources mapping="/static/**" location="/static/"/>
-    <!--这个不再需要了，因为静态资源都在上面配置了，所有的请求都由spring来处理，不再需要使用容器的default-servlet-handler来处理了-->
-    <!--<mvc:default-servlet-handler/>-->
-
 
     <!-- Inteceptor 记录API请求url和执行时间 -->
     <mvc:interceptors>
@@ -48,28 +41,6 @@
             <bean class="com.jobcenter.campus.common.interceptor.CostTimeInteceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/**"/>-->
-            <!--&lt;!&ndash; 设置登录后的用户信息 &ndash;&gt;-->
-            <!--<bean class="com.sogou.upd.passport.web.inteceptor.LoginInterceptor"/>-->
-        <!--</mvc:interceptor>-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/**"/>-->
-            <!--&lt;!&ndash; 检测是否需要登录 &ndash;&gt;-->
-            <!--<bean class="com.sogou.upd.passport.web.inteceptor.LoginRequiredInterceptor"/>-->
-        <!--</mvc:interceptor>-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/**"/>-->
-            <!--&lt;!&ndash; 风控  &ndash;&gt;-->
-            <!--<bean class="com.sogou.upd.passport.web.inteceptor.RiskControlInterceptor"/>-->
-        <!--</mvc:interceptor>-->
-        <!--<mvc:interceptor>-->
-            <!--<mvc:mapping path="/internal/**"/>-->
-            <!--&lt;!&ndash; 内部接口code和ct校验 &ndash;&gt;-->
-            <!--<bean class="com.sogou.upd.passport.web.inteceptor.InterfaceSecurityInteceptor"/>-->
-        <!--</mvc:interceptor>-->
-    <!--</mvc:interceptors>-->
-
 
     <!--<bean id="stringHttpMessageConverter"-->
           <!--class="org.springframework.http.converter.StringHttpMessageConverter">-->
@@ -101,9 +72,6 @@
             <!--</list>-->
         <!--</property>-->
     <!--</bean>-->
-
-    <!--metrics监控初始化-->
-    <!--<bean id="metrics" class="com.codahale.metrics.MetricRegistry"/>-->
 
     <!-- 将其放在RequestMappingHandlerAdapter之后用于解决@ResponseBody乱码问题 -->
     <mvc:annotation-driven/>
