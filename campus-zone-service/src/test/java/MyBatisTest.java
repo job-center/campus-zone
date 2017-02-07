@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring/spring-config-service.xml"})
-public class Test {
+public class MyBatisTest {
 
     @Autowired
     private GmPackageHistoryDao gmPackageHistoryDao;
