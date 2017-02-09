@@ -245,7 +245,6 @@ public class RedisUtils {
     @Profiled(el = true, logger = "rediesTimingLogger", tag = "redies_hPutAll", timeThreshold = 10, normalAndSlowSuffixesEnabled = true)
     public void hPutAll(String cacheKey, Map<String, String> mapData) throws Exception {
         try {
-
             BoundHashOperations<String, String, String> boundHashOperations = redisTemplate.boundHashOps(cacheKey);
             boundHashOperations.putAll(mapData);
         } catch (Exception e) {

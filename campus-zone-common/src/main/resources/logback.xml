@@ -41,7 +41,35 @@
         <appender-ref ref="Exception"/>
     </root>
 
-    <!--start:web服务器性能log-->
+    <appender name="redisMissAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/redisMiss/redisMiss.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d %msg %n</pattern>
+        </encoder>
+    </appender>
+    <logger name="redisMissLogger" level="info" additivity="false">
+        <appender-ref ref="redisMissAppender"/>
+    </logger>
+
+    <appender name="rediesPerfFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/redies/perfStats.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%msg %n</pattern>
+        </encoder>
+    </appender>
+    <appender name="rediesCoalescingStatistics" class="org.perf4j.logback.AsyncCoalescingStatisticsAppender">
+        <param name="TimeSlice" value="60000"/>
+        <appender-ref ref="rediesPerfFileAppender"/>
+    </appender>
+    <logger name="rediesTimingLogger" level="info" additivity="false">
+        <appender-ref ref="rediesCoalescingStatistics"/>
+    </logger>
+
     <appender name="webPerfFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${log.path}/webperf/perfStats.log.%d{yyyy-MM-dd}</fileNamePattern>
@@ -52,7 +80,6 @@
         </encoder>
     </appender>
     <appender name="webCoalescingStatistics" class="org.perf4j.logback.AsyncCoalescingStatisticsAppender">
-        <!--每分钟分析一次log，做出性能测试-->
         <param name="TimeSlice" value="60000"/>
         <appender-ref ref="webPerfFileAppender"/>
     </appender>
