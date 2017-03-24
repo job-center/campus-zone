@@ -11,6 +11,4 @@ package com.jobcenter.campus.common.common;
  */
 public class CommonConstant {
 
-    //在request attribut中存在的用于计时的StopWatch的name
-    public static final String STOPWATCH = "stopWatch";
 }

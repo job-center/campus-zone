@@ -15,12 +15,6 @@
     http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
     ">
     <!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
-    <!--perf4j performance monitor AOP-->
-    <bean id="timingAspect" class="org.perf4j.slf4j.aop.TimingAspect"/>
-
-    <aop:aspectj-autoproxy proxy-target-class="true">
-        <aop:include name="timingAspect"/>
-    </aop:aspectj-autoproxy>
 
     <!-- auto discovery bean，include @Component@Service@Controller etc. -->
     <context:component-scan base-package="com.jobcenter.campus.web.controller.**"/>
@@ -32,15 +26,6 @@
 
     <!-- config the static resources -->
     <mvc:resources mapping="/static/**" location="/static/"/>
-
-    <!-- Inteceptor 记录API请求url和执行时间 -->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <!-- 打印请求响应时间 -->
-            <bean class="com.jobcenter.campus.common.interceptor.CostTimeInteceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
 
     <mvc:annotation-driven/>
 

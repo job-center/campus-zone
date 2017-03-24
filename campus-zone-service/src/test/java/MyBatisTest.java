@@ -1,6 +1,5 @@
-import com.jobcenter.campus.dao.GmPackageHistoryDao;
-import com.jobcenter.campus.entity.GmPackageHistory;
-import com.jobcenter.campus.mapper.GmPackageHistoryMapper;
+import com.jobcenter.campus.dao.UserDao;
+import com.jobcenter.campus.entity.User;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -20,20 +19,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class MyBatisTest {
 
     @Autowired
-    private GmPackageHistoryDao gmPackageHistoryDao;
+    private UserDao userDao;
 
     @org.junit.Test
     public void test(){
-        GmPackageHistory gmPackageHistory = new GmPackageHistory();
-        gmPackageHistory.setId(99999999);
-        gmPackageHistory.setGameId(1234);
-        gmPackageHistory.setPlatformId(2);
-        gmPackageHistory.setPackageId(1234);
+        User user = new User();
+        user.setUsername("test");
+        user.setUserpassword("testp");
         boolean flag = false;
         if(flag) {
-            gmPackageHistoryDao.insertMapper(gmPackageHistory);
+            userDao.insertUser(user);
         } else {
-            gmPackageHistoryDao.insertOriMapper(gmPackageHistory);
+            userDao.insertOriUser(user);
         }
     }
 
