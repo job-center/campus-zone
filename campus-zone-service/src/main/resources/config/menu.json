@@ -1,0 +1,65 @@
+{
+	"name":"root",
+	"children":[
+        {
+          "name": "用户管理",
+          "url": "/account/list"
+        },
+        {
+          "name":"编码管理",
+          "url":"/code",
+          "children":[
+            {
+              "name":"地址管理",
+              "url":"/code/address/list"
+            },
+            {
+              "name":"宠物类型管理",
+              "url":"/animal/typeList"
+            },
+            {
+              "name":"宠物品种管理",
+              "url":"/animal/listAnimals"
+            }
+          ]
+        },
+        {
+          "name": "寄养管理",
+          "url": "/code",
+          "children": [
+            {
+              "name":"房间类型管理",
+              "url":"/room/list"
+            }
+          ]
+        },
+        {
+          "name": "训练管理",
+          "url": "/course",
+          "children": [
+            {
+              "name":"课程管理",
+              "url":"/course/list"
+            }
+          ]
+        },
+        {
+          "name": "美容管理",
+          "url": "//hairdressing",
+          "children": [
+            {
+              "name":"类型管理",
+              "url":"//hairdressing/list"
+            },
+            {
+              "name":"服务时间管理",
+              "url":"/hairdressing_time/list"
+            }
+          ]
+        },
+        {
+          "name":"订单管理",
+          "url":"/orders/list"
+        }
+	]
+}
