@@ -19,7 +19,6 @@
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.1.9" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.1.9" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.22" level="project" />
-    <orderEntry type="library" name="Maven: org.perf4j:perf4j:0.9.16" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-redis:1.8.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-keyvalue:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:1.13.0.RELEASE" level="project" />
@@ -40,5 +39,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.6" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.4" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: opensymphony:sitemesh:2.4.2" level="project" />
   </component>
 </module>

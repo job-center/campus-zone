@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>主人的信息</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+
+<script type="text/javascript">
+	$(function(){
+
+        $("#button_confirm").click(function(){
+            $(".ui-dialog").hide();
+        })
+
+		$.ajax({
+			url:'/account/listAccount',
+			type:'GET',
+            async:false,
+			success:function(result){
+                console.info(result);
+				if(result.success){
+					var uniqname = result.data.uniqname;
+					$("#txt_user").val(uniqname);
+					$("#txt_user").data("old_value",txt_user);
+				}else{
+                    if(result.code==320){
+//                        alert(result.detail);
+                        $("#div_text").text(result.detail)
+                            $(".ui-dialog").show();
+                        $("#button_confirm").unbind("click");
+                        $("#button_confirm").one("click",function(){
+                            window.location.href="login.html?ru=info.html";
+                        });
+//                        window.location.href="login.html?ru=info.html";
+                    }else{
+//                        alert(result.detail);
+                        $("#div_text").text(result.detail)
+                        $(".ui-dialog").show();
+                    }
+				}
+			},failure:function(){
+//				alert("系统错误");
+                $("#div_text").text("系统错误！")
+                $(".ui-dialog").show();
+			}
+		});
+		
+		$("#txt_user").blur(function(){
+			var old_value = $("#txt_user").data("old_value");
+			var value = $("#txt_user").val();
+			if( value!=null && value!="" && old_value != value){
+				$.ajax({
+					url:'/account/updateUserName',
+					type:'POST',
+					data:{'name':value},
+					success:function(result){
+						if(result.success){
+//							alert("更新用户名成功");
+                            $("#div_text").text("更新用户名成功！")
+                            $(".ui-dialog").show();
+						}
+						else{
+//							alert(result.detail);
+                            $("#div_text").text(result.detail)
+                            $(".ui-dialog").show();
+						}
+					},failure:function(){
+//						alert("系统错误");
+                        $("#div_text").text("系统错误！")
+                        $(".ui-dialog").show();
+					}
+					
+				});
+			}
+		});
+	});
+</script>
+
+</head>
+
+<body>
+<div class="wrapper">
+	
+    <div class="username"><span></span>
+    	<input type="text" placeholder="用户名" id="txt_user">
+    </div>
+    <a class="list info-order" href="order.html">我的订单<span class="arrow">&#8250;</span></a>
+    <a class="list info-addr" href="addr.html">我的地址<span class="arrow">&#8250;</span></a>
+
+    <div class="nav">
+    	<a href="info.html">主人的信息</a>
+		<a href="index.html">为主人服务</a>
+    </div>
+</div>
+<div class="ui-dialog" style="display:none">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-hd" id="div_text">请选择服务项目</div>
+        <div class="ui-dialog-ft">
+            <button type="button" data-role="button" id="button_confirm">确定</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

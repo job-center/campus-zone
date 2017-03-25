@@ -1,0 +1,575 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>宠物寄养</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script src="js/slide_show.js"></script>
+<style>
+.wrapper input{ margin:0}
+.beauty-serve{ border-bottom:none; height:30px; line-height:30px; padding-bottom:15px}
+.beauty-serve span{ width:100%}
+</style>
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script type="text/javascript">
+    $(function(){
+
+        function GetRequest() {
+            var url = location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for(var i = 0; i < strs.length; i ++) {
+                    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+
+        var requestParam = GetRequest();
+        var animalName=requestParam.animalName;
+        if(animalName!=null && typeof(animalName)!='undefined'){
+        	animalName=animalName;
+        	$("#animalName").text(animalName);
+        }
+
+        var startDate,endDate;
+        var d = new Date();
+        var d1 = new Date();
+        //var d2 = new Date();
+        //var d3 = new Date();
+        d1.setDate(1);
+        d1.setMonth(d1.getMonth()+1);
+        console.info(d1)
+        //d2.setMonth(d2.getMonth()+2);
+        //d3.setMonth(d3.getMonth()+3);
+        dmonth = (d.getMonth()+1)<10?"0"+ (d.getMonth()+1): (d.getMonth()+1);
+        dmonth1 =  (d1.getMonth()+1)<10?"0"+ (d1.getMonth()+1): (d1.getMonth()+1);
+        //dmonth2 =  (d2.getMonth()+1)<10?"0"+ (d2.getMonth()+1): (d2.getMonth()+1);
+        //dmonth3 =  (d3.getMonth()+1)<10?"0"+ (d3.getMonth()+1): (d3.getMonth()+1);
+        $(".t_1").empty();
+        $(".t_1").append("<span class='month'>"+ d.getFullYear() + "年" +dmonth+"月</span>")
+                .append("<span class='month'>"+ d1.getFullYear() + "年" +dmonth1+"月</span>")
+                //.append("<span class='month'>"+ d2.getFullYear() + "年" +dmonth2+"月</span>")
+                //.append("<span class='month'>"+ d3.getFullYear() + "年" +dmonth3+"月</span>");
+        //获取房间信息
+        $.ajax({
+        	url:'/room/listForJson',
+        	type:'GET',
+            async:false,
+            success:function(result){
+                console.info(result);
+                if(result.success){
+                	$(result.data).each(function(index,item){
+                		$("#div_room").append("<a class='list beauty-serve'><span><input name='serve-method' type='radio' value='"+item.id+"'>"+item.roomName+"</span></a>");
+                	})
+                    
+                }else if(result.code==500){
+                    $("#div_text").text("系统错误,请重试");
+                    $("#alert").show();
+                    $("#button_confirm").unbind("click");
+                    $("#button_confirm").one("click",function(){
+                        window.location.reload();
+                    });
+                    return;
+                }
+            },failure:function(){
+                alert("系统错误");
+            }
+        })
+
+        $("#time_button").click(function(){
+            $("#time").show();
+            if(startDate==null){
+                startDate = requestParam.startDate;
+            }
+            if(startDate!=null){
+                var month = startDate.substr(0,4)+"年"+startDate.substring(5,7)+"月";
+                var day = startDate.substring(8,10)+"日";
+                var time = startDate.substring(11,startDate.length);
+                for(var i=0;i<$("#time .month").length;i++){
+                    if($("#time .month").eq(i).text()==month){
+                        $("#time .month").eq(i).addClass("hover");
+                    }
+                }
+                for(var i=0;i<$("#time .day").length;i++){
+                    if($("#time .day").eq(i).text()==day){
+                        $("#time .day").eq(i).addClass("hover");
+                    }
+                }
+                for(var i=0;i<$("#time .hour").length;i++){
+                    if($("#time .hour").eq(i).text()==time){
+                        $("#time .hour").eq(i).addClass("hover");
+                    }
+                }
+            }
+
+        })
+
+        $("#time_button1").click(function(){
+            $("#time1").show();
+            if(endDate==null){
+                endDate = requestParam.endDate;
+            }
+            if(endDate!=null){
+                var month = endDate.substr(0,4)+"年"+endDate.substring(5,7)+"月";
+                var day = endDate.substring(8,10)+"日";
+                var time = endDate.substring(11,endDate.length);
+                for(var i=0;i<$("#time1 .month").length;i++){
+                    if($("#time1 .month").eq(i).text()==month){
+                        $("#time1 .month").eq(i).addClass("hover");
+                    }
+                }
+                for(var i=0;i<$("#time1 .day").length;i++){
+                    if($("#time1 .day").eq(i).text()==day){
+                        $("#time1 .day").eq(i).addClass("hover");
+                    }
+                }
+                for(var i=0;i<$("#time1 .hour").length;i++){
+                    if($("#time1 .hour").eq(i).text()==time){
+                        $("#time1 .hour").eq(i).addClass("hover");
+                    }
+                }
+            }
+        })
+
+        $("#time .month").bind("click", function() {
+            $("#time .month").removeClass("hover");
+            $("#time .day").removeClass("hover");
+            $(this).addClass("hover");
+            var curMonthDays = new Date(($("#time .month.hover").text().substr(0,4)), $("#time .month.hover").text().substring($("#time .month.hover").text().indexOf("年")+1,$("#time .month.hover").text().length-1), 0).getDate();
+            $("#time .t_2").empty();
+            var curDate = new Date();
+            var tmp_month = (curDate.getMonth()+1);
+            var tmp_date = curDate.getDate();
+            for(var i=1;i<=curMonthDays;i++){
+                if(tmp_month == $("#time .month.hover").text().substring($("#time .month.hover").text().indexOf("年")+1,$("#time .month.hover").text().length-1)){
+                    console.info("test")
+                    if(i<tmp_date){
+                        continue;
+                    }
+                }
+                tmp = i<10?"0"+i:i;
+                $("#time .t_2").append("<span class='day'>"+tmp+"日</span>");
+            }
+            $("#time .day").bind("click", function() {
+                $("#time .day").removeClass("hover");
+                $(this).addClass("hover");
+            })
+        })
+
+        $("#time1 .month").bind("click", function() {
+            $("#time1 .month").removeClass("hover");
+            $("#time1 .day").removeClass("hover");
+            $(this).addClass("hover");
+            var curMonthDays = new Date(($("#time1 .month.hover").text().substr(0,4)), $("#time1 .month.hover").text().substring($("#time1 .month.hover").text().indexOf("年")+1,$("#time1 .month.hover").text().length-1), 0).getDate();
+            $("#time1 .t_2").empty();
+            var curDate = new Date();
+            var tmp_month = (curDate.getMonth()+1);
+            var tmp_date = curDate.getDate();
+            for(var i=1;i<=curMonthDays;i++){
+                if(tmp_month == $("#time1 .month.hover").text().substring($("#time1 .month.hover").text().indexOf("年")+1,$("#time1 .month.hover").text().length-1)){
+                    console.info("test")
+                    if(i<tmp_date){
+                        continue;
+                    }
+                }
+                tmp = i<10?"0"+i:i;
+                $("#time1 .t_2").append("<span class='day'>"+tmp+"日</span>");
+            }
+            $("#time1 .day").bind("click", function() {
+                $("#time1 .day").removeClass("hover");
+                $(this).addClass("hover");
+            })
+        })
+
+        $(".day").bind("click", function() {
+            $(".day").removeClass("hover");
+            $(this).addClass("hover");
+        })
+
+        $(".hour").bind("click", function() {
+            $(".hour").removeClass("hover");
+            $(this).addClass("hover");
+        })
+
+        $("#cancle_time").click(function(){
+            $("#time").hide();
+        })
+
+        $("#cancle_time1").click(function(){
+            $("#time1").hide();
+        })
+
+        $("#confirm_time").click(function(){
+            var start_month = $("#time .month.hover").text()
+            var start_day = $("#time .day.hover").text()
+            var start_hour = $("#time .hour.hover").text()
+            if(start_month==null || start_month=="" || start_day==null || start_day =="" || start_hour==null || start_hour==""){
+                $("#div_text").text("请选择正确的入住时间!");
+                $("#alert").show();
+                return;
+            }
+            startDate = start_month + start_day + start_hour;
+            startDate = startDate.replace("年","-").replace("月","-").replace("日"," ");
+            $("#time").hide();
+            $("#start_time").text(startDate);
+            calDays();
+        })
+
+
+        $("#confirm_time1").click(function(){
+            var end_month = $("#time1 .month.hover").text()
+            var end_day = $("#time1 .day.hover").text()
+            var end_hour = $("#time1 .hour.hover").text()
+            if(end_month==null || end_month=="" || end_day==null || end_day =="" || end_hour==null || end_hour==""){
+                $("#div_text").text("请选择正确的离开时间!");
+                $("#alert").show();
+                return;
+            }
+            endDate = end_month + end_day + end_hour;
+            endDate = endDate.replace("年","-").replace("月","-").replace("日"," ");
+            $("#time1").hide();
+            $("#end_time").text(endDate);
+            calDays();
+//             alert($(".month.hover").value());
+        })
+
+        if(startDate==null || typeof(startDate) == 'undefined'){
+            startDate = requestParam.startDate;
+            if(startDate!=null && startDate !='undefined' && typeof(startDate) != 'undefined')
+            	$("#start_time").text(startDate);
+        }
+
+        if(endDate==null){
+            endDate = requestParam.endDate;
+            if(endDate!=null && endDate !='undefined' && typeof(endDate) != 'undefined')
+            	$("#end_time").text(endDate);
+        }
+
+        calDays();
+
+        function calDays(){
+            console.info(startDate)
+            console.info(endDate)
+            if(startDate!=null && endDate!=null && startDate!="undefined" && endDate!="undefined"){
+            	if(startDate>endDate){
+            		$("#div_text").text("离开时间必须大于入住时间!");
+                    $("#alert").show();
+                    return;
+            	}
+                var tmp_start = startDate.split(" ")[0];
+                var tmp_end = endDate.split(" ")[0];
+                var tmp_time = endDate.split(" ")[1].split(":")[0];
+                var day = null;
+                if(tmp_time >=14) {
+                    day = DateDiff(tmp_start,tmp_end) + 1;
+                } else {
+                    day = DateDiff(tmp_start,tmp_end);
+                }
+                $("#days").text(day);
+            }else{
+                $("#days").text("0");
+            }
+        }
+
+        function  DateDiff(sDate1,  sDate2){    //sDate1和sDate2是2006-12-18格式
+            var begintime_ms = Date.parse(new Date(sDate1.replace(/-/g, "/"))); //begintime 为开始时间
+            var endtime_ms = Date.parse(new Date(sDate2.replace(/-/g, "/")));
+            var days=Math.floor((endtime_ms-begintime_ms)/(24*3600*1000));
+            return days;
+        }
+
+
+
+        $("#room_detail").click(function(){
+            $("#detail").show();
+
+        })
+
+        $("#cancle_detail").click(function(){
+            $("#detail").hide();
+        })
+
+        $("#button_confirm").click(function(){
+            $("#alert").hide();
+        })
+
+        $("#pet_btn").click(function(){
+            window.location.href = "pets-list.html?ru=foster.html&startDate="+startDate+"&endDate=" + endDate+"&roomId="+$("input:radio[name='serve-method']:checked").val();
+        })
+
+        $("#next").click(function(){
+            var val=$("input:radio[name='serve-method']:checked").val();
+            if(val==null){
+                $("#div_text").text("请选择房间类型!");
+                $("#alert").show();
+                return;
+            }
+            var room_id = $("input:radio[name='serve-method']:checked").val();
+            var animalsId = requestParam.animalsId;
+            if(animalsId==null){
+                $("#div_text").text("请选择宠物品种!");
+                $("#alert").show();
+                return;
+            }
+
+            console.info("aaa")
+            if(startDate==null || startDate=="" || startDate =='undefined'){
+                if(requestParam.startDate==null || requestParam.startDate=="" || requestParam.startDate== 'undefined'){
+                    $("#div_text").text("请选择入住时间!");
+                    $("#alert").show();
+                    return;
+                } else {
+                    startDate = requestParam.startDate;
+                }
+
+            }
+            if(endDate==null || endDate == "" || endDate == 'undefined'){
+                if(requestParam.endDate==null || requestParam.endDate=="" || requestParam.endDate== 'undefined'){
+                    $("#div_text").text("请选择离开时间!");
+                    $("#alert").show();
+                    return;
+                } else {
+                    endDate = requestParam.endDate;
+                }
+            }
+            if(endDate<=startDate){
+                $("#div_text").text("离开时间必需大于入住时间！");
+                $("#alert").show();
+                return;
+            }
+
+            $.ajax({
+            	url:'/room/verifyRoomNum',
+            	type:'POST',
+            	data:{"endDate":endDate,"startDate":startDate,"room_id":room_id},
+                async:false,
+                success:function(result){
+                    if(result.success){
+                        if(result.data==false){
+                        	alert("该服务时间已满员,请重新选择一个服务时间");
+                        	return;
+                        }else{
+                           var order_type = 1;
+                           window.location.href = "order-submit.html?order_type=1&animalsId="+animalsId+"&room_id="+room_id+"&startDate="+startDate+"&endDate="+endDate
+                        }
+                    }else if(result.code==500){
+                        $("#div_text").text("系统错误,请重试");
+                        $("#alert").show();
+                        $("#button_confirm").unbind("click");
+                        $("#button_confirm").one("click",function(){
+                            window.location.reload();
+                        });
+                        return;
+                    }
+                },failure:function(){
+                    alert("系统错误");
+                    return ;
+                }
+            })
+        })
+
+
+        var roomId = requestParam.roomId;
+        if(roomId!=null && typeof(roomId)!='undefined'){
+            <!--$("#course_"+course_id).attr('checked','checked');-->
+            <!--console.info( $("input[name='serve-method']"));-->
+            $("input[name='serve-method'][value="+roomId+"]").attr("checked",true);
+            <!--console.info($("#radio_"+roomId))-->
+            <!--$("#radio_"+roomId).attr('checked','checked');-->
+        }
+    })
+</script>
+
+</head>
+
+<body>
+<div class="wrapper">
+	<div class="foster-ad">
+		<img src="img/foster-ad.jpg">
+    </div>
+
+    <a class="list foster-time" id="time_button">入住时间 &nbsp;&nbsp;&nbsp;<span id="start_time"></span><span class="arrow">&#8250;</span></a>
+    <a class="list foster-time" style="border-top:none" id="time_button1">离开时间 &nbsp;&nbsp;&nbsp;<span id="end_time"></span><span class="arrow">&#8250;</span></a>
+    <a class="list foster-total">共计<span id="days">0</span>天&nbsp;&nbsp;&nbsp;&nbsp;</a>
+    <a class="list foster-breed" id="pet_btn"  href="#">宠物品种&nbsp;&nbsp;&nbsp;<span id="animalName"></span><span class="arrow">&#8250;</span></a>
+    
+    <!--宠物寄养-->
+   
+    <a class="list foster-room">房间类型<span id="room_detail">房间详情&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+    <div id="div_room">
+    <!--  <a class="list beauty-serve"><span><input name="serve-method" type="radio" value="1">酒店式 50元/天 1200元/月</span></a>
+    <a class="list beauty-serve"><span><input name="serve-method" type="radio" value="2">标准间 60元/天 1500元/月</span></a>
+    <a class="list beauty-serve"><span><input name="serve-method" type="radio" value="3">别墅间 90元/天 2000元/月</span></a> -->
+    </div>
+    <a class="next" href="#" id="next">下一步</a>
+
+</div>
+
+
+<!--时间选取-->
+<div class="ui-dialog" style="display:none" id="time">
+    <div class="t_title"><div id="cancle_time" style="float:left;padding-left:8px">返回</div>服务时间<div style="float:right;padding-right:8px" id="confirm_time">确定</div></div>
+    <div class="ts_content">
+        <div class="t_1">
+            <span class="month">9月</span>
+            <span class="month">10月</span>
+            <span class="month">11月</span>
+        </div>
+        <div class="t_2">
+            <span class="day">01日</span>
+            <span class="day">02日</span>
+            <span class="day">03日</span>
+            <span class="day">04日</span>
+            <span class="day">05日</span>
+            <span class="day">06日</span>
+            <span class="day">07日</span>
+            <span class="day">08日</span>
+            <span class="day">09日</span>
+            <span class="day">10日</span>
+            <span class="day">11日</span>
+            <span class="day">12日</span>
+            <span class="day">13日</span>
+            <span class="day">14日</span>
+            <span class="day">15日</span>
+            <span class="day">16日</span>
+            <span class="day">17日</span>
+            <span class="day">18日</span>
+            <span class="day">19日</span>
+            <span class="day">20日</span>
+            <span class="day">21日</span>
+            <span class="day">22日</span>
+            <span class="day">23日</span>
+            <span class="day">24日</span>
+            <span class="day">25日</span>
+            <span class="day">26日</span>
+            <span class="day">27日</span>
+            <span class="day">28日</span>
+            <span class="day">29日</span>
+            <span class="day">30日</span>
+            <span class="day">31日</span>
+        </div>
+        <div class="t_3">
+            <span class="hour">9:00</span>
+            <span class="hour">10:00</span>
+            <span class="hour">11:00</span>
+            <span class="hour">12:00</span>
+            <span class="hour">13:00</span>
+            <span class="hour">14:00</span>
+            <span class="hour">15:00</span>
+            <span class="hour">16:00</span>
+            <span class="hour">17:00</span>
+            <span class="hour">18:00</span>
+        </div>
+    </div>
+</div>
+
+<div class="ui-dialog" style="display:none" id="time1">
+    <div class="t_title"><div id="cancle_time1" style="float:left;padding-left:8px">返回</div>离开时间<div style="float:right;padding-right:8px" id="confirm_time1">确定</div></div>
+    <div class="ts_content">
+        <div class="t_1">
+            <span class="month">9月</span>
+            <span class="month">10月</span>
+            <span class="month">11月</span>
+        </div>
+        <div class="t_2">
+            <span class="day">01日</span>
+            <span class="day">02日</span>
+            <span class="day">03日</span>
+            <span class="day">04日</span>
+            <span class="day">05日</span>
+            <span class="day">06日</span>
+            <span class="day">07日</span>
+            <span class="day">08日</span>
+            <span class="day">09日</span>
+            <span class="day">10日</span>
+            <span class="day">11日</span>
+            <span class="day">12日</span>
+            <span class="day">13日</span>
+            <span class="day">14日</span>
+            <span class="day">15日</span>
+            <span class="day">16日</span>
+            <span class="day">17日</span>
+            <span class="day">18日</span>
+            <span class="day">19日</span>
+            <span class="day">20日</span>
+            <span class="day">21日</span>
+            <span class="day">22日</span>
+            <span class="day">23日</span>
+            <span class="day">24日</span>
+            <span class="day">25日</span>
+            <span class="day">26日</span>
+            <span class="day">27日</span>
+            <span class="day">28日</span>
+            <span class="day">29日</span>
+            <span class="day">30日</span>
+        </div>
+        <div class="t_3">
+            <span class="hour">9:00</span>
+            <span class="hour">10:00</span>
+            <span class="hour">11:00</span>
+            <span class="hour">12:00</span>
+            <span class="hour">13:00</span>
+            <span class="hour">14:00</span>
+            <span class="hour">15:00</span>
+            <span class="hour">16:00</span>
+            <span class="hour">17:00</span>
+            <span class="hour">18:00</span>
+        </div>
+    </div>
+</div>
+
+<div id="detail" class="ui-dialog" style="display:none">
+    <div class="t_title"><span id="cancle_detail" style="left:0px">返回</span></div>
+    <div class="t_content">
+        <div class="content_p"><div align="center"><b>宠物寄养</b></div></div>
+        <div class="content_p">汪族墅屋拥有专业的宠物管理团队，为您的宠物提供7*24小时的全面看护；园区室内环境温馨、舒适，配备舒适犬床、消毒设备、电视、音乐播放器等；园区安装有远程可视系统，您可以随时观察自家宠物生活情况。</div>
+        <div class="content_p"><b>您的狗狗在宠物酒店可以享受到：</b></div>
+        <div class="content_p">1.看护人员24小时精心呵护。<br/>
+        2.远程可视系统，随时观察狗狗的情况.<br/>
+        3.每日四次（累计3小时以上）户外活动。<br/>
+        4.每日房间清洁消毒、检查身体、梳毛。<br/>
+        5.每日按时播放节目、音乐，调节身心。<br/>
+        6.每10天免费洗澡一次（包含：剪指甲、洗耳朵、洗眼睛、挤肛门腺、拔耳毛、推脚底毛）。</div>
+        <div class="content_p"><b>寄养价格</b></div>
+        <div class="content_p">酒店间<br/>
+        面积：室内1平米<br/>价格：50元/天 1200元/30天</div>
+        <div class="content_p">标准间<br/>
+        面积：室内4平米<br/>
+        价格：60元/天 1500元/30天</div>
+        <div class="content_p">别墅间<br/>
+        面积：室内4平米+独立7平米院<br/>
+        价格：90元/天 2000元/30天</div>
+        <div class="content_p">精品标准间<br/>
+        面积：室内7平米<br/>
+        价格：90元/天 2000元/30天</div>
+        <div class="content_p">精品别墅间<br/>
+        面积：室内7平米+独立10平米院<br/>
+        价格：120元/天 2500元/30天</div>
+        <div class="content_p"><b>备注：<br/>1、	寄养期间狗粮自备，如需提供狗粮请告知看护员。
+            <br/>2、	长期寄养优惠细则，下单前请致电客服。
+            <br/>3、	宠物年龄小于3个月大于8岁、宠物有疾病、残疾等，下单前请致电客服。
+            <br/>4、	烈性犬（如藏獒、纽波利顿等）下单前请致电客服15311879383。
+            <br/>5、	宠物家长请于每日13点前接走爱犬；如果延期，看护方（宠物酒店）会根据延误时间酌情收取少部分看护费。
+            </b></div>
+        <!--<div class="content_p"><font color="red">注意事项：宠物家长请于每日13点前接走爱犬；如果延期，看护方（宠物酒店）会根据延误时间收取少部分看护费。</font></div>-->
+    </div>
+</div>
+
+<div id="alert" class="ui-dialog" style="display:none">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-hd" id="div_text">请选择服务项目</div>
+        <div class="ui-dialog-ft">
+            <button type="button" data-role="button" id="button_confirm">确定</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

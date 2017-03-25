@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
@@ -28,7 +40,6 @@
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.1.9" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.1.9" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.22" level="project" />
-    <orderEntry type="library" name="Maven: org.perf4j:perf4j:0.9.16" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-redis:1.8.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-keyvalue:1.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.data:spring-data-commons:1.13.0.RELEASE" level="project" />
@@ -49,5 +60,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.6" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.4" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: opensymphony:sitemesh:2.4.2" level="project" />
   </component>
 </module>

@@ -55,6 +55,7 @@
         <!-- redis -->
         <spring.data.redis.version>1.8.0.RELEASE</spring.data.redis.version>
         <jedis.version>2.9.0</jedis.version>
+        <sitemesh.version>2.4.2</sitemesh.version>
     </properties>
 
     <dependencyManagement>
@@ -309,6 +310,14 @@
             <artifactId>servlet-api</artifactId>
             <version>${javax.servlet.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!--sitemesh-->
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>sitemesh</artifactId>
+            <version>${sitemesh.version}</version>
+            <scope>runtime</scope>
         </dependency>
         <!--<dependency>-->
             <!--<groupId>javax.servlet.jsp</groupId>-->

@@ -1,0 +1,433 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>宠物美容</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<style>
+.foster-room{background-image:url(img/ico-serve.png);background-size:auto 37%;background-position:14px 20px}
+</style>
+<script src="js/slide_show.js"></script>
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script type="text/javascript">
+
+    $(function(){
+
+        function GetRequest() {
+            var url = location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for(var i = 0; i < strs.length; i ++) {
+                    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+
+        var requestParam = GetRequest();
+        var animalsId = requestParam.animalsId;
+        var animalName=requestParam.animalName;
+        var startDate;
+        
+        var serviceDate = requestParam.startDate;
+        if(serviceDate!=null && serviceDate!='undefined' && typeof(serviceDate)!='undefined'){
+        	$("#start_time").text(serviceDate);
+        	startDate = serviceDate;
+        }
+        
+        if(animalName!=null && typeof(animalName)!='undefined'){
+        	animalName=animalName;
+        	$("#animalName").text(animalName);
+        }
+        
+        var serv_type=requestParam.service_type;
+        if(serv_type!=null && typeof(serv_type)!='undefined'){
+        	$("#serv_type_"+serv_type).attr("checked",true);
+        }
+        
+        /* var addr = requestParam.addr;
+        if(addr!=null && typeof(addr)!='undefined'){
+        	$("#addr").text(addr);
+        } */
+        
+        $.ajax({
+        	url:"/hairdressing/listAllHairDressing",
+        	type:'GET',
+        	async: false,
+        	success:function(result){
+        		if(result.success){
+        			$(result.data).each(function(index,item){
+        				console.info(item);
+                		//$("#div_room").append("<input name='serve-item' type='radio' value='1'>宠物洗澡");
+        				$("#service_type").append("<span><input name='serve-item' type='radio' id='serv_item_"+item.id+"' value='"+item.id+"'>"+item.hairdressingName+"</span>");
+                	});
+        		}else{
+        			$("#div_text").text("系统错误,请重试");
+                    $("#alert").show();
+                    $("#button_confirm").unbind("click");
+                    $("#button_confirm").one("click",function(){
+                        window.location.reload();
+                    });
+                    return;
+        		}
+        	},failure:function(){
+        		
+        	}
+        })
+        
+        var hairdress_id = requestParam.hairdress_id;
+        if(hairdress_id!=null && typeof(hairdress_id)!='undefined'){
+        	$("#serv_item_"+hairdress_id).attr('checked',true);
+        }
+
+
+        $("#detail_btn").click(function(){
+            $("#detail").show();
+        })
+
+        $("#cancle_detail").click(function(){
+            $("#detail").hide();
+        })
+
+        $("#detail_btn").click(function(){
+            $("#detail").show();
+        })
+
+        $("#cancle_detail").click(function(){
+            $("#detail").hide();
+        })
+
+        var d = new Date();
+        var d1 = new Date();
+        var d2 = new Date();
+        d1.setMonth(d1.getMonth()+1);
+        d2.setMonth(d2.getMonth()+2)
+        dmonth = (d.getMonth()+1)<10?"0"+ (d.getMonth()+1): (d.getMonth()+1);
+        dmonth1 =  (d1.getMonth()+1)<10?"0"+ (d1.getMonth()+1): (d1.getMonth()+1);
+        dmonth2 =  (d2.getMonth()+1)<10?"0"+ (d2.getMonth()+1): (d2.getMonth()+1)
+        $(".t_1").empty();
+        $(".t_1").append("<span class='month'>"+ d.getFullYear() + "年" +dmonth+"月</span>")
+                .append("<span class='month'>"+ d1.getFullYear() + "年" +dmonth1+"月</span>")
+                .append("<span class='month'>"+ d2.getFullYear() + "年" +dmonth2+"月</span>")
+
+        $("#time_button").click(function(){
+            $("#time").show();
+            if(startDate==null){
+                startDate = requestParam.startDate;
+            }
+            if(startDate!=null){
+                var month = startDate.substr(0,4)+"年"+startDate.substring(5,7)+"月";
+                var day = startDate.substring(8,10)+"日";
+                var time = startDate.substring(11,startDate.length);
+                for(var i=0;i<$("#time .month").length;i++){
+                    if($("#time .month").eq(i).text()==month){
+                        $("#time .month").eq(i).addClass("hover");
+                    }
+                }
+                for(var i=0;i<$("#time .day").length;i++){
+                    if($("#time .day").eq(i).text()==day){
+                        $("#time .day").eq(i).addClass("hover");
+                    }
+                }
+                for(var i=0;i<$("#time .hour").length;i++){
+                    if($("#time .hour").eq(i).text()==time){
+                        $("#time .hour").eq(i).addClass("hover");
+                    }
+                }
+            }
+        })
+
+        $(".month").bind("click", function() {
+            $(".month").removeClass("hover");
+            $(".day").removeClass("hover");
+            $(this).addClass("hover");
+            var curMonthDays = new Date(($(".month.hover").text().substr(0,4)), $(".month.hover").text().substring($(".month.hover").text().indexOf("年")+1,$(".month.hover").text().length-1), 0).getDate();
+            $(".t_2").empty();
+            var curDate = new Date();
+            var tmp_month = (curDate.getMonth()+1);
+            var tmp_date = curDate.getDate();
+            for(var i=1;i<=curMonthDays;i++){
+                if(tmp_month == $(".month.hover").text().substring($(".month.hover").text().indexOf("年")+1,$(".month.hover").text().length-1)){
+                    if(i<tmp_date){
+                        continue;
+                    }
+                }
+                tmp = i<10?"0"+i:i;
+                $(".t_2").append("<span class='day'>"+tmp+"日</span>");
+            }
+            $(".day").bind("click", function() {
+                $(".day").removeClass("hover");
+                $(this).addClass("hover");
+            })
+        })
+
+        $(".day").bind("click", function() {
+            $(".day").removeClass("hover");
+            $(this).addClass("hover");
+        })
+
+        $(".hour").bind("click", function() {
+            $(".hour").removeClass("hover");
+            $(this).addClass("hover");
+        })
+
+        $("#cancle_time").click(function(){
+            $("#time").hide();
+        })
+
+        $("#button_confirm").click(function(){
+            $("#alert").hide();
+        })
+
+        $("#pet_btn").click(function(){
+        	var hairdress_id=$("input:radio[name='serve-item']:checked").val();
+        	var service_type=$("input:radio[name='serve-method']:checked").val();
+            window.location.href = "pets-list.html?ru=beauty.html&startDate="+startDate+"&hairdress_id="+hairdress_id+"&service_type="+service_type;
+        })
+
+        $("#address_btn").click(function(){
+            if(startDate==null){
+                startDate = requestParam.startDate;
+            }
+            var service_type = $("input:radio[name='serve-method']:checked").val();
+            var hairdress_id = $("input:radio[name='serve-item']:checked").val();
+            animalName=escape(animalName);
+            url = "addr-detail.html?ru=beauty.html&startDate="+startDate+"&animalsId="+animalsId+"&animalName="+animalName+"&ru=beauty.html";
+            if(service_type!= null &&typeof(service_type)!='undefined'){
+            	url+="&service_type="+service_type;
+            }
+            if(hairdress_id!=null && typeof(hairdress_id)!='undefined'){
+            	url+="&hairdress_id="+hairdress_id;
+            }
+            window.location.href=url;
+        })
+
+
+        $("#confirm_time").click(function(){
+            var start_month = $("#time .month.hover").text()
+            var start_day = $("#time .day.hover").text()
+            var start_hour = $("#time .hour.hover").text()
+            if(start_month==null || start_month=="" || start_day==null || start_day =="" || start_hour==null || start_hour==""){
+                $("#div_text").text("请选择正确的服务时间!");
+                $("#alert").show();
+                return;
+            }
+            startDate = start_month + start_day + start_hour;
+            startDate = startDate.replace("年","-").replace("月","-").replace("日"," ");
+            $("#time").hide();
+            $("#start_time").text(startDate);
+        })
+
+
+        $("#next").click(function(){
+
+            var val=$("input:radio[name='serve-method']:checked").val();
+            if(val==null){
+                $("#div_text").text("请选择服务方式!");
+                $("#alert").show();
+                return;
+            }
+
+            var hairdress_id=$("input:radio[name='serve-item']:checked").val();
+            if(hairdress_id==null){
+                $("#div_text").text("请选择服务项目!");
+                $("#alert").show();
+                return;
+            }
+            var service_type = $("input:radio[name='serve-method']:checked").val();
+            var animalsId = requestParam.animalsId;
+            if(animalsId==null){
+                $("#div_text").text("请选择宠物品种!");
+                $("#alert").show();
+                return;
+            }
+
+            if(startDate==null || startDate=="" || startDate =='undefined'){
+                if(requestParam.startDate==null || requestParam.startDate=="" || requestParam.startDate== 'undefined'){
+                    $("#div_text").text("请选择服务时间!");
+                    $("#alert").show();
+                    return;
+                } else {
+                    startDate = requestParam.startDate;
+                }
+
+            }
+            
+            $.ajax({
+            	url:'/hairdressing_time/isServiceTimeValid',
+            	type:'GET',
+            	data:{"serviceTime":startDate,"service_type":service_type},
+                async:false,
+                success:function(result){
+                    if(result.success){
+                        if(result.data==false){
+                        	alert("该服务时间已满员,请重新选择一个服务时间");
+                        	return;
+                        }else{
+                        	window.location.href = "order-submit.html?order_type=3&animalsId="+animalsId+"&hairdress_id="+hairdress_id+"&startDate="+startDate+"&service_type="+service_type
+                        }
+                    }else if(result.code==500){
+                        $("#div_text").text("系统错误,请重试");
+                        $("#alert").show();
+                        $("#button_confirm").unbind("click");
+                        $("#button_confirm").one("click",function(){
+                            window.location.reload();
+                        });
+                        return;
+                    }
+                },failure:function(){
+                    alert("系统错误");
+                    return ;
+                }
+            })
+            
+        })
+
+
+
+    })
+
+</script>
+</head>
+
+<body>
+<div class="wrapper">
+	<div class="foster-ad">
+		<img src="img/beauty-ad.jpg">
+    </div>
+
+    <a class="list foster-time" id="time_button">服务时间 &nbsp;&nbsp;&nbsp;<span id="start_time"></span><span class="arrow">&#8250;</span></a>
+    <a class="list foster-breed" style="border-top:none" href="#" id="pet_btn">宠物品种&nbsp;&nbsp;&nbsp;<span id="animalName"></span><span class="arrow">&#8250;</span></a>
+    
+    <!--服务项目-->
+    <a class="list ico-item" style="border:none;height:50px;background-size:auto 44%;background-position:14px 25px">服务项目</a>
+    <!-- <a class="list beauty-serve"><span><input name="serve-item" type="radio" value="1">宠物洗澡</span><span><input name="serve-item" type="radio" value="2">宠物美容</span></a> -->
+    <a class="list beauty-serve" id="service_type"></a> 
+    
+    <a class="list info-addr" style="border-top:none;background-size:auto 40%" id="address_btn">服务地址&nbsp;&nbsp;&nbsp;<span id="addr"></span></a>
+    
+    <!--服务方式-->
+    <a class="list foster-room">服务方式<span id="detail_btn">服务详情&nbsp;&nbsp;</span></a>
+    <a class="list beauty-serve"><span><input name="serve-method" type="radio" id="serv_type_0" value="0">上门服务</span><span><input name="serve-method" id="serv_type_1" type="radio" value="1">到店服务</span></a>
+    
+    
+    <a class="next" href="#" id="next" style="margin-top:20px">下一步</a>
+
+</div>
+
+<div id="detail" class="ui-dialog" style="display:none">
+    <div class="t_title"><span id="cancle_detail" style="right:0px">返回</span></div>
+    <div class="t_content">
+        <div class="content_p"><div align="center"><b>服务详情</b></div></div>
+        <div class="content_p">洗澡套餐（9项超值服务、沐浴套餐，宠物日常洗护）</div>
+        <div class="content_p">1、去除静电 2、剃足底毛 3、剃腹部底毛 4、挤肛门腺 5、洗澡 6、毛发护理 7、清理耳道
+            8、剪指甲 9、整理背毛
+            <br/>
+            服务价格
+            <br/>
+            小型犬 5-10斤 50元/次<br/>
+            中型犬 20-40斤 70元/次<br/>
+            大型犬 40-60斤 120元/次</br>
+        </div>
+        <div class="content_p">美容套餐（13项洗护，宠物洗澡及造型修剪）</div>
+        <div class="content_p">1、洗护 2、毛发护理 3、去除静电 4、造型设计修剪 5、剃足底毛 6、挤肛门腺 7、拔耳毛
+            8、毛发护理 9、清理耳道 10、洗眼睛 11、剪指甲 12、剃腹部底毛 13、整理背毛
+            <br/>
+            服务价格
+            <br/>
+            小型犬 5-10斤120元/次<br/>
+            中型犬 20-40斤 150元/次<br/>
+            大型犬 40-60斤 240元/次<br/>
+        </div>
+        <div class="content_p">基础美容（基础造型，仅剃除毛发）</div>
+        <div class="content_p">服务价格<br/>
+            小型犬 5-10斤80元/次<br/>
+            中型犬 20-40斤 100元/次<br/>
+            大型犬 40-60斤 120元/次<br/>
+        </div>
+        <div class="content_p">赠送服务</div>
+        <div class="content_p">免费体检：美容师通过触诊，初步判断宠物健康状况，为宠物主人讲解健康知识。<br/>足部护理：按摩宠物足底，软化角质。<br/>宠物专用香水：驱除宠物体表异味，可有效阻断细菌的传播。</div>
+        <div class="content_p">服务时间</div>
+        <div class="content_p">早10:00-晚19:00 为保证为您提供优质的服务，请提前预约。</div>
+        <div class="content_p">服务时长</div>
+        <div class="content_p">洗澡：约2小时<br/>
+            美容：约3小时
+        </div>
+        <div class="content_p">备注</div>
+        <div class="content_p">如遇宠物特殊情况，请以美容师的实际服务时间为准。</div>
+    </div>
+</div>
+
+<div class="ui-dialog" style="display:none" id="time">
+    <div class="t_title"><div id="cancle_time" style="float:left;padding-left:8px">返回</div>服务时间<div style="float:right;padding-right:8px" id="confirm_time">确定</div></div>
+    <div class="ts_content">
+        <div class="t_1">
+            <span class="month">9月</span>
+            <span class="month">10月</span>
+            <span class="month">11月</span>
+        </div>
+        <div class="t_2">
+            <span class="day">01日</span>
+            <span class="day">02日</span>
+            <span class="day">03日</span>
+            <span class="day">04日</span>
+            <span class="day">05日</span>
+            <span class="day">06日</span>
+            <span class="day">07日</span>
+            <span class="day">08日</span>
+            <span class="day">09日</span>
+            <span class="day">10日</span>
+            <span class="day">11日</span>
+            <span class="day">12日</span>
+            <span class="day">13日</span>
+            <span class="day">14日</span>
+            <span class="day">15日</span>
+            <span class="day">16日</span>
+            <span class="day">17日</span>
+            <span class="day">18日</span>
+            <span class="day">19日</span>
+            <span class="day">20日</span>
+            <span class="day">21日</span>
+            <span class="day">22日</span>
+            <span class="day">23日</span>
+            <span class="day">24日</span>
+            <span class="day">25日</span>
+            <span class="day">26日</span>
+            <span class="day">27日</span>
+            <span class="day">28日</span>
+            <span class="day">29日</span>
+            <span class="day">30日</span>
+            <span class="day">31日</span>
+        </div>
+        <div class="t_3">
+            <span class="hour">9:00</span>
+            <span class="hour">10:00</span>
+            <span class="hour">11:00</span>
+            <span class="hour">12:00</span>
+            <span class="hour">13:00</span>
+            <span class="hour">14:00</span>
+            <span class="hour">15:00</span>
+            <span class="hour">16:00</span>
+            <span class="hour">17:00</span>
+            <span class="hour">18:00</span>
+        </div>
+    </div>
+</div>
+
+<div id="alert" class="ui-dialog" style="display:none">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-hd" id="div_text">请选择服务项目</div>
+        <div class="ui-dialog-ft">
+            <button type="button" data-role="button" id="button_confirm">确定</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

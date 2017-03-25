@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>订单详情</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<style>
+.order-detail.ico-time{position:relative}
+.ico-time span{display:inline-block; position:absolute; left:144px; top:5px; line-height:20px;text-indent:0}
+</style>
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script type="text/javascript">
+    $(function(){
+
+        function GetRequest() {
+            var url = location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for(var i = 0; i < strs.length; i ++) {
+                    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        var requestParam = GetRequest();
+        var id = requestParam.id;
+        if(id!=null){
+            $.ajax({
+                url:'/orders/orderDetailForJson',
+                type:'GET',
+                data:"ordersId=" + id,
+                success:function(result){
+                    console.info(result)
+                    if(result.success){
+                        var order_id = result.data.orderId;
+                        var order_type = null;
+                        var order_type_detail = null;
+                        var address_title = null;
+                        var address = null;
+                        if(result.data.orderType==1){
+                            order_type = "寄养";
+                            order_type_detail = "寄养 - " + result.data.room.roomName;
+                            address_title = "寄养地址"
+                            address = "顺义区下西市西赵各庄(导航顺义区下西市即可)";
+                        }
+                        if(result.data.orderType==2){
+                            order_type = "训练";
+                            order_type_detail = "训练 － " + result.data.course.courseName;
+                            address_title = "训练地址"
+                            address = "顺义区下西市西赵各庄(导航顺义区下西市即可)"
+                        }
+                        if(result.data.orderType==3){
+                            order_type = "美容";
+                            order_type_detail = "美容 － " + result.data.hairdressing.hairdressingName;
+                            if(result.data.serviceType==0){
+                                <!--address_title = "上门地址"-->
+                                address_title = "美容地址"
+                                address = "顺义区下西市西赵各庄 (导航顺义区下西市即可)"
+                            } else {
+                                address_title = "美容地址"
+                                address = "顺义区下西市西赵各庄(导航顺义区下西市即可)"
+                            }
+                        }
+                        var startDate = result.data.startDate;
+                        var endData = result.data.endDate;
+                        var cost = result.data.cost;
+                        var time = startDate;
+                        console.info(order_id);
+                        console.info(order_type);
+                        console.info(startDate);
+                        console.info(endData);
+                        console.info(cost);
+                        if(endData!=null && typeof(endData)!='undefined'){
+                        	time += " 至 "+endData;
+                        }
+                        $(".wrapper").append("<a class='list order-detail ico-item' style='margin-top:20px'>服务项目<span>"+order_type_detail+"</span></a>")
+                                //.append("<a class='list order-detail ico-time'>服务时间<span>"+startDate+" 至 "+endData+"</span></a>")
+                                .append("<a class='list order-detail ico-time'>服务时间<span  style='word-spacing:normal;'>"+time+"</span></a>")
+                                .append("<a class='list order-detail ico-phone'>联系电话<span>"+result.data.account.mobile+"</span></a>")
+                                .append("<a class='list order-detail ico-addr'>"+address_title+"<span style='width:170px;vertical-align:middle;line-height:15px;text-indent:0px;padding-left:20px;font-size:13px;overflow:hidden;height:50px'>"+address+"</span></a>")
+                                .append("<a class='list order-detail ico-price' style='margin-bottom:30px'>服务价格<span>"+cost+"元</span></a>")
+                                /* .append("<a class='list order-detail serve-title'>服务提供</a>") */
+                                /* .append("<a class='list order-detail serve-supply'>溜溜五星级服务中心</a>")
+                                .append("<a class='list order-detail serve-supply'>服务热线：400-123-123</a>") */
+                                .append("<a class='list order-detail going-on-title'>订单状态</a>")
+                                .append("<a class='list order-detail going-on'>"+result.data.orderStatusEnumDesc+"</a>")
+                                .append("<a class='list order-detail going-on'>"+result.data.paymentStatusDesc+"</a>")
+
+
+                    }
+                },failure:function(){
+                    alert("系统错误");
+                }
+            });
+        }
+    })
+</script>
+</head>
+
+<body>
+<div class="wrapper">
+
+    <!--<a class="list order-detail ico-item" style="margin-top:20px">服务项目<span>训犬-成犬训练</span></a>-->
+    <!--<a class="list order-detail ico-time">服务时间<span>2015-9-17至2015-10-01</span></a>-->
+    <!--<a class="list order-detail ico-phone">联系电话<span>15010248416</span></a>-->
+    <!--<a class="list order-detail ico-addr">宠物地址<span>团结湖11-15楼</span></a>-->
+    <!--<a class="list order-detail ico-price" style="margin-bottom:30px">服务价格<span>1500元</span></a>-->
+    <!---->
+    <!--<a class="list order-detail serve-title">服务提供</a>-->
+    <!--<a class="list order-detail serve-supply">溜溜五星级服务中心 训犬师</a>-->
+    <!--<a class="list order-detail serve-supply">服务热线：400-123-123</a>-->
+    <!---->
+    <!--<a class="list order-detail going-on-title">订单当前进度</a>-->
+    <!--<a class="list order-detail going-on">20155-09-15 15:25 创建订单</a>-->
+    <!--<a class="list order-detail going-on">20155-09-15 15:25 订单已确定</a>-->
+    
+</div>
+
+</body>
+</html>

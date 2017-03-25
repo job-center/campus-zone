@@ -1,0 +1,387 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>宠物训练</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script src="js/slide_show.js"></script>
+<style>
+.wrapper input{ margin:0}
+.beauty-serve{ border-bottom:none; height:30px; line-height:30px; padding-bottom:15px}
+.beauty-serve span{ width:100%}
+</style>
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script type="text/javascript">
+
+    $(function(){
+
+        function GetRequest() {
+            var url = location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                var strs = str.split("&");
+                for(var i = 0; i < strs.length; i ++) {
+                    theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+
+        var requestParam = GetRequest();
+        
+        var animalName=requestParam.animalName;
+        if(animalName!=null && typeof(animalName)!='undefined'){
+        	animalName=animalName;
+        	$("#animalName").text(animalName);
+        }
+        
+        var serviceDate = requestParam.startDate;
+        if(serviceDate!=null &&serviceDate!='undefined' && typeof(serviceDate)!='undefined'){
+        	$("#start_time").text(serviceDate);
+        	startDate = serviceDate;
+        }
+        
+        $("#detail_btn").click(function(){
+            $("#detail").show();
+        })
+
+        $("#cancle_detail").click(function(){
+            $("#detail").hide();
+        })
+
+        var startDate;
+        var d = new Date();
+        var d1 = new Date();
+        var d2 = new Date();
+        //var d3 = new Date();
+        d1.setDate(1);
+        d1.setMonth(d1.getMonth()+1);
+        d2.setDate(d2.getDate()+60);
+        //d3.setMonth(d3.getMonth()+3);
+        dmonth = (d.getMonth()+1)<10?"0"+ (d.getMonth()+1): (d.getMonth()+1);
+        dmonth1 =  (d1.getMonth()+1)<10?"0"+ (d1.getMonth()+1): (d1.getMonth()+1);
+        //dmonth2 =  (d2.getMonth()+1)<10?"0"+ (d2.getMonth()+1): (d2.getMonth()+1);
+        //dmonth3 =  (d3.getMonth()+1)<10?"0"+ (d3.getMonth()+1): (d3.getMonth()+1);
+        $(".t_1").empty();
+        $(".t_1").append("<span class='month'>"+ d.getFullYear() + "年" +dmonth+"月</span>")
+                .append("<span class='month'>"+ d1.getFullYear() + "年" +dmonth1+"月</span>")
+                //.append("<span class='month'>"+ d2.getFullYear() + "年" +dmonth2+"月</span>")
+                //.append("<span class='month'>"+ d3.getFullYear() + "年" +dmonth3+"月</span>")
+
+        $("#time_button").click(function(){
+            $("#time").show();
+            if(startDate==null){
+                startDate = requestParam.startDate;
+            }
+            if(startDate!=null){
+                var month = startDate.substr(0,4)+"年"+startDate.substring(5,7)+"月";
+                var day = startDate.substring(8,10)+"日";
+                var time = startDate.substring(11,startDate.length);
+                for(var i=0;i<$("#time .month").length;i++){
+                    if($("#time .month").eq(i).text()==month){
+                        $("#time .month").eq(i).addClass("hover");
+                    }
+                }
+                for(var i=0;i<$("#time .day").length;i++){
+                    if($("#time .day").eq(i).text()==day){
+                        $("#time .day").eq(i).addClass("hover");
+                    }
+                }
+                for(var i=0;i<$("#time .hour").length;i++){
+                    if($("#time .hour").eq(i).text()==time){
+                        $("#time .hour").eq(i).addClass("hover");
+                    }
+                }
+            }
+        })
+
+        $(".month").bind("click", function() {
+            $(".month").removeClass("hover");
+            $(".day").removeClass("hover");
+            $(this).addClass("hover");
+            var curMonthDays = new Date(($(".month.hover").text().substr(0,4)), $(".month.hover").text().substring($(".month.hover").text().indexOf("年")+1,$(".month.hover").text().length-1), 0).getDate();
+            var curDate = new Date();
+            var tmp_month = (curDate.getMonth()+1);
+            var tmp_date = curDate.getDate();
+            $(".t_2").empty();
+            for(var i=1;i<=curMonthDays;i++){
+                if(tmp_month == $(".month.hover").text().substring($(".month.hover").text().indexOf("年")+1,$(".month.hover").text().length-1)){
+                    if(i<tmp_date){
+                        continue;
+                    }
+                }
+                tmp = i<10?"0"+i:i;
+                $(".t_2").append("<span class='day'>"+tmp+"日</span>");
+            }
+            $(".day").bind("click", function() {
+                $(".day").removeClass("hover");
+                $(this).addClass("hover");
+            })
+        })
+
+        $(".day").bind("click", function() {
+            $(".day").removeClass("hover");
+            $(this).addClass("hover");
+        })
+
+        $(".hour").bind("click", function() {
+            $(".hour").removeClass("hover");
+            $(this).addClass("hover");
+        })
+
+        $("#cancle_time").click(function(){
+            $("#time").hide();
+        })
+
+        $("#button_confirm").click(function(){
+            $("#alert").hide();
+        })
+
+        $("#pet_btn").click(function(){
+        	var val=$("input:radio[name='serve-method']:checked").val();
+        	if(val == null)
+            	window.location.href = "pets-list.html?ru=train.html&startDate="+startDate;
+        	else
+        		window.location.href = "pets-list.html?ru=train.html&startDate="+startDate+"&course_id="+val;
+        })
+
+        $("#confirm_time").click(function(){
+            var start_month = $("#time .month.hover").text()
+            var start_day = $("#time .day.hover").text()
+            var start_hour = $("#time .hour.hover").text()
+            if(start_month==null || start_month=="" || start_day==null || start_day =="" || start_hour==null || start_hour==""){
+                $("#div_text").text("请选择正确的服务时间!");
+                $("#alert").show();
+                return;
+            }
+            startDate = start_month + start_day + start_hour;
+            startDate = startDate.replace("年","-").replace("月","-").replace("日"," ");
+            $("#start_time").text(startDate);
+            $("#time").hide();
+        })
+
+
+
+        var animalsId = requestParam.animalsId;
+
+        $("#next").click(function(){
+            var complete = true;//标记信息是否都填写完成
+
+            if(startDate==null || startDate=="" || startDate =='undefined'){
+                if(requestParam.startDate==null || requestParam.startDate=="" || requestParam.startDate== 'undefined'){
+                	complete = false;
+            	    $("#div_text").text("请填写服务时间!");
+                    $("#alert").show();
+                    return;
+                } else {
+                    startDate = requestParam.startDate;
+                }
+            }
+
+            var course_id = $("input:radio[name='serve-method']:checked").val();
+            var animalsId = requestParam.animalsId;
+            if(animalsId==null){
+            	complete = false;
+                $("#div_text").text("请填写宠物品种!");
+                $("#alert").show();
+                return;
+            }
+
+
+            var val=$("input:radio[name='serve-method']:checked").val();
+            if(val==null){
+            	complete = false;
+                $("#div_text").text("请选择训练课程!");
+                $("#alert").show();
+                return;
+            }
+
+
+            if(!complete){
+            	 $("#div_text").text("请填写相关信息!");
+                 $("#alert").show();
+                 return;
+            }
+            window.location.href = "order-submit.html?order_type=2&animalsId="+animalsId+"&course_id="+course_id+"&startDate="+startDate
+
+        })
+
+
+        $.ajax({
+            url:'/course/listForJson',
+            type:'GET',
+            async: false,
+            success:function(result){
+                $.each(result,function(index,item){
+                    console.info(item)
+                    $("#course_a").append("<a class='list beauty-serve'><span><input name='serve-method' type='radio' id='course_"+item.id+"' value='"+item.id+"'>"+item.courseName+"  "+item.courseDescribe+"</span></a>");
+                })
+            },failure:function(){
+
+            }
+
+            <!--if(!complete){-->
+            	 <!--$("#div_text").text("请填写相关信息!");-->
+                 <!--$("#alert").show();-->
+                 <!--return;-->
+            <!--}-->
+            <!--window.location.href = "order-submit.html?order_type=2&animalsId="+animalsId+"&course_id="+course_id+"&startDate="+startDate-->
+
+        })
+
+
+        <!--$.ajax({-->
+            <!--url:'/course/listForJson',-->
+            <!--type:'GET',-->
+            <!--async: false,-->
+            <!--success:function(result){-->
+                <!--$.each(result,function(index,item){-->
+                    <!--console.info(item)-->
+                    <!--$("#course_a").append("<a class='list beauty-serve'><span><input name='serve-method' type='radio' id='course_"+item.id+"' value='"+item.id+"'>"+item.courseName+"</span></a>");-->
+                <!--})-->
+            <!--},failure:function(){-->
+
+            <!--}-->
+
+        <!--});-->
+        
+        var course_id = requestParam.course_id;
+        if(course_id != null &&course_id!='undefined' && typeof(course_id)!='undefined'){
+        	$("#course_"+course_id).attr('checked','checked');
+        }
+
+    })
+</script>
+</head>
+
+<body>
+<div class="wrapper">
+	<div class="foster-ad">
+		<img src="img/train-ad.jpg">
+    </div>
+
+    <a class="list foster-time" id="time_button">服务时间&nbsp;&nbsp;&nbsp;<span id="start_time"></span><span class="arrow">&#8250;</span></a>
+    <a class="list foster-breed" style="border-top:none" id="pet_btn" href="#">宠物品种&nbsp;&nbsp;&nbsp;<span id="animalName"></span><span class="arrow">&#8250;</span></a>
+
+	<!--宠物训练-->
+    <a class="list foster-room" style="background-image:url(img/cd-icon-yzm.png)">训练课程<span id="detail_btn">课程详情&nbsp;&nbsp;</span></a>
+    <div id="course_a">
+        <!--<a class="list beauty-serve"><span><input name="serve-method" type="radio" value="1">幼犬训练 3-8个月</span></a>-->
+        <!--<a class="list beauty-serve"><span><input name="serve-method" type="radio" value="2">成犬训练 8个月以上</span></a>-->
+        <!--<a class="list beauty-serve"><span><input name="serve-method" type="radio" value="3">单项训练 如转圈捡球等</span></a>-->
+        <!--<a class="list beauty-serve" style="border-bottom:1px solid #927d76"><span><input name="serve-method" type="radio" value="4">特需训练 定制课程</span></a>-->
+    </div>
+
+    
+    <a class="next" id="next" href="#" style="margin-top:20px">下一步</a>
+
+</div>
+
+<div id="detail" class="ui-dialog" style="display:none">
+    <div class="t_title"><span id="cancle_detail" style="left:0px">返回</span></div>
+    <div class="t_content">
+        <div class="content_p"><div align="center"><b>课程详情</b></div></div>
+        <div class="content_p">汪族墅屋拥有专业的宠物管理团队，综合国内外训练理念，开设幼犬训练、服从训练等全方面训犬课程，您可以根据宠物特点选择适合的课程。</div>
+        <!--<div class="content_p"><font color="blue"><b>训练价格</b></font></div>-->
+        <div class="content_p"><b>幼犬训练项目（适合3-10个月的幼犬参加）：4000元/60天。</b>
+        <br/>行为纠正：<br/>1、室内定点排便 2、适应牵引绳 3、独处（适应犬笼） 4、呼名训练 5、不咬手 6、不咬脚
+            7、不乱咬东西8、不对人乱叫9、不抢食<br/>服从训练：<br/>1、坐 2、卧 3、禁止 4、握手 5、延缓 6、唤回
+        </div>
+        <div class="content_p"><b>常规班服从训练项目（适合8个月以上的成犬参加）：3000元/30天。</b>
+        <br/>动作训练：<br/>1、正面坐 2、侧面坐 3、正面卧 4、侧面卧 5、立 6、等待 7、前来 8、握手 9、随行
+            10、禁止<br/>习惯培养：<br/>1、适应独处 2、进出门礼仪 3、有礼貌的乘坐电梯 4、不扑人 5、不挑食 6、不咬手/脚
+        </div>
+        <div class="content_p"><b>提高班服从训练项目（适合8个月以上的成犬参加）：5500元/60天。</b>
+        <br/>动作训练：<br/>1、正面坐 2、侧面坐 3、正面卧 4、侧面卧 5、立 6、等待 7、前来 8、握手 9、随行
+            10、禁止<br/>习惯培养：<br/>1、适应独处 2、进出门礼仪 3、有礼貌的乘坐电梯 4、不扑人 5、不挑食 6、不咬手/脚 7、不乱叫 8、不吃宠物粪便 9、不乱咬牵引绳 10、不乱咬衣服 11、不爬跨人腿 12、不过度黏人
+            13、怕上楼梯纠正<br/>六选三：<br/>1、装死 2、打滚 3、钻腿 4、点叫 5、接球 6、距离指挥5米以上
+        </div>
+        <div class="content_p"><b>高级班服从训练项目（适合8个月以上的成犬参加）：7500元/90天。</b>
+        <br/>动作训练：<br/>1、正面坐 2、侧面坐 3、正面卧 4、侧面卧 5、立 6、等待 7、前来 8、握手 9、随行
+            10、禁止<br/>习惯培养：<br/>1、适应独处 2、进出门礼仪 3、有礼貌的乘坐电梯 4、不扑人 5、不挑食 6、不咬手/脚
+            7、不乱叫 8、不吃宠物粪便 9、不乱咬牵引绳 10、不乱咬衣服 11、不爬跨人腿
+            12、不过度黏人 13、怕上楼梯纠正 14、不随地捡食 15、不乱咬家具 16、不乱叼拖鞋 17、不攻击陌生人 18、不攻击其他犬 19、不护食
+            <br/>五选二：<br/>1、绕腿 2、敬礼或作揖 3、数数 4、扑咬 5、匍匐前进
+        </div>
+        <div class="content_p"><b>备注：<br/>1、	寄养期间狗粮自备，如需提供狗粮请告知训练员。
+            <br/>2、	六选三、五选二项目请与训练员沟通确定。
+            <br/>3、	宠物年龄小于3个月大于8岁、宠物有疾病、残疾等，下单前请致电客服15311879383。
+            <br/>4、	烈性犬（如藏獒、纽波利顿等）下单前请致电客服15311879383。
+            <br/>5、	宠物家长请于训练结束后及时接走爱犬；如果延期，看护方（宠物酒店）会根据延误时间酌情收取少部分看护费。
+            </b></div>
+        <!--<div class="content_p"><font color="red"><b>注意事项：宠物家长请于训练结束后及时前接走爱犬；如果延期，寄养方会根据延误时间收取少部分看护费。</b></font></div>-->
+    </div>
+</div>
+
+<div class="ui-dialog" style="display:none" id="time">
+    <div class="t_title"><div id="cancle_time" style="float:left;padding-left:8px">返回</div>服务时间<div style="float:right;padding-right:8px" id="confirm_time">确定</div></div>
+    <div class="ts_content">
+        <div class="t_1">
+            <span class="month">9月</span>
+            <span class="month">10月</span>
+            <span class="month">11月</span>
+        </div>
+        <div class="t_2">
+            <span class="day">01日</span>
+            <span class="day">02日</span>
+            <span class="day">03日</span>
+            <span class="day">04日</span>
+            <span class="day">05日</span>
+            <span class="day">06日</span>
+            <span class="day">07日</span>
+            <span class="day">08日</span>
+            <span class="day">09日</span>
+            <span class="day">10日</span>
+            <span class="day">11日</span>
+            <span class="day">12日</span>
+            <span class="day">13日</span>
+            <span class="day">14日</span>
+            <span class="day">15日</span>
+            <span class="day">16日</span>
+            <span class="day">17日</span>
+            <span class="day">18日</span>
+            <span class="day">19日</span>
+            <span class="day">20日</span>
+            <span class="day">21日</span>
+            <span class="day">22日</span>
+            <span class="day">23日</span>
+            <span class="day">24日</span>
+            <span class="day">25日</span>
+            <span class="day">26日</span>
+            <span class="day">27日</span>
+            <span class="day">28日</span>
+            <span class="day">29日</span>
+            <span class="day">30日</span>
+            <span class="day">31日</span>
+        </div>
+        <div class="t_3">
+            <span class="hour">9:00</span>
+            <span class="hour">10:00</span>
+            <span class="hour">11:00</span>
+            <span class="hour">12:00</span>
+            <span class="hour">13:00</span>
+            <span class="hour">14:00</span>
+            <span class="hour">15:00</span>
+            <span class="hour">16:00</span>
+            <span class="hour">17:00</span>
+            <span class="hour">18:00</span>
+        </div>
+    </div>
+</div>
+
+<div id="alert" class="ui-dialog" style="display:none">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-hd" id="div_text">请选择服务项目</div>
+        <div class="ui-dialog-ft">
+            <button type="button" data-role="button" id="button_confirm">确定</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

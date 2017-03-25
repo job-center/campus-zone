@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,user-scalable=0,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>我的地址</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<style>
+.addr-detail{padding-right:70px;}
+</style>
+<script type="text/javascript" src="js/jquery.min.js" ></script>
+<script src="js/slide_show.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#button_confirm").click(function(){
+            $(".ui-dialog").hide();
+        })
+
+        $.ajax({
+            url:'/code/address/listUserAddress',
+            type:"GET",
+            async:false,
+            success:function(result){
+                if(result.success){
+                    var detail = $("<a class='addr-list'>");
+                    var href = "addr-detail.html?province_id="+result.data.province_id+"&city_id="+result.data.city_id+"&area_id="+result.data.area_id;
+                    detail.attr("href",href);
+                    var obj = $("<div />");
+                    obj.addClass("addr-detail");
+                    if(result.data.province!=null){
+                        if(result.data.city!=null) {
+                            if(result.data.area!=null) {
+                                if(result.data.address!=null){
+                                    obj.html(result.data.province + result.data.city + result.data.area + result.data.address+"<br/>联系电话："+result.data.mobile);
+                                } else{
+                                    obj.html(result.data.province + result.data.city + result.data.area +"<br/>联系电话："+result.data.mobile);
+                                }
+                            } else{
+                                obj.html(result.data.province + result.data.city+"<br/>联系电话："+result.data.mobile);
+                            }
+                        }  else {
+                            obj.html(result.data.province +"<br/>联系电话："+result.data.mobile);
+                        }
+
+                    } else {
+                        obj.html("(请点击添加地址)<br/>联系电话："+result.data.mobile);
+                    }
+                    var obj2 = $("<span class='arrow'>&#8250;</span>");
+                    obj2.appendTo(obj);
+                    obj.appendTo(detail);
+                    detail.appendTo($("#address_list"));
+                } else {
+//                    alert(result.detail);
+                    $("#div_text").text(result.detail);
+                    $(".ui-dialog").show();
+                }
+            }
+        });
+    })
+</script>
+</head>
+
+<body>
+<div class="wrapper">
+	
+     <!--<a class="addr-list" href="addr-detail.html">-->
+    	<!--<div class="addr-detail">团结湖15号楼 -118室<br />联系电话：15010248416-->
+        	<!--<span class="arrow">&#8250;</span>-->
+        <!--</div>-->
+    <!--</a>  -->
+    <div id="address_list"></div>
+
+</div>
+<div class="ui-dialog" style="display:none">
+    <div class="ui-dialog-cnt">
+        <div class="ui-dialog-hd" id="div_text">请选择服务项目</div>
+        <div class="ui-dialog-ft">
+            <button type="button" data-role="button" id="button_confirm">确定</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
