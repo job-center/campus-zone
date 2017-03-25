@@ -10,7 +10,7 @@
     	<ul class="nav navbar-nav">
 	   	    <li>
 		    	<a class="navbar-brand" href="/index">
-					<span style="color:#fff;">LiuLiume Platform</span>
+					<span style="color:#fff;">校园地带工作台</span>
 				</a>
 			</li>
 		</ul>

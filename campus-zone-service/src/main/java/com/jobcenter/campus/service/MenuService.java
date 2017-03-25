@@ -3,6 +3,7 @@ package com.jobcenter.campus.service;
 import com.jobcenter.campus.common.utils.JsonMapper;
 import com.jobcenter.campus.model.Menu;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +29,12 @@ public class MenuService {
     public List<Menu> getMenusAll() {
         String fname = expandFileName(menuFile);
         File file = new File(fname);
-        Assert.isTrue(file.exists() , "菜单配置文件：" + fname + " 不存在！");
+        ClassLoader classLoader = getClass().getClassLoader();
+//        Assert.isTrue(file.exists() , "菜单配置文件：" + fname + " 不存在！");
         String content;
         try {
-            content = FileUtils.readFileToString(file);
+            content = IOUtils.toString(classLoader.getResourceAsStream(fname));
+//            content = FileUtils.readFileToString(file);
         } catch (IOException e) {
             logger.error("读取菜单配置文件时异常！" ,e);
             throw new RuntimeException("读取配置文件：" + menuFile + " 异常！" + e.getMessage() , e);
