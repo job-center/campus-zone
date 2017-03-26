@@ -13,7 +13,7 @@ import com.jobcenter.campus.entity.User;
  */
 public interface UserDao {
 
-    void insertUser(User user);
+//    void insertUser(User user);
 
     void insertOriUser(User user);
 }

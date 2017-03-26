@@ -28,7 +28,7 @@ public class MyBatisTest {
         user.setUserpassword("testp");
         boolean flag = false;
         if(flag) {
-            userDao.insertUser(user);
+//            userDao.insertUser(user);
         } else {
             userDao.insertOriUser(user);
         }

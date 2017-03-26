@@ -19,16 +19,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-    @Autowired
-    private SqlSession sqlSession;
+//    @Autowired
+//    private SqlSession sqlSession;
 
     @Autowired
     private UserMapper userMapper;
-
-    @Override
-    public void insertUser(User user) {
-        sqlSession.insert("com.jobcenter.campus.mapper.UserMapper.insert",user);
-    }
+//
+//    @Override
+//    public void insertUser(User user) {
+//        sqlSession.insert("com.jobcenter.campus.mapper.UserMapper.insert",user);
+//    }
 
     @Override
     public void insertOriUser(User user) {

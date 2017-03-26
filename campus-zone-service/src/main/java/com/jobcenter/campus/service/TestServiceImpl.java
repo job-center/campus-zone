@@ -1,7 +1,12 @@
 package com.jobcenter.campus.service;
 
+import com.google.common.collect.Sets;
+import com.jobcenter.campus.dao.SysUserDao;
 import com.jobcenter.campus.dao.UserDao;
+import com.jobcenter.campus.entity.SysUser;
 import com.jobcenter.campus.entity.User;
+import com.jobcenter.campus.model.Page;
+import com.jobcenter.campus.query.SysUserQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +25,9 @@ public class TestServiceImpl implements TestService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private SysUserDao sysUserDao;
+
     @Override
     public void test() {
         System.out.println("this is a test service");
@@ -27,6 +35,13 @@ public class TestServiceImpl implements TestService {
         user.setUsername("test");
         user.setUserpassword("ttt");
         userDao.insertOriUser(user);
-        userDao.insertUser(user);
+//        userDao.insertUser(user);
+    }
+
+    @Override
+    public Page<SysUser> testSysUser() {
+        SysUserQuery query = new SysUserQuery();
+        query.setPageSize(2);
+        return sysUserDao.listSysUsers(query);
     }
 }
