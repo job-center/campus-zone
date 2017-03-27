@@ -11,4 +11,6 @@ package com.jobcenter.campus.common.common;
  */
 public class CommonConstant {
 
+    //用户登录后存储用户的身份信息
+    public static final String SESSEION_USER_KEY = "SESSEION_USER_KEY";
 }

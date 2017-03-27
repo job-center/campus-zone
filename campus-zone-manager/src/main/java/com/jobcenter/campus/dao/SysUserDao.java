@@ -16,5 +16,5 @@ public interface SysUserDao {
      * @param query
      * @return
      */
-    Page<SysUser> listSysUsers(SysUserQuery query);
+    List<SysUser> listSysUsers(SysUserQuery query);
 }

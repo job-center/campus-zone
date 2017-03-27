@@ -38,14 +38,15 @@ jQuery(document).ready(function() {
     	if(isBlank(user)||isBlank(passwd))
     		return false;
     	$.ajax({
-    		url:'/login',
+    		url:'/doLogin',
     		data:{"name":user,"passwd":passwd},
     		type : "POST",
     		success:function(result){
     			if(result.success){
     				window.location.href='/index';
     			}else{
-    				$("#error-msg").text("用户名或密码错误");
+    				// $("#error-msg").text("用户名或密码错误");
+					alert(result.msg);
     			}
     		},
     		failure:function(result){

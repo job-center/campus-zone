@@ -11,6 +11,6 @@ public interface TestService {
 
     void test();
 
-    Page<SysUser> testSysUser();
+    default Page<SysUser> testSysUser() {return null;}
 
 }

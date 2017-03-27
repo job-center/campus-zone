@@ -37,11 +37,4 @@ public class TestServiceImpl implements TestService {
         userDao.insertOriUser(user);
 //        userDao.insertUser(user);
     }
-
-    @Override
-    public Page<SysUser> testSysUser() {
-        SysUserQuery query = new SysUserQuery();
-        query.setPageSize(2);
-        return sysUserDao.listSysUsers(query);
-    }
 }

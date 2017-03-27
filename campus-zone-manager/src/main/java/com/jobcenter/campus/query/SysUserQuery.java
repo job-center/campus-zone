@@ -9,6 +9,8 @@ public class SysUserQuery extends BaseQuery {
 
     private String phoneNumber;
 
+    private String password;
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -23,5 +25,13 @@ public class SysUserQuery extends BaseQuery {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

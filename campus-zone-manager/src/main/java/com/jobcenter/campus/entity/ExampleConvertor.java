@@ -6,6 +6,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
+ * 普通查询对象转换为Mybatis example对象工具类
  * Created by xiayun on 26/3/17.
  */
 public class ExampleConvertor {
@@ -25,6 +26,9 @@ public class ExampleConvertor {
             }
             if (StringUtils.isNotBlank(sysUserQuery.getPhoneNumber())){
                 criteria.andPhonenumberEqualTo(sysUserQuery.getPhoneNumber());
+            }
+            if (StringUtils.isNotBlank(sysUserQuery.getPassword())){
+                criteria.andPasswordEqualTo(sysUserQuery.getPassword());
             }
             if (StringUtils.isNotBlank(sysUserQuery.getOderByClause())){
                 example.setOrderByClause(sysUserQuery.getOderByClause());
