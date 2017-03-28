@@ -1,5 +1,6 @@
 package com.jobcenter.campus.dao;
 
+import com.jobcenter.campus.entity.SysRole;
 import com.jobcenter.campus.entity.SysUser;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SysUserQuery;
@@ -16,5 +17,8 @@ public interface SysUserDao {
      * @param query
      * @return
      */
-    List<SysUser> listSysUsers(SysUserQuery query);
+    Page<SysUser> listSysUsers(SysUserQuery query);
+
+    Page<SysUser> listSysUsers(SysUserQuery query,boolean countAll);
+
 }

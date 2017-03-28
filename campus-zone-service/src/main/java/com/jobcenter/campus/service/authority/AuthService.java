@@ -1,4 +1,4 @@
-package com.jobcenter.campus.service;
+package com.jobcenter.campus.service.authority;
 
 import com.jobcenter.campus.entity.SysUser;
 

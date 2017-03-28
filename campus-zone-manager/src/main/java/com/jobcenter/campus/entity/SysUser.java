@@ -15,7 +15,7 @@ public class SysUser {
 
     private String email;
 
-    private String schoolId;
+    private Integer schoolId;
 
     private Byte isDeleted;
 
@@ -75,12 +75,12 @@ public class SysUser {
         this.email = email == null ? null : email.trim();
     }
 
-    public String getSchoolId() {
+    public Integer getSchoolId() {
         return schoolId;
     }
 
-    public void setSchoolId(String schoolId) {
-        this.schoolId = schoolId == null ? null : schoolId.trim();
+    public void setSchoolId(Integer schoolId) {
+        this.schoolId = schoolId;
     }
 
     public Byte getIsDeleted() {

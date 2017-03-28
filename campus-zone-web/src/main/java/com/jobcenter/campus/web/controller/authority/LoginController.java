@@ -2,7 +2,7 @@ package com.jobcenter.campus.web.controller.authority;
 
 import com.jobcenter.campus.common.common.CommonConstant;
 import com.jobcenter.campus.entity.SysUser;
-import com.jobcenter.campus.service.AuthService;
+import com.jobcenter.campus.service.authority.AuthService;
 import com.jobcenter.campus.web.domin.APIResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,5 +74,10 @@ public class LoginController {
         return apiResponse;
     }
 
-
+    @RequestMapping(value="logout",method={RequestMethod.GET,RequestMethod.POST})
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "login";
+    }
 }

@@ -23,9 +23,17 @@ public class SysUserDaoImpl implements SysUserDao {
     private SysUserMapper sysUserMapper;
 
     @Override
-    public List<SysUser> listSysUsers(SysUserQuery query) {
+    public Page<SysUser> listSysUsers(SysUserQuery query){
+        return listSysUsers(query,true);
+    }
+
+    @Override
+    public Page<SysUser> listSysUsers(SysUserQuery query,boolean countAll) {
         SysUserExample sysUserExample = ExampleConvertor.convertSysUserExample(query);
-        List<SysUser> result = sysUserMapper.selectByExample(sysUserExample);
+        PageMybtisIntercepter.startPage(query.getPageNum(),query.getPageSize());
+        PageMybtisIntercepter.setLoadTotal(countAll);
+        sysUserMapper.selectByExample(sysUserExample);
+        Page<SysUser> result = PageMybtisIntercepter.endPage();
         return result;
     }
 

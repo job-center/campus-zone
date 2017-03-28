@@ -28,7 +28,12 @@
     <mvc:resources mapping="/static/**" location="/static/"/>
     <mvc:resources location="/resources/" mapping="/resources/**" />
 
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean
+                    class="com.jobcenter.campus.web.bind.SeedParaMethodArgumentResolver"></bean>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
 
     <mvc:view-controller path="/" view-name="index"/>
     <mvc:view-resolvers>
