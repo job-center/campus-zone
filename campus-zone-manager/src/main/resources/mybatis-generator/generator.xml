@@ -11,8 +11,8 @@
         </commentGenerator>
         <!-- 数据库链接URL、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/campus_zues?characterEncoding=utf8" userId="root"
-                        password="root">
+                        connectionURL="jdbc:mysql://10.15.19.131:33315/test?characterEncoding=utf8" userId="jym"
+                        password="123456">
             <!--<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" userId="msa" password="msa">-->
         </jdbcConnection>
         <javaTypeResolver>
@@ -34,9 +34,9 @@
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
         <!--<table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />  -->
 
-        <table tableName="sys_user">
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-        </table>
+        <!--<table tableName="sys_user">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
         <table tableName="sys_role">
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
