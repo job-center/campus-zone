@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
     		return false;
     	$.ajax({
     		url:'/doLogin',
-    		data:{"name":user,"passwd":passwd},
+    		data:{"name":user,"password":passwd},
     		type : "POST",
     		success:function(result){
     			if(result.success){

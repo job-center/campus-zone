@@ -1,4 +1,4 @@
-package com.jobcenter.campus.web.controller;
+package com.jobcenter.campus.web.controller.authority;
 
 import com.jobcenter.campus.common.common.CommonConstant;
 import com.jobcenter.campus.entity.SysUser;

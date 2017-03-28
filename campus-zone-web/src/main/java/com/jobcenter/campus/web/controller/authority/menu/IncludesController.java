@@ -1,4 +1,4 @@
-package com.jobcenter.campus.web.controller;
+package com.jobcenter.campus.web.controller.authority.menu;
 
 import com.jobcenter.campus.model.Menu;
 import com.jobcenter.campus.service.MenuService;
