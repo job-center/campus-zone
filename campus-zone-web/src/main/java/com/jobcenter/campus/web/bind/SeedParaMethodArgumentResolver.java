@@ -19,7 +19,7 @@ public class SeedParaMethodArgumentResolver implements HandlerMethodArgumentReso
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        if (Seed.class.isAssignableFrom(parameter.getGenericParameterType().getClass())){
+        if (parameter.getGenericParameterType().equals(Seed.class)){
             return true;
         }
         return false;
