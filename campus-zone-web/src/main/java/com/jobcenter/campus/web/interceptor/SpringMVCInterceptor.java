@@ -24,6 +24,7 @@ public class SpringMVCInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
         // TODO 权限控制
+        /*
         String actionName = request.getRequestURI();
         if (actionName.equalsIgnoreCase("/login") || actionName.equalsIgnoreCase("/doLogin")
                 || actionName.startsWith("/resources"))
@@ -38,6 +39,7 @@ public class SpringMVCInterceptor implements HandlerInterceptor {
         if (session.getAttribute(CommonConstant.SESSEION_USER_KEY) == null) {
             response.sendRedirect("/login");
         }
+        */
         return true;
     }
 
