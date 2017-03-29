@@ -5,7 +5,7 @@ public class SysRole {
 
     private String roleName;
 
-    private String roleDesc;
+    private String roleDescription;
 
     private Byte isDeleted;
 
@@ -25,12 +25,12 @@ public class SysRole {
         this.roleName = roleName == null ? null : roleName.trim();
     }
 
-    public String getRoleDesc() {
-        return roleDesc;
+    public String getRoleDescription() {
+        return roleDescription;
     }
 
-    public void setRoleDesc(String roleDesc) {
-        this.roleDesc = roleDesc == null ? null : roleDesc.trim();
+    public void setRoleDescription(String roleDescription) {
+        this.roleDescription = roleDescription == null ? null : roleDescription.trim();
     }
 
     public Byte getIsDeleted() {
