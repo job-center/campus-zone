@@ -1,6 +1,7 @@
 package com.jobcenter.campus.entity;
 
 import com.google.common.collect.Lists;
+import com.jobcenter.campus.query.SysRoleQuery;
 import com.jobcenter.campus.query.SysUserQuery;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +33,32 @@ public class ExampleConvertor {
             }
             if (StringUtils.isNotBlank(sysUserQuery.getOderByClause())){
                 example.setOrderByClause(sysUserQuery.getOderByClause());
+            }
+        }
+        return example;
+    }
+
+    public static SysRoleExample convertSysRoleExample(SysRoleQuery sysRoleQuery){
+        SysRoleExample example = new SysRoleExample();
+        SysRoleExample.Criteria criteria = example.createCriteria();
+        if (sysRoleQuery != null){
+            if (sysRoleQuery.getId() != null){
+                criteria.andIdEqualTo(sysRoleQuery.getId());
+            }
+            if (CollectionUtils.isNotEmpty(sysRoleQuery.getIds())){
+                criteria.andIdIn(Lists.newArrayList(sysRoleQuery.getIds()));
+            }
+            if (StringUtils.isNotBlank(sysRoleQuery.getRoleName())){
+                criteria.andRoleNameEqualTo(sysRoleQuery.getRoleName());
+            }
+            if (StringUtils.isNotBlank(sysRoleQuery.getRoleDesc())){
+                criteria.andRoleDescEqualTo(sysRoleQuery.getRoleDesc());
+            }
+            if (sysRoleQuery.getIsDelete() != null){
+                criteria.andIsDeletedEqualTo(sysRoleQuery.getIsDelete().byteValue());
+            }
+            if (StringUtils.isNotBlank(sysRoleQuery.getOderByClause())){
+                example.setOrderByClause(sysRoleQuery.getOderByClause());
             }
         }
         return example;

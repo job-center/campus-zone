@@ -1,5 +1,6 @@
 package com.jobcenter.campus.domin.page;
 
+import com.google.common.collect.Maps;
 import com.jobcenter.campus.common.common.BaseEntity;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -22,7 +23,7 @@ public class Seed extends BaseEntity {
 
     private String orderBy;
 
-    private Map<String,String> queryData;
+    private Map<String,String> queryData = Maps.newHashMap();
 
     public Integer getPageNum() {
         return pageNum;
