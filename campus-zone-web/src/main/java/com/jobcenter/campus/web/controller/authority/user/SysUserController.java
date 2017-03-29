@@ -1,4 +1,4 @@
-package com.jobcenter.campus.web.controller.authority;
+package com.jobcenter.campus.web.controller.authority.user;
 
 import com.jobcenter.campus.domin.SysUserInfoDo;
 import com.jobcenter.campus.domin.page.Seed;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * Created by xiayun on 28/3/17.
