@@ -52,7 +52,7 @@ public class ExampleConvertor {
                 criteria.andRoleNameEqualTo(sysRoleQuery.getRoleName());
             }
             if (StringUtils.isNotBlank(sysRoleQuery.getRoleDesc())){
-                criteria.andRoleDescEqualTo(sysRoleQuery.getRoleDesc());
+                criteria.andRoleDescriptionEqualTo(sysRoleQuery.getRoleDesc());
             }
             if (sysRoleQuery.getIsDelete() != null){
                 criteria.andIsDeletedEqualTo(sysRoleQuery.getIsDelete().byteValue());
