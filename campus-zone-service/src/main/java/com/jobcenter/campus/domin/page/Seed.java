@@ -2,6 +2,7 @@ package com.jobcenter.campus.domin.page;
 
 import com.google.common.collect.Maps;
 import com.jobcenter.campus.common.common.BaseEntity;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.Map;
@@ -57,28 +58,28 @@ public class Seed extends BaseEntity {
     }
 
     public String getString(String name) {
-        if (queryData.containsKey(name)) {
+        if (MapUtils.isNotEmpty(queryData) && queryData.containsKey(name)) {
             return queryData.get(name);
         }
         return null;
     }
 
     public Integer getInteger(String name) {
-        if (queryData.containsKey(name) && NumberUtils.isNumber(queryData.get(name))) {
+        if (MapUtils.isNotEmpty(queryData) && queryData.containsKey(name) && NumberUtils.isNumber(queryData.get(name))) {
             return NumberUtils.toInt(queryData.get(name));
         }
         return null;
     }
 
     public Long getLong(String name) {
-        if (queryData.containsKey(name) && NumberUtils.isNumber(queryData.get(name))) {
+        if (MapUtils.isNotEmpty(queryData) && queryData.containsKey(name) && NumberUtils.isNumber(queryData.get(name))) {
             return NumberUtils.toLong(queryData.get(name));
         }
         return null;
     }
 
     public Double getDouble(String name) {
-        if (queryData.containsKey(name) && NumberUtils.isNumber(queryData.get(name))) {
+        if (MapUtils.isNotEmpty(queryData) && queryData.containsKey(name) && NumberUtils.isNumber(queryData.get(name))) {
             return NumberUtils.toDouble(queryData.get(name));
         }
         return null;
