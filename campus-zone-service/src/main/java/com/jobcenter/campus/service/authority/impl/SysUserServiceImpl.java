@@ -38,7 +38,7 @@ public class SysUserServiceImpl implements SysUserService {
         Assert.notNull(seed,"查詢參數seed不能为null");
         SysUserQuery sysUserQuery = new SysUserQuery();
         sysUserQuery.setPageSize(seed.getPageSize());
-        sysUserQuery.setPageNum(seed.getPageNum());
+        sysUserQuery.setPageNum(seed.getPageNumber());
         if (StringUtils.isNotBlank(seed.getString("name"))){
             sysUserQuery.setName(seed.getString("name"));
         }

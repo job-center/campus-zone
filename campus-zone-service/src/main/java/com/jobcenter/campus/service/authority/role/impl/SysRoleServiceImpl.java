@@ -35,7 +35,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         Assert.notNull(seed,"查詢參數seed不能为null");
         SysRoleQuery sysRoleQuery = new SysRoleQuery();
         sysRoleQuery.setPageSize(seed.getPageSize());
-        sysRoleQuery.setPageNum(seed.getPageNum());
+        sysRoleQuery.setPageNum(seed.getPageNumber());
         if (StringUtils.isNotBlank(seed.getString("roleName"))){
             sysRoleQuery.setRoleName(seed.getString("roleName"));
         }

@@ -9,7 +9,7 @@
         <pattern>/login/*</pattern>
     </excludes>
     <decorator name="activity" page="activity-layout.jsp">
-        <pattern>/code/*</pattern>
+        <pattern>/v1/sysusers</pattern>
         <pattern>/account/*</pattern>
         <pattern>/address/*</pattern>
         <pattern>/animal/*</pattern>

@@ -1,7 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="liuliume" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="campus" tagdir="/WEB-INF/tags"%>
 
 <%@ attribute name="position" required="true" rtexprvalue="true"%>
 
@@ -9,21 +9,10 @@
 
 <c:if test="${seed != null && !empty seed.result}">
 
-	<c:set var="pageSize" value="pagesize=${seed.pagesize}" scope="request" />
+	<c:set var="pageSize" value="pagesize=${seed.pageSize}" scope="request" />
 	<c:set var="pageSizes" value="${fn:split('10,25,50,100', ',')}"
 		scope="request" />
 	<c:set var="queryStr" value="${seed.queryStr}" scope="request" />
-
-	<c:choose>
-		<c:when test="${seed.pageOrder.name != ''}">
-			<c:set var="pageOrder"
-				value="&pageOrder.order=${seed.pageOrder.orderExpressions}"
-				scope="request" />
-		</c:when>
-		<c:otherwise>
-			<c:set var="pageOrder" value="" scope="request" />
-		</c:otherwise>
-	</c:choose>
 
 	<div class="row">
 		<c:choose>
@@ -31,10 +20,10 @@
 				<div class="col-md-5 col-sm-12">
 					<div class="dataTables_length">
 						<label>显示 <select class="form-control input-xsmall"
-							onchange="javascript:self.location.href='${ctx}/${seed.actionPath}?pagesize='+options[selectedIndex].value+'${queryStr}${pageOrder}'"><c:forEach
+							onchange="javascript:self.location.href='${ctx}/${seed.actionPath}?pagesize='+options[selectedIndex].value+'${queryStr}'"><c:forEach
 									var="pagesize" items="${pageSizes}">
 									<option value="${pagesize}"
-										<c:if test="${seed.pagesize eq pagesize}">selected="selected"</c:if>>${pagesize}</option>
+										<c:if test="${seed.pageSize eq pagesize}">selected="selected"</c:if>>${pagesize}</option>
 								</c:forEach></select> 项结果
 						</label>
 					</div>
@@ -57,7 +46,7 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
-		<liuliume:_pagination></liuliume:_pagination>
+		<campus:_pagination></campus:_pagination>
 		<c:if test="${position eq 'below' && 1 != seed.totalPages}">
 			<script type="text/javascript">
 				 $('input[name=custompage]').each(function() {

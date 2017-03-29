@@ -38,11 +38,9 @@ public class SeedParaMethodArgumentResolver implements HandlerMethodArgumentReso
         for(Iterator<String> paramNameItr = webRequest.getParameterNames(); paramNameItr.hasNext();){
             String paramName = paramNameItr.next();
             if(paramName.equals(Seed.PAGE_NUMBER)){
-                seed.setPageNum(Integer.parseInt(webRequest.getParameter(paramName)));
+                seed.setPageNumber(Integer.parseInt(webRequest.getParameter(paramName)));
             }else if(paramName.equals(Seed.PAGE_SIZE)){
                 seed.setPageSize(Integer.parseInt(webRequest.getParameter(paramName)));
-            }else if(paramName.equals(Seed.ORDER)){
-                seed.setOrderBy(webRequest.getParameter(paramName));
             }else{
                 map.put(paramName,webRequest.getParameter(paramName));
             }
