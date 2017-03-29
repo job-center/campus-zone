@@ -11,7 +11,7 @@
         </commentGenerator>
         <!-- 数据库链接URL、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://10.211.55.4:3306/campus_zues?characterEncoding=utf-8" userId="root"
+                        connectionURL="jdbc:mysql://localhost:3306/campus_zues?characterEncoding=utf-8" userId="root"
                         password="root">
             <!--<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@localhost:1521:orcl" userId="msa" password="msa">-->
         </jdbcConnection>
@@ -33,21 +33,21 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
-        <!--<table tableName="sys_user" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
-        <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
-        <!--</table>-->
-        <!--<table tableName="sys_role" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
-        <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
-        <!--</table>-->
-        <!--<table tableName="sys_user_role" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
-        <!--</table>-->
-        <!--<table tableName="geography" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
-        <!--</table>-->
-        <!--<table tableName="school" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
-            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
-        <!--</table>-->
+        <table tableName="sys_user" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
+        <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+        </table>
+        <table tableName="sys_role" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
+        <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+        </table>
+        <table tableName="sys_user_role" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+        </table>
+        <table tableName="geography" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+        </table>
+        <table tableName="school" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
+            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
+        </table>
 
     </context>
 </generatorConfiguration>  
