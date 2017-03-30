@@ -47,9 +47,10 @@ public class SysUserController {
     }
 
     @RequestMapping(value = "/v1/sysuser/{id}",method = RequestMethod.GET)
-    public ModelAndView sysUserIndex(HttpServletRequest request, @PathVariable("id") Integer id){
+    public ModelAndView sysUserIndex(HttpServletRequest request, @PathVariable(value = "id") Integer id){
         SysUserInfoDo sysUserInfoDo = sysUserService.getSysUserInfo(id);
 
-        ModelAndView mav = new ModelAndView("")
+        ModelAndView mav = new ModelAndView("/sys/sysUserIndex");
+        return mav;
     }
 }
