@@ -37,4 +37,9 @@ public class SysUserDaoImpl implements SysUserDao {
         return result;
     }
 
+    @Override
+    public SysUser getSysUserById(Integer sysUserId) {
+        return sysUserMapper.selectByPrimaryKey(sysUserId);
+    }
+
 }

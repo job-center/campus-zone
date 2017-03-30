@@ -49,21 +49,37 @@ public class SysUserServiceImpl implements SysUserService {
         if (CollectionUtils.isNotEmpty(sysUserPage.getResult())){
 
             sysUserPage.getResult().forEach(sysUser -> {
-                SysUserInfoDo sysUserInfoDo = new SysUserInfoDo();
-                sysUserInfoDo.setSysUser(sysUser);//设置用户基本信息
-
-                List<SysRole> sysRoles = sysUserRoleDao.listSysRolesByUserId(sysUser.getId());
-                sysUserInfoDo.setRoles(sysRoles);//设置用户角色信息
-
-                if (sysUser.getSchoolId() != null){
-                    //设置用户学校信息
-                    School school = schoolDao.getSchool(sysUser.getSchoolId());
-                    sysUserInfoDo.setSchool(school);
-                }
+                SysUserInfoDo sysUserInfoDo = assembleSysUserInfo(sysUser);
                 list.add(sysUserInfoDo);
             });
         }
         result.setResult(list);
         return result;
+    }
+
+    @Override
+    public SysUserInfoDo getSysUserInfo(Integer sysUserId){
+        Assert.notNull(sysUserId,"查询参数不能为空");
+        SysUser sysUser = sysUserDao.getSysUserById(sysUserId);
+        SysUserInfoDo sysUserInfoDo = assembleSysUserInfo(sysUser);
+        return sysUserInfoDo;
+    }
+
+    private SysUserInfoDo assembleSysUserInfo(SysUser sysUser){
+        if (sysUser == null){
+            return null;
+        }
+        SysUserInfoDo sysUserInfoDo = new SysUserInfoDo();
+        sysUserInfoDo.setSysUser(sysUser);//设置用户基本信息
+
+        List<SysRole> sysRoles = sysUserRoleDao.listSysRolesByUserId(sysUser.getId());
+        sysUserInfoDo.setRoles(sysRoles);//设置用户角色信息
+
+        if (sysUser.getSchoolId() != null){
+            //设置用户学校信息
+            School school = schoolDao.getSchool(sysUser.getSchoolId());
+            sysUserInfoDo.setSchool(school);
+        }
+        return sysUserInfoDo;
     }
 }

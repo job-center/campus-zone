@@ -51,8 +51,7 @@
     <div class="col-md-12">
         <div class="blank-form-actions">
             <a class="btn green" href="#" id="createAccount"><i
-                    class="fa fa-plus"></i>创建</a> <a class="btn blue" href="#"
-                                                     id="deleteAccountBatch"><i class="fa fa-times"></i>删除</a>
+                    class="fa fa-plus"></i>创建</a>
         </div>
     </div>
 </div>
@@ -77,9 +76,13 @@
                                 <span><input type="checkbox" id="selectAll"></span>
                             </div>
                         </th>
-                        <th style="width: 5%;">id</th>
-                        <th style="width: 5%;">姓名</th>
-                        <th style="width: 5%;">手机</th>
+                        <th style="width: 15%;">id</th>
+                        <th style="width: 15%;">姓名</th>
+                        <th style="width: 15%;">性别</th>
+                        <th style="width: 15%;">手机</th>
+                        <th style="width: 15%;">email</th>
+                        <th style="width: 15%;">学校</th>
+                        <th style="width: 10%;">操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -91,7 +94,13 @@
                             </td>
                             <td><a href="/account/index?account_id=${item.sysUser.id }">${item.sysUser.id}</a></td>
                             <td>${item.sysUser.name}</td>
+                            <td>${item.sex} </td>
                             <td>${item.sysUser.phonenumber}</td>
+                            <td>${item.sysUser.email}</td>
+                            <td><c:if test="${not empty item.school}">${item.school.name}</c:if> </td>
+                            <td><a class="btn default btn-xs blue-stripe" href="#"
+                                   name="editSysUser" data="${item.sysUser.id}"><i
+                                    class="fa fa-edit"></i> 查看详细</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -106,6 +115,6 @@
 
 <input type="hidden" id="ctxUrl" value="${ctx}" />
 <!-- PAGE LEVEL JS REFERENCES -->
-<script src="${ctx}/resources/scripts/pages/account/accountList.js"
+<script src="${ctx}/resources/scripts/pages/sys/accountList.js"
         type="text/javascript"></script>
 </body>

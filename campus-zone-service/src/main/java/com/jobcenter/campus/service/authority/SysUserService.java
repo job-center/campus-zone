@@ -10,5 +10,7 @@ import com.jobcenter.campus.model.Page;
  */
 public interface SysUserService {
 
-    public Page<SysUserInfoDo> listSysUserInfos(Seed seed);
+    Page<SysUserInfoDo> listSysUserInfos(Seed seed);
+
+    SysUserInfoDo getSysUserInfo(Integer sysUserId);
 }

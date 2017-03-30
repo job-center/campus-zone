@@ -21,4 +21,6 @@ public interface SysUserDao {
 
     Page<SysUser> listSysUsers(SysUserQuery query,boolean countAll);
 
+    SysUser getSysUserById(Integer sysUserId);
+
 }

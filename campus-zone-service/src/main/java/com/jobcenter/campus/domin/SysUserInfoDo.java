@@ -3,6 +3,7 @@ package com.jobcenter.campus.domin;
 import com.jobcenter.campus.entity.School;
 import com.jobcenter.campus.entity.SysRole;
 import com.jobcenter.campus.entity.SysUser;
+import com.jobcenter.campus.model.SexEnum;
 
 import java.util.List;
 
@@ -38,4 +39,15 @@ public class SysUserInfoDo {
     public void setSchool(School school) {
         this.school = school;
     }
+
+    public String getSex(){
+        if (sysUser != null){
+            SexEnum sexEnum = SexEnum.parseSexEnum(sysUser.getSex());
+            if (sexEnum != null){
+                return sexEnum.getDesc();
+            }
+        }
+        return "";
+    }
+
 }
