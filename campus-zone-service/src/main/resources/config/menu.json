@@ -3,7 +3,7 @@
 	"children":[
         {
           "name": "用户管理",
-          "url": "/account/list"
+          "url": "/v1/sysusers"
         },
         {
           "name":"编码管理",

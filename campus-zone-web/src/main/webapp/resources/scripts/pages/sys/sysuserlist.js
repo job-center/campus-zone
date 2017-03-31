@@ -4,20 +4,25 @@ var SysUserList=function(){
         init:function(){
             //init page param
 
-            $("#createAccount").click(function(){
-                var url =  $("#setOptionUrl").val() + "index";
-                window.location.href=url;
+            $("#createsysuser").click(function(){
+                $("#div_sysuser_add").modal();
             });
 
             $("a[name=editSysUser]").click(function(){
                 var url = "/v1/sysuser/" + $(this).attr("accountId");
                 window.location.href=url;
+            });
+
+            $("#btnAddSysUser").click(function () {
+                console.info("OK");
             })
 
         },
+
         search:function(){
             $("#form_search").submit();
         }
+
     };
 }();
 
@@ -41,5 +46,5 @@ function Trim(str,is_global)
 
 
 $(function(){
-    ZuesAccount.init();
+    SysUserList.init();
 })

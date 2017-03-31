@@ -193,6 +193,10 @@ public class Seed<T> extends BaseEntity {
         this.queryStr = queryStringList.toString();
     }
 
+    public Map<String, String> getQueryData() {
+        return queryData;
+    }
+
     public String getString(String name) {
         if (MapUtils.isNotEmpty(queryData) && queryData.containsKey(name)) {
             return queryData.get(name);
@@ -220,4 +224,6 @@ public class Seed<T> extends BaseEntity {
         }
         return null;
     }
+
+
 }

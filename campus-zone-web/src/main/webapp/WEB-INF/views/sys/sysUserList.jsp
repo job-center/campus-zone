@@ -21,28 +21,23 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-actions">
-            <%--<form id="form_search" class="form-horizontal"--%>
-                  <%--action="/account/list" method="GET">--%>
-                <%--<div class="form-group">--%>
-                    <%--<label class="col-md-1 control-label">昵称: </label>--%>
-                    <%--<div class="col-md-3">--%>
-                        <%--<input type="text" id="nameQ"--%>
-                               <%--class="form-control input-medium input-inline" name="nameQ"--%>
-                               <%--placeholder="Input name" value="${seed.filter['nameQ']}" />--%>
-                    <%--</div>--%>
-                    <%--<label class="col-md-1 control-label">手机号: </label>--%>
-                    <%--<div class="col-md-3">--%>
-                        <%--<input type="text" id="mobileQ"--%>
-                               <%--class="form-control input-medium input-inline" name="mobileQ"--%>
-                               <%--placeholder="Input mobile" value="${seed.filter['mobileQ']}" />--%>
-                    <%--</div>--%>
-                    <%--<div class="pull-right">--%>
-                        <%--<a href="javascript:ZuesAccount.search();" class="btn dark">搜索--%>
-                            <%--<i class="fa fa-search"></i>--%>
-                        <%--</a>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</form>--%>
+            <form id="form_search" class="form-horizontal"
+                  action="/v1/sysusers" method="GET">
+                <div class="form-group">
+
+                    <div class="col-md-3">
+                        <input type="text" id="nameQ"
+                               class="form-control input-medium input-inline" name="name"
+                               placeholder="Input name" value="${seed.queryData['name']}" />
+                    </div>
+
+                    <div class="pull-right">
+                        <a href="javascript:SysUserList.search();" class="btn dark">搜索
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -50,7 +45,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="blank-form-actions">
-            <a class="btn green" href="#" id="createAccount"><i
+            <a class="btn green" href="#" id="createsysuser"><i
                     class="fa fa-plus"></i>创建</a>
         </div>
     </div>
@@ -111,10 +106,49 @@
     </div>
 </div>
 
-<input type="hidden" id="setOptionUrl" value="${ctx}/account/" />
+<!-- Modal 添加管理员 -->
+<div class="modal fade" id="div_sysuser_add" tabindex="-1" role="dialog"
+     aria-labelledby="myModalTitle" aria-hidden="true">
+    <div class="modal-dialog" style="width: 500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalTitle">添加系统用户</h4>
+            </div>
+            <form id="add_admin_form">
+                <table align="center">
+                    <tr style="height: 50px">
+                        <td>name：</td>
+                        <td>
+                            <input type="text" name="name" id="name"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>角色：</td>
+                        <td>
+                            <select class="form-control" name="roleid"
+                                    id="roleid">
+                                <option value="0">超级管理员</option>
+                                <option value="1" selected>管理员</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary do_audit"
+                            id="btnAddSysUser">添加
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <input type="hidden" id="ctxUrl" value="${ctx}" />
 <!-- PAGE LEVEL JS REFERENCES -->
-<script src="${ctx}/resources/scripts/pages/sys/accountList.js"
+<script src="${ctx}/resources/scripts/pages/sys/sysuserlist.js"
         type="text/javascript"></script>
 </body>
