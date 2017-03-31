@@ -1,17 +1,17 @@
-package com.jobcenter.campus.service.authority.impl;
+package com.jobcenter.campus.service.authority.user.impl;
 
 import com.google.common.collect.Lists;
-import com.jobcenter.campus.dao.SchoolDao;
-import com.jobcenter.campus.dao.SysUserDao;
-import com.jobcenter.campus.dao.SysUserRoleDao;
+import com.jobcenter.campus.dao.authority.school.SchoolDao;
+import com.jobcenter.campus.dao.authority.user.SysUserDao;
+import com.jobcenter.campus.dao.authority.user.SysUserRoleDao;
 import com.jobcenter.campus.domin.SysUserInfoDo;
 import com.jobcenter.campus.domin.page.Seed;
-import com.jobcenter.campus.entity.School;
-import com.jobcenter.campus.entity.SysRole;
-import com.jobcenter.campus.entity.SysUser;
+import com.jobcenter.campus.entity.authority.school.School;
+import com.jobcenter.campus.entity.authority.role.SysRole;
+import com.jobcenter.campus.entity.authority.user.SysUser;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SysUserQuery;
-import com.jobcenter.campus.service.authority.SysUserService;
+import com.jobcenter.campus.service.authority.user.SysUserService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

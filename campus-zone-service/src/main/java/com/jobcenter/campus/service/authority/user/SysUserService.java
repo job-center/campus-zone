@@ -1,8 +1,7 @@
-package com.jobcenter.campus.service.authority;
+package com.jobcenter.campus.service.authority.user;
 
 import com.jobcenter.campus.domin.SysUserInfoDo;
 import com.jobcenter.campus.domin.page.Seed;
-import com.jobcenter.campus.entity.SysUser;
 import com.jobcenter.campus.model.Page;
 
 /**

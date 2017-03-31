@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jobcenter.campus.mapper.GeographyMapper">
-  <resultMap id="BaseResultMap" type="com.jobcenter.campus.entity.Geography">
+  <resultMap id="BaseResultMap" type="com.jobcenter.campus.entity.authority.geo.Geography">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="father_id" jdbcType="INTEGER" property="fatherId" />
@@ -68,7 +68,7 @@
   <sql id="Base_Column_List">
     id, type, father_id, name
   </sql>
-  <select id="selectByExample" parameterType="com.jobcenter.campus.entity.GeographyExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.jobcenter.campus.entity.authority.geo.GeographyExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -92,13 +92,13 @@
     delete from geography
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.jobcenter.campus.entity.GeographyExample">
+  <delete id="deleteByExample" parameterType="com.jobcenter.campus.entity.authority.geo.GeographyExample">
     delete from geography
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.jobcenter.campus.entity.Geography">
+  <insert id="insert" parameterType="com.jobcenter.campus.entity.authority.geo.Geography">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -107,7 +107,7 @@
     values (#{type,jdbcType=TINYINT}, #{fatherId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.jobcenter.campus.entity.Geography">
+  <insert id="insertSelective" parameterType="com.jobcenter.campus.entity.authority.geo.Geography">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.jobcenter.campus.entity.GeographyExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.jobcenter.campus.entity.authority.geo.GeographyExample" resultType="java.lang.Integer">
     select count(*) from geography
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -171,7 +171,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.jobcenter.campus.entity.Geography">
+  <update id="updateByPrimaryKeySelective" parameterType="com.jobcenter.campus.entity.authority.geo.Geography">
     update geography
     <set>
       <if test="type != null">
@@ -186,7 +186,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.jobcenter.campus.entity.Geography">
+  <update id="updateByPrimaryKey" parameterType="com.jobcenter.campus.entity.authority.geo.Geography">
     update geography
     set type = #{type,jdbcType=TINYINT},
       father_id = #{fatherId,jdbcType=INTEGER},

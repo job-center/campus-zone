@@ -1,11 +1,8 @@
-package com.jobcenter.campus.dao;
+package com.jobcenter.campus.dao.authority.user;
 
-import com.jobcenter.campus.entity.SysRole;
-import com.jobcenter.campus.entity.SysUser;
+import com.jobcenter.campus.entity.authority.user.SysUser;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SysUserQuery;
-
-import java.util.List;
 
 /**
  * Created by xiayun on 26/3/17.

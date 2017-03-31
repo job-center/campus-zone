@@ -1,7 +1,7 @@
 package com.jobcenter.campus.mapper;
 
-import com.jobcenter.campus.entity.Geography;
-import com.jobcenter.campus.entity.GeographyExample;
+import com.jobcenter.campus.entity.authority.geo.Geography;
+import com.jobcenter.campus.entity.authority.geo.GeographyExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

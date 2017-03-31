@@ -1,6 +1,10 @@
 package com.jobcenter.campus.entity;
 
 import com.google.common.collect.Lists;
+import com.jobcenter.campus.entity.authority.role.SysRoleExample;
+import com.jobcenter.campus.entity.authority.school.SchoolExample;
+import com.jobcenter.campus.entity.authority.user.SysUserExample;
+import com.jobcenter.campus.query.SchoolQuery;
 import com.jobcenter.campus.query.SysRoleQuery;
 import com.jobcenter.campus.query.SysUserQuery;
 import org.apache.commons.collections.CollectionUtils;
@@ -59,6 +63,44 @@ public class ExampleConvertor {
             }
             if (StringUtils.isNotBlank(sysRoleQuery.getOderByClause())){
                 example.setOrderByClause(sysRoleQuery.getOderByClause());
+            }
+        }
+        return example;
+    }
+
+    public static SchoolExample convertSchoolExample(SchoolQuery schoolQuery){
+        SchoolExample example = new SchoolExample();
+        SchoolExample.Criteria criteria = example.createCriteria();
+        if (schoolQuery != null){
+            if (schoolQuery.getId() != null){
+                criteria.andIdEqualTo(schoolQuery.getId());
+            }
+            if (CollectionUtils.isNotEmpty(schoolQuery.getIds())){
+                criteria.andIdIn(Lists.newArrayList(schoolQuery.getIds()));
+            }
+            if (StringUtils.isNotBlank(schoolQuery.getAddress())){
+                criteria.andAddressEqualTo(schoolQuery.getAddress());
+            }
+            if (StringUtils.isNotBlank(schoolQuery.getFullName())){
+                criteria.andFullNameEqualTo(schoolQuery.getFullName());
+            }
+            if (StringUtils.isNotBlank(schoolQuery.getName())){
+                criteria.andNameEqualTo(schoolQuery.getName());
+            }
+            if (StringUtils.isNotBlank(schoolQuery.getPersonCharge())){
+                criteria.andPersonChargeEqualTo(schoolQuery.getPersonCharge());
+            }
+            if (StringUtils.isNotBlank(schoolQuery.getPostcode())){
+                criteria.andPostcodeEqualTo(schoolQuery.getPostcode());
+            }
+            if (schoolQuery.getGeoraphyId() != null){
+                criteria.andGeographyIdEqualTo(schoolQuery.getGeoraphyId());
+            }
+            if (schoolQuery.getType() != null){
+                criteria.andTypeEqualTo(schoolQuery.getType());
+            }
+            if (StringUtils.isNotBlank(schoolQuery.getOderByClause())){
+                example.setOrderByClause(schoolQuery.getOderByClause());
             }
         }
         return example;

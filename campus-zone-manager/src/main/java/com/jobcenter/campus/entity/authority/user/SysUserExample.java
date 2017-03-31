@@ -1,4 +1,4 @@
-package com.jobcenter.campus.entity;
+package com.jobcenter.campus.entity.authority.user;
 
 import java.util.ArrayList;
 import java.util.List;

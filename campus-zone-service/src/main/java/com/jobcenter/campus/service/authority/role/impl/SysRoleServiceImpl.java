@@ -3,7 +3,7 @@ package com.jobcenter.campus.service.authority.role.impl;
 import com.google.common.collect.Lists;
 import com.jobcenter.campus.dao.authority.role.SysRoleDao;
 import com.jobcenter.campus.domin.page.Seed;
-import com.jobcenter.campus.entity.SysRole;
+import com.jobcenter.campus.entity.authority.role.SysRole;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SysRoleQuery;
 import com.jobcenter.campus.service.authority.role.SysRoleService;

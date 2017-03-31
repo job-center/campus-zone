@@ -1,17 +1,15 @@
-package com.jobcenter.campus.dao.impl;
+package com.jobcenter.campus.dao.authority.user.impl;
 
-import com.jobcenter.campus.dao.SysUserDao;
+import com.jobcenter.campus.dao.authority.user.SysUserDao;
 import com.jobcenter.campus.entity.ExampleConvertor;
-import com.jobcenter.campus.entity.SysUser;
-import com.jobcenter.campus.entity.SysUserExample;
+import com.jobcenter.campus.entity.authority.user.SysUser;
+import com.jobcenter.campus.entity.authority.user.SysUserExample;
 import com.jobcenter.campus.intercepter.PageMybtisIntercepter;
 import com.jobcenter.campus.mapper.SysUserMapper;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SysUserQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * Created by xiayun on 26/3/17.

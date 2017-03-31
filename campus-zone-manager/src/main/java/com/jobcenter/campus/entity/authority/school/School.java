@@ -1,4 +1,4 @@
-package com.jobcenter.campus.entity;
+package com.jobcenter.campus.entity.authority.school;
 
 public class School {
     private Integer id;

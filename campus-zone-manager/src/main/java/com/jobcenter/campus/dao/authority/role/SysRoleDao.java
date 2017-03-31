@@ -1,6 +1,6 @@
 package com.jobcenter.campus.dao.authority.role;
 
-import com.jobcenter.campus.entity.SysRole;
+import com.jobcenter.campus.entity.authority.role.SysRole;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SysRoleQuery;
 

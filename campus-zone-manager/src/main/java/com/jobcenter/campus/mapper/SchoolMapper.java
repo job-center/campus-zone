@@ -1,7 +1,7 @@
 package com.jobcenter.campus.mapper;
 
-import com.jobcenter.campus.entity.School;
-import com.jobcenter.campus.entity.SchoolExample;
+import com.jobcenter.campus.entity.authority.school.School;
+import com.jobcenter.campus.entity.authority.school.SchoolExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

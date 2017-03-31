@@ -1,7 +1,7 @@
 package com.jobcenter.campus.mapper;
 
-import com.jobcenter.campus.entity.SysRole;
-import com.jobcenter.campus.entity.SysRoleExample;
+import com.jobcenter.campus.entity.authority.role.SysRole;
+import com.jobcenter.campus.entity.authority.role.SysRoleExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

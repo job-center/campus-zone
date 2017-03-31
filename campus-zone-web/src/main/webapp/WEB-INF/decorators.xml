@@ -10,8 +10,8 @@
     </excludes>
     <decorator name="activity" page="activity-layout.jsp">
         <pattern>/v1/sysusers</pattern>
-        <pattern>/account/*</pattern>
-        <pattern>/address/*</pattern>
+        <pattern>/v1/roleinfos</pattern>
+        <pattern>/v1/schools</pattern>
         <pattern>/animal/*</pattern>
         <pattern>/room/*</pattern>
         <pattern>/course/*</pattern>

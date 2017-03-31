@@ -1,4 +1,4 @@
-package com.jobcenter.campus.entity;
+package com.jobcenter.campus.entity.authority.role;
 
 public class SysRole {
     private Integer id;

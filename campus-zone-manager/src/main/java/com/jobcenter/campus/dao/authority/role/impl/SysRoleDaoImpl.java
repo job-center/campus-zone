@@ -2,6 +2,8 @@ package com.jobcenter.campus.dao.authority.role.impl;
 
 import com.jobcenter.campus.dao.authority.role.SysRoleDao;
 import com.jobcenter.campus.entity.*;
+import com.jobcenter.campus.entity.authority.role.SysRole;
+import com.jobcenter.campus.entity.authority.role.SysRoleExample;
 import com.jobcenter.campus.intercepter.PageMybtisIntercepter;
 import com.jobcenter.campus.mapper.SysRoleMapper;
 import com.jobcenter.campus.model.Page;

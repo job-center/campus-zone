@@ -1,0 +1,52 @@
+package com.jobcenter.campus.service.authority.school.impl;
+
+import com.google.common.collect.Lists;
+import com.jobcenter.campus.dao.authority.school.SchoolDao;
+import com.jobcenter.campus.domin.page.Seed;
+import com.jobcenter.campus.entity.authority.school.School;
+import com.jobcenter.campus.model.Page;
+import com.jobcenter.campus.query.SchoolQuery;
+import com.jobcenter.campus.service.authority.school.SchoolService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+
+import java.util.List;
+
+/**
+ * <p>
+ * <br>==========================
+ * <br> company：job-center
+ * <br> system：campus-zone
+ * <br> User：lzy.clement
+ * <br> Date：31/03/2017
+ * <br>==========================
+ */
+@Service
+public class SchoolServiceImpl implements SchoolService{
+
+    @Autowired
+    private SchoolDao schoolDao;
+
+    @Override
+    public Page<School> listSchoolInfos(Seed seed) {
+        Assert.notNull(seed,"查詢參數seed不能为null");
+        SchoolQuery schoolQuery = new SchoolQuery();
+        schoolQuery.setPageSize(seed.getPageSize());
+        schoolQuery.setPageNum(seed.getPageNumber());
+        if (StringUtils.isNotBlank(seed.getString("name"))){
+            schoolQuery.setName(seed.getString("name"));
+        }
+
+        Page<School> schoolPage = schoolDao.listSchools(schoolQuery);
+        Page<School> result = new Page<>(schoolPage.getPageNum(),schoolPage.getPageSize(),schoolPage.getTotal());
+        List<School> list = Lists.newArrayList();
+        if (CollectionUtils.isNotEmpty(schoolPage.getResult())){
+            list = schoolPage.getResult();
+        }
+        result.setResult(list);
+        return result;
+    }
+}

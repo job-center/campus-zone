@@ -1,8 +1,8 @@
 package com.jobcenter.campus.domin;
 
-import com.jobcenter.campus.entity.School;
-import com.jobcenter.campus.entity.SysRole;
-import com.jobcenter.campus.entity.SysUser;
+import com.jobcenter.campus.entity.authority.school.School;
+import com.jobcenter.campus.entity.authority.role.SysRole;
+import com.jobcenter.campus.entity.authority.user.SysUser;
 import com.jobcenter.campus.model.SexEnum;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.jobcenter.campus.service.authority;
 
-import com.jobcenter.campus.entity.SysUser;
+import com.jobcenter.campus.entity.authority.user.SysUser;
 
 /**
  * 登录/权限相关业务

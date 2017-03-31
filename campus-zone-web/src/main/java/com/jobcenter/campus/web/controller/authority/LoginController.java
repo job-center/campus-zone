@@ -1,7 +1,7 @@
 package com.jobcenter.campus.web.controller.authority;
 
 import com.jobcenter.campus.common.common.CommonConstant;
-import com.jobcenter.campus.entity.SysUser;
+import com.jobcenter.campus.entity.authority.user.SysUser;
 import com.jobcenter.campus.service.authority.AuthService;
 import com.jobcenter.campus.web.domin.APIResponse;
 import org.slf4j.Logger;

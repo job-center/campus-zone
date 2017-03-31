@@ -1,10 +1,10 @@
-package com.jobcenter.campus.dao.impl;
+package com.jobcenter.campus.dao.authority.user.impl;
 
 import com.google.common.collect.Lists;
-import com.jobcenter.campus.dao.SysUserRoleDao;
-import com.jobcenter.campus.entity.SysRole;
-import com.jobcenter.campus.entity.SysUserRole;
-import com.jobcenter.campus.entity.SysUserRoleExample;
+import com.jobcenter.campus.dao.authority.user.SysUserRoleDao;
+import com.jobcenter.campus.entity.authority.role.SysRole;
+import com.jobcenter.campus.entity.authority.user.SysUserRole;
+import com.jobcenter.campus.entity.authority.user.SysUserRoleExample;
 import com.jobcenter.campus.mapper.SysRoleMapper;
 import com.jobcenter.campus.mapper.SysUserMapper;
 import com.jobcenter.campus.mapper.SysUserRoleMapper;
