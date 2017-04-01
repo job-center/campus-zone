@@ -107,32 +107,60 @@
 </div>
 
 <!-- Modal 添加管理员 -->
-<div class="modal fade" id="div_sysuser_add" tabindex="-1" role="dialog"
-     aria-labelledby="myModalTitle" aria-hidden="true">
+<div class="modal fade" id="div_sysuser_add">
     <div class="modal-dialog" style="width: 500px">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
                         aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalTitle">添加系统用户</h4>
+                <h4 class="modal-title" id="myModalTitle">添加系统用户基本信息</h4>
             </div>
             <form id="add_admin_form">
                 <table align="center">
                     <tr style="height: 50px">
-                        <td>name：</td>
+                        <td>昵称：</td>
                         <td>
                             <input type="text" name="name" id="name"
                                    size="30" style="height: 35px"/>
                         </td>
                     </tr>
                     <tr style="height: 50px">
-                        <td>角色：</td>
+                        <td>姓名：</td>
                         <td>
-                            <select class="form-control" name="roleid"
-                                    id="roleid">
-                                <option value="0">超级管理员</option>
-                                <option value="1" selected>管理员</option>
+                            <input type="text" name="realName" id="realName"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>密码：</td>
+                        <td>
+                            <input type="text" name="passWord" id="passWord"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>性别：</td>
+                        <td>
+                            <select class="form-control" name="sex"
+                                    id="sex">
+                                <option disabled="true" selected>请选择</option>
+                                <option value="0">男</option>
+                                <option value="1">女</option>
                             </select>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>手机号：</td>
+                        <td>
+                            <input type="text" name="phoneNumber" id="phoneNumber"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>email：</td>
+                        <td>
+                            <input type="text" name="email" id="email"
+                                   size="30" style="height: 35px"/>
                         </td>
                     </tr>
                 </table>

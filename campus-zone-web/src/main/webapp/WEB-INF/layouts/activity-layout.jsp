@@ -22,6 +22,12 @@
 
     <sitemesh:head />
 
+    <style type="text/css">
+        .modal{
+            z-index: 1050;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -87,5 +93,23 @@
     </div>
 </div>
 <%@ include file="/WEB-INF/layouts/footer/footer.jsp"%>
+
+
+<script >
+    $(document).ready(function () {
+
+        // 通过该方法来为每次弹出的模态框设置最新的zIndex值，从而使最新的modal显示在最前面
+        $(document).on('show.bs.modal', '.modal', function (event) {
+            var n = $(this).css('z-index');
+            if (n == null || n == ""){n=1050;}
+            var zIndex = parseInt(1050) + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            // setTimeout(function() {
+            //     $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            // }, 0);
+        });
+    });
+
+</script>
 </body>
 </html>

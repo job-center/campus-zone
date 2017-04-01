@@ -1,5 +1,11 @@
 var SysUserList=function(){
 
+    var checkNull = function (text,msg) {
+        if (text == null || text == ""){
+            alert(msg);
+            return false;
+        }
+    }
     return{
         init:function(){
             //init page param
@@ -14,7 +20,54 @@ var SysUserList=function(){
             });
 
             $("#btnAddSysUser").click(function () {
-                console.info("OK");
+                var name = $("#name").val();
+                var passWord = $("#passWord").val();
+                var realName = $("#realName").val();
+                var sex = $("#sex").val();
+                var phoneNumber = $("#phoneNumber").val();
+                var email = $("#email").val();
+
+                if (name == null || name == ""){
+                    alert("姓名不能为空");
+                    return false;
+                }
+                if (passWord == null || passWord == ""){
+                    alert("密码不能为空");
+                    return false;
+                }
+                reg = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                if (email != null && email != "") {
+                    if (!reg.test(email)) {
+                        alert("请输入正确的邮箱");
+                        return;
+                    }
+                }
+
+                $.ajax({
+                    url : "/v1/sysuser",
+                    type : "POST",
+                    data : $("#IndexForm").serialize(),
+                    success : function(result) {
+                        $.cookie.json = true;
+                        if (result.success) {
+                            $.cookie('action-message', {
+                                action : "success",
+                                message : result.detail
+                            });
+                        } else {
+                            $.cookie('action-message', {
+                                action : "error",
+                                message : result.detail
+                            });
+                        }
+                        window.location.href = "/v1/sysusers";
+                        // window.location.reload();
+                    },
+                    failure : function(result) {
+                        alert("操作失败", result.detail);
+                    }
+                });
+                console.info($("#sex").val());
             })
 
         },

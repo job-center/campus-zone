@@ -1275,7 +1275,7 @@ Bootstrap modal
 ***/
 
 .modal {
-  z-index: 10050 !important;
+  z-index: 1050;
   outline: none !important;
 }
 
@@ -1327,7 +1327,7 @@ Modal header close button fix
 .modal-backdrop {
   border: 0 !important;
   outline: none !important;
-  z-index: 10049 !important;
+  z-index: 1001 !important;
 }
 
 .modal-backdrop, 

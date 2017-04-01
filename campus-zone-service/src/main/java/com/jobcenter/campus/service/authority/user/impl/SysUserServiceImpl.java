@@ -65,6 +65,11 @@ public class SysUserServiceImpl implements SysUserService {
         return sysUserInfoDo;
     }
 
+    @Override
+    public boolean createSysUser(SysUser sysUser) {
+        return sysUserDao.createSysUser(sysUser);
+    }
+
     private SysUserInfoDo assembleSysUserInfo(SysUser sysUser){
         if (sysUser == null){
             return null;

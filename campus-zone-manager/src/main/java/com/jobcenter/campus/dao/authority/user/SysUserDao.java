@@ -20,4 +20,5 @@ public interface SysUserDao {
 
     SysUser getSysUserById(Integer sysUserId);
 
+    boolean createSysUser(SysUser sysUser);
 }

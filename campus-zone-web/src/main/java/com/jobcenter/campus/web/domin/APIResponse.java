@@ -2,6 +2,7 @@ package com.jobcenter.campus.web.domin;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.jobcenter.campus.common.common.BaseEntity;
+import com.jobcenter.campus.common.common.ResultEnum;
 import com.jobcenter.campus.common.utils.JsonMapper;
 
 /**
@@ -16,6 +17,17 @@ public class APIResponse<T> extends BaseEntity {
     private String msg;
     private int code;
     private Boolean success;
+
+    public APIResponse() {
+    }
+
+    public APIResponse(ResultEnum result) {
+        if (result != null) {
+            this.msg = result.getMessage();
+            this.code = result.getCode();
+            this.success = result.isSuccess();
+        }
+    }
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;

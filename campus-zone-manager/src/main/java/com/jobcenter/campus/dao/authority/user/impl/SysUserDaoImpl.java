@@ -40,4 +40,10 @@ public class SysUserDaoImpl implements SysUserDao {
         return sysUserMapper.selectByPrimaryKey(sysUserId);
     }
 
+    @Override
+    public boolean createSysUser(SysUser sysUser) {
+        int record = sysUserMapper.insert(sysUser);
+        return record > 0;
+    }
+
 }
