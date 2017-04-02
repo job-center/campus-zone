@@ -54,6 +54,7 @@ public class SysUserController {
         SysUserInfoDo sysUserInfoDo = sysUserService.getSysUserInfo(id);
 
         ModelAndView mav = new ModelAndView("/sys/sysUserIndex");
+        mav.addObject("sysuserinfo",sysUserInfoDo);
         return mav;
     }
 

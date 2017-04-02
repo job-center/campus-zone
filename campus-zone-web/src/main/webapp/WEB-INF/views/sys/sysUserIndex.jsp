@@ -1,6 +1,6 @@
-<%@page contentType="text/html;charset=UTF-8"%>
-<%@page pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/layouts/fragment/taglib.jsp"%>
+<%@page contentType="text/html;charset=UTF-8" %>
+<%@page pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/layouts/fragment/taglib.jsp" %>
 
 
 <head>
@@ -8,18 +8,18 @@
     <script type="text/javascript"
             src="${ctx }/resources/third-party/metronic/assets/plugins/select2/select2.min.js"></script>
     <link rel="stylesheet" type="text/css"
-          href="${ctx }/resources/third-party/metronic/assets/plugins/select2/select2.css" />
+          href="${ctx }/resources/third-party/metronic/assets/plugins/select2/select2.css"/>
     <link rel="stylesheet" type="text/css"
-          href="${ctx }/resources/third-party/metronic/assets/plugins/select2/select2-metronic.css" />
+          href="${ctx }/resources/third-party/metronic/assets/plugins/select2/select2-metronic.css"/>
 </head>
 <body>
 <div class="row">
     <div class="col-md-12">
-        <h3 class="page-title">用户管理</h3>
+        <h3 class="page-title">系统用户管理</h3>
         <ul class="page-breadcrumb breadcrumb">
-            <li><i class="fa fa-home"></i> <span> 用户管理</span> <i
+            <li><i class="fa fa-home"></i> <span> 系统用户管理</span> <i
                     class="fa fa-angle-right"></i></li>
-            <li><span> 用户 Index </span></li>
+            <li><span> 用户详细信息</span></li>
 
         </ul>
     </div>
@@ -27,236 +27,115 @@
 
 <div class="row">
     <div class="col-md-12">
-        <form class="form-horizontal form-row-seperated" action="#"
-              id="IndexForm" enctype="multipart/form-data" method="post">
-            <div class="portlet">
-                <div class="portlet-title">
-                    <div class="caption">
-                        <i class="fa fa-calendar"></i>创建用户
-                    </div>
+        <div class="portlet">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-calendar"></i>系统用户
                 </div>
-                <div class="portlet-body">
-                    <div class="tabbable">
-                        <div class="tab-content no-space">
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable">
+                    <div class="tab-content no-space">
+                        <div class="form-horizontal form-row-seperated">
                             <div class="form-body">
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">昵称: <span
-                                            class="required"> * </span>
+                                    <label class="col-md-2 control-label">昵称:
                                     </label>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" name="uniqname"
-                                               id="uniqname" placeholder="请输入用户昵称"
-                                               value="${account.uniqname}"> <span
-                                            class="help-block display-hide" id="errorInfoName">请输入用户昵称!</span>
-                                        <span class="label label-warning"> 最长128个字符. </span>
-
+                                        ${sysuserinfo.sysUser.name}
+                                        <input type="hidden" value="${sysuserinfo.sysUser.id}" id="sysuserid">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">性别: <span
-                                            class="required"> * </span>
+                                    <label class="col-md-2 control-label">姓名:
                                     </label>
                                     <div class="col-md-10">
-                                        <select
-                                                class="table-group-action-input form-control input-medium select2me"
-                                                name="gender" id="gender">
-                                            <c:forEach var="genderEntry" items="${allGender}">
-
-                                                <option value="${genderEntry.value.id }"
-                                                        <c:choose>
-                                                            <c:when test='${empty account }'>
-                                                                <c:if test='${genderEntry.value.desc eq "All"}'>selected</c:if>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <c:if test='${genderEntry.value.id eq account.gender}'>selected</c:if>
-                                                            </c:otherwise>
-                                                        </c:choose>>${genderEntry.value.desc}
-
-                                                </option>
-                                            </c:forEach>
-
-                                        </select> <span class="help-block display-hide" id="errorInfoGender">请选择性别!</span>
+                                        ${sysuserinfo.sysUser.realname}
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">用户地址: </label>
-                                    <div class="col-md-10">
-                                        <div class="col-md-3">
-                                            <!-- province -->
-                                            <select
-                                                    class="table-group-action-input form-control input-medium select2me"
-                                                    name="province_id" id="province_id">
-                                                <c:forEach var="item" items="${allProvince }">
-                                                    <option value="${item.id }"
-                                                            <c:choose>
-                                                                <c:when test='${empty account }'>
-                                                                    <c:if test='${item.id eq -1}'>selected</c:if>
-                                                                </c:when>
-                                                                <c:otherwise>
-                                                                    <c:if test='${item.id eq account.province_id}'>selected</c:if>
-                                                                </c:otherwise>
-                                                            </c:choose>>
-                                                            ${item.name }</option>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <!-- city -->
-                                            <select
-                                                    class="table-group-action-input form-control input-medium select2me"
-                                                    name="city_id" id="city_id">
-                                                <c:if test="${!empty account }">
-                                                    <option value="${account.city_id }">${account.city }</option>
-                                                </c:if>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <!-- area -->
-                                            <select
-                                                    class="table-group-action-input form-control input-medium select2me"
-                                                    name="area_id" id="area_id">
-                                                <c:if test="${!empty account }">
-                                                    <option value="${account.area_id }">${account.area }</option>
-                                                </c:if>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">详细地址:
+                                    <label class="col-md-2 control-label">性别:
                                     </label>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" id="address"
-                                               name="address" value="${account.address}"> <span
-                                            class="help-block display-hide" id="errorInfoAddress">请输入用户地址!</span>
+                                        ${sysuserinfo.sex}
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">手机: <span
-                                            class="required"> * </span>
+                                    <label class="col-md-2 control-label">手机号:
                                     </label>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" id="mobile"
-                                               name="mobile" value="${account.mobile }"> <span
-                                            class="help-block display-hide" id="errorInfoMobile">请输入用户手机号!</span>
+                                    <div class="col-md-10">
+                                        ${sysuserinfo.sysUser.phonenumber}
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">邮箱: <span
-                                            class="required"> * </span>
+                                    <label class="col-md-2 control-label">email:
                                     </label>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" id="email"
-                                               name="email" value="${account.email }">
-                                        <span
-                                                class="help-block display-hide" id="errorInfoEmail">用户邮箱格式错误!</span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">用户真实姓名: <span
-                                            class="required"></span>
-                                    </label>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" id="real_name"
-                                               name="real_name" value="${account.real_name }">
-                                        <span
-                                                class="help-block display-hide" id="errorInfoRealName">请填写用户真实姓名!</span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label class="col-md-2 control-label">宠物姓名: <span
-                                            class="required"></span>
-                                    </label>
-                                    <div class="col-md-3">
-                                        <input type="text" class="form-control" id="animals_name"
-                                               name="animals_name" value="${account.animals_name }">
-                                        <span
-                                                class="help-block display-hide" id="errorInfoAnimalsName">请填写宠物名称!</span>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div style="text-align: center">
-                                        <input type="hidden" id="account_id" name="account_id"
-                                               value="${account.account_id}" /> <a href=""
-                                                                                   class="btn green" id="btnConfirm" name="btnConfirm">创建</a>
+                                    <div class="col-md-10">
+                                        ${sysuserinfo.sysUser.email}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div>
+
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="blank-form-actions">
+            <a class="btn green" href="#" id="addpower"><i
+                    class="fa fa-plus"></i>添加用户权限</a>
+            <a class="btn blue" href="#" id="removepawer"><i class="fa fa-remove"></i>删除用户权限</a>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped table-condensed flip-content">
+        <thead>
+        <tr>
+            <th style="width: 42px;">
+                <div>
+                    <span><input type="checkbox" id="selectAll"></span>
+                </div>
+            </th>
+            <td>角色名称</td>
+            <td>角色id</td>
+            <td>学校名称</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div class="">
+											<span><input class="" type="checkbox" id="test"
+                                                         value="1"> </span>
+                </div>
+            </td>
+            <td>11</td>
+            <td>11</td>
+            <td>11</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
-<input type="hidden" id="setOptionUrl" value="${ctx}/account/" />
 
-<input type="hidden" id="ctxUrl" value="${ctx}" />
+<input type="hidden" id="setOptionUrl" value="${ctx}/account/"/>
+
+<input type="hidden" id="ctxUrl" value="${ctx}"/>
 
 <input type="hidden" id="nameExists" value="0">
-<script src="${ctx}/resources/scripts/pages/account/accountIndex.js"
+<script src="${ctx}/resources/scripts/pages/sys/"
         type="text/javascript"></script>
 
-<script type="application/javascript">
-    $.ajax({
-        url : "/code/address/listAllSubAddress",
-        type : "GET",
-        data : 'parent_id=' + $("#province_id").val(),
-        success : function(result) {
-            var obj = eval(result);
-            for ( var p in obj.data) {
-                if(obj.data[p].id == ${account.city_id}) {
-//                        console.info("test");
-//                        $("#city_id").append(
-//                                "<option value='" + obj.data[p].id + "' selected >" + obj.data[p].name
-//                                        + "</option>");
-                } else{
-                    $("#city_id").append(
-                        "<option value='" + obj.data[p].id + "'>" + obj.data[p].name
-                        + "</option>");
-                }
-
-            }
-        },
-        failure : function(result) {
-            alert("操作失败", result.detail);
-        }
-    })
-    $.ajax({
-        url : "/code/address/listAllSubAddress",
-        type : "GET",
-        data : 'parent_id=' + $("#city_id").val(),
-        success : function(result) {
-            var obj = eval(result);
-            for ( var p in obj.data) {
-                if(obj.data[p].id == ${account.area_id}) {
-//                        console.info("test");
-//                        $("#city_id").append(
-//                                "<option value='" + obj.data[p].id + "' selected >" + obj.data[p].name
-//                                        + "</option>");
-                } else{
-                    $("#area_id").append(
-                        "<option value='" + obj.data[p].id + "'>" + obj.data[p].name
-                        + "</option>");
-                }
-
-            }
-        },
-        failure : function(result) {
-            alert("操作失败", result.detail);
-        }
-    })
-</script>
 
 </body>
 
