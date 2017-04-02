@@ -49,4 +49,9 @@ public class SchoolServiceImpl implements SchoolService{
         result.setResult(list);
         return result;
     }
+
+    @Override
+    public List<School> listAllSchools() {
+        return schoolDao.listAllSchools();
+    }
 }

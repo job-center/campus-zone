@@ -4,6 +4,8 @@ import com.jobcenter.campus.entity.authority.role.SysRole;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SysRoleQuery;
 
+import java.util.List;
+
 /**
  * <p>
  * <br>==========================
@@ -16,4 +18,6 @@ import com.jobcenter.campus.query.SysRoleQuery;
 public interface SysRoleDao {
 
     Page<SysRole> listSysRoles(SysRoleQuery query);
+
+    List<SysRole> listAllSysRoles();
 }

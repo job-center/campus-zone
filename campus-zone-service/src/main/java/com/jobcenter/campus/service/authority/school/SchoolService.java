@@ -4,6 +4,8 @@ import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.model.Page;
 
+import java.util.List;
+
 /**
  * <p>
  * <br>==========================
@@ -16,4 +18,6 @@ import com.jobcenter.campus.model.Page;
 public interface SchoolService {
 
     Page<School> listSchoolInfos(Seed seed);
+
+    List<School> listAllSchools();
 }

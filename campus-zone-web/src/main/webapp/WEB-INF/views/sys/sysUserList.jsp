@@ -5,6 +5,12 @@
 <head>
     <title>系统用户管理</title>
     <!-- PAGE LEVEL STYLE REFERENCES -->
+    <script type="text/javascript"
+            src="${ctx }/resources/third-party/metronic/assets/plugins/select2/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="${ctx }/resources/third-party/metronic/assets/plugins/select2/select2.css" />
+    <link rel="stylesheet" type="text/css"
+          href="${ctx }/resources/third-party/metronic/assets/plugins/select2/select2-metronic.css" />
 </head>
 <body>
 <div class="row">
@@ -95,7 +101,7 @@
                             <td><c:if test="${not empty item.school}">${item.school.name}</c:if> </td>
                             <td><a class="btn default btn-xs blue-stripe" href="#"
                                    name="editSysUser" data="${item.sysUser.id}"><i
-                                    class="fa fa-edit"></i> 查看详细</a></td>
+                                    class="fa fa-edit"></i> 详细</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -129,6 +135,17 @@
                         <td>
                             <input type="text" name="realname" id="realName"
                                    size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>学校：</td>
+                        <td>
+                            <select id="schoolId" name="schoolId">
+                                <option selected>-----------------请选择-------------------</option>
+                                <c:forEach items="${schools}" var="school">
+                                    <option value="${school.id}">${school.fullName}</option>
+                                </c:forEach>
+                            </select>
                         </td>
                     </tr>
                     <tr style="height: 50px">

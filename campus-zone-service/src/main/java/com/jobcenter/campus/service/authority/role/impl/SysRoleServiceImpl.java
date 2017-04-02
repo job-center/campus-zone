@@ -52,4 +52,9 @@ public class SysRoleServiceImpl implements SysRoleService {
         result.setResult(list);
         return result;
     }
+
+    @Override
+    public List<SysRole> listAllSysRole() {
+        return sysRoleDao.listAllSysRoles();
+    }
 }

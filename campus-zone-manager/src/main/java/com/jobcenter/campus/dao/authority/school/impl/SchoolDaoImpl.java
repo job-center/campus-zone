@@ -11,6 +11,8 @@ import com.jobcenter.campus.query.SchoolQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by xiayun on 28/3/17.
  */
@@ -41,5 +43,12 @@ public class SchoolDaoImpl implements SchoolDao {
         schoolMapper.selectByExampleWithBLOBs(schoolExample);
         Page<School> result = PageMybtisIntercepter.endPage();
         return result;
+    }
+
+    @Override
+    public List<School> listAllSchools() {
+        SchoolExample example = new SchoolExample();
+        example.setOrderByClause("name");
+        return schoolMapper.selectByExample(example);
     }
 }

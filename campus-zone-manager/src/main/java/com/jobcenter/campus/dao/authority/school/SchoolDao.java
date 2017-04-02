@@ -4,6 +4,8 @@ import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SchoolQuery;
 
+import java.util.List;
+
 /**
  * Created by xiayun on 28/3/17.
  */
@@ -19,4 +21,6 @@ public interface SchoolDao {
     Page<School> listSchools(SchoolQuery query);
 
     Page<School> listSchools(SchoolQuery query, boolean countAll);
+
+    List<School> listAllSchools();
 }

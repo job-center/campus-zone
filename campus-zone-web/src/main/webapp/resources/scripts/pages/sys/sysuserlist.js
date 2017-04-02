@@ -52,12 +52,12 @@ var SysUserList=function(){
                         if (result.success) {
                             $.cookie('action-message', {
                                 action : "success",
-                                message : result.detail
+                                message : result.msg
                             });
                         } else {
                             $.cookie('action-message', {
                                 action : "error",
-                                message : result.detail
+                                message : result.msg
                             });
                         }
                         window.location.href = "/v1/sysusers";
@@ -100,4 +100,10 @@ function Trim(str,is_global)
 
 $(function(){
     SysUserList.init();
+    if (jQuery().select2) {
+        $("#schoolId").select2({
+            placeholder : "Select",
+            allowClear : true
+        });
+    }
 })

@@ -1,6 +1,7 @@
 package com.jobcenter.campus.dao.authority.user;
 
 import com.jobcenter.campus.entity.authority.role.SysRole;
+import com.jobcenter.campus.entity.authority.user.SysUserRole;
 
 import java.util.List;
 
@@ -15,4 +16,11 @@ public interface SysUserRoleDao {
      * @return
      */
     List<SysRole> listSysRolesByUserId(Integer sysUserId);
+
+    /**
+     * 创建用户角色关联信息
+     * @param sysUserRole
+     * @return
+     */
+    boolean createSysUserRole(SysUserRole sysUserRole);
 }

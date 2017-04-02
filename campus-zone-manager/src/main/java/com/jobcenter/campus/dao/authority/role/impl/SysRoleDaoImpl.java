@@ -11,6 +11,8 @@ import com.jobcenter.campus.query.SysRoleQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * <p>
  * <br>==========================
@@ -30,6 +32,14 @@ public class SysRoleDaoImpl implements SysRoleDao {
     @Override
     public Page<SysRole> listSysRoles(SysRoleQuery query) {
         return listSysRoles(query, true);
+    }
+
+    @Override
+    public List<SysRole> listAllSysRoles() {
+        SysRoleExample example = new SysRoleExample();
+        example.createCriteria().andIsDeletedEqualTo((byte) 0);
+
+        return sysRoleMapper.selectByExample(example);
     }
 
     public Page<SysRole> listSysRoles(SysRoleQuery query, boolean countAll) {

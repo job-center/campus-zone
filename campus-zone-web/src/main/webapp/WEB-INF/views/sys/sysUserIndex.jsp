@@ -108,32 +108,64 @@
             </th>
             <td>角色名称</td>
             <td>角色id</td>
-            <td>学校名称</td>
+            <td>角色描述</td>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>
-                <div class="">
+
+        <c:forEach items="${sysuserinfo.roles}" var="item">
+            <tr>
+                <td>
+                    <div class="">
 											<span><input class="" type="checkbox" id="test"
                                                          value="1"> </span>
-                </div>
-            </td>
-            <td>11</td>
-            <td>11</td>
-            <td>11</td>
-        </tr>
+                    </div>
+                </td>
+                <td>${item.roleName}</td>
+                <td>${item.id}</td>
+                <td>${item.roleDescription}</td>
+            </tr>
+
+        </c:forEach>
         </tbody>
     </table>
 </div>
 
-
-<input type="hidden" id="setOptionUrl" value="${ctx}/account/"/>
-
-<input type="hidden" id="ctxUrl" value="${ctx}"/>
+<!-- Modal 添加管理员 -->
+<div class="modal fade" id="div_sysuser_add">
+    <div class="modal-dialog" style="width: 500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalTitle">系统用户角色</h4>
+            </div>
+            <form id="add_admin_form">
+                <table align="center">
+                    <tr style="height: 50px">
+                        <td>用户角色：</td>
+                        <td>
+                            <select name="roleId" id="roleId">
+                                <c:forEach items="${roles}" var="role">
+                                    <option value="${role.id}">${role.roleName}</option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary do_audit"
+                            id="btnAddSysUserRole">添加
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <input type="hidden" id="nameExists" value="0">
-<script src="${ctx}/resources/scripts/pages/sys/"
+<script src="${ctx}/resources/scripts/pages/sys/sysuserindex.js"
         type="text/javascript"></script>
 
 

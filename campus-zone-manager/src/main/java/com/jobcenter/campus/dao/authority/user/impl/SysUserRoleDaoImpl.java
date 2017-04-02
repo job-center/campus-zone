@@ -47,4 +47,20 @@ public class SysUserRoleDaoImpl implements SysUserRoleDao {
         }
         return result;
     }
+
+    @Override
+    public boolean createSysUserRole(SysUserRole sysUserRole) {
+        SysUserRoleExample example = new SysUserRoleExample();
+        SysUserRoleExample.Criteria criteria = example.createCriteria();
+        criteria.andIsDeletedEqualTo((byte) 0);
+        criteria.andUserIdEqualTo(sysUserRole.getUserId());
+        criteria.andRoleIdEqualTo(sysUserRole.getRoleId());
+
+
+        int count = sysUserRoleMapper.countByExample(example);
+        if (count > 1){//先检查是否曾经已经插入过
+            return true;
+        }
+        return sysUserRoleMapper.insert(sysUserRole)>0;
+    }
 }

@@ -4,6 +4,8 @@ import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.authority.role.SysRole;
 import com.jobcenter.campus.model.Page;
 
+import java.util.List;
+
 /**
  * <p>
  * <br>==========================
@@ -16,4 +18,7 @@ import com.jobcenter.campus.model.Page;
 public interface SysRoleService {
 
     Page<SysRole> listSysRoleInfos(Seed seed);
+
+    List<SysRole> listAllSysRole();
+
 }

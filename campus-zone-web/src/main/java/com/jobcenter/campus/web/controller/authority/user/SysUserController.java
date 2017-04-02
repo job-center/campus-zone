@@ -3,8 +3,12 @@ package com.jobcenter.campus.web.controller.authority.user;
 import com.jobcenter.campus.common.common.ResultEnum;
 import com.jobcenter.campus.domin.SysUserInfoDo;
 import com.jobcenter.campus.domin.page.Seed;
+import com.jobcenter.campus.entity.authority.role.SysRole;
+import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.entity.authority.user.SysUser;
 import com.jobcenter.campus.model.Page;
+import com.jobcenter.campus.service.authority.role.SysRoleService;
+import com.jobcenter.campus.service.authority.school.SchoolService;
 import com.jobcenter.campus.service.authority.user.SysUserService;
 import com.jobcenter.campus.web.domin.APIResponse;
 import org.slf4j.Logger;
@@ -20,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by xiayun on 28/3/17.
@@ -31,6 +36,10 @@ public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
+    @Autowired
+    private SchoolService schoolService;
+    @Autowired
+    private SysRoleService sysRoleService;
 
     /**
      * 分页获取系统用户信息
@@ -44,7 +53,9 @@ public class SysUserController {
         seed.setActionPath("/v1/sysusers");
         seed.setTotalSize(page.getTotal());
 
+        List<School> schools = schoolService.listAllSchools();
         ModelAndView mav = new ModelAndView("/sys/sysUserList");
+        mav.addObject("schools",schools);
         mav.addObject("seed",seed);
         return mav;
     }
@@ -52,9 +63,11 @@ public class SysUserController {
     @RequestMapping(value = "/v1/sysuser/{id}",method = RequestMethod.GET)
     public ModelAndView sysUserIndex(HttpServletRequest request, @PathVariable(value = "id") Integer id){
         SysUserInfoDo sysUserInfoDo = sysUserService.getSysUserInfo(id);
+        List<SysRole> sysRoles = sysRoleService.listAllSysRole();
 
         ModelAndView mav = new ModelAndView("/sys/sysUserIndex");
         mav.addObject("sysuserinfo",sysUserInfoDo);
+        mav.addObject("roles",sysRoles);
         return mav;
     }
 
