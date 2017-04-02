@@ -95,10 +95,10 @@
         <div class="blank-form-actions">
             <a class="btn green" href="#" id="addpower"><i
                     class="fa fa-plus"></i>添加用户权限</a>
-            <a class="btn blue" href="#" id="removepawer"><i class="fa fa-remove"></i>删除用户权限</a>
+            <a class="btn blue" href="#" id="removepower"><i class="fa fa-remove"></i>删除用户权限</a>
         </div>
     </div>
-    <table class="table table-bordered table-striped table-condensed flip-content">
+    <table class="table table-bordered table-striped table-condensed flip-content" id="tableSysUserRole">
         <thead>
         <tr>
             <th style="width: 42px;">
@@ -118,7 +118,7 @@
                 <td>
                     <div class="">
 											<span><input class="" type="checkbox" id="test"
-                                                         value="1"> </span>
+                                                         value="${item.id}"> </span>
                     </div>
                 </td>
                 <td>${item.roleName}</td>
@@ -165,6 +165,7 @@
 </div>
 
 <input type="hidden" id="nameExists" value="0">
+<input type="hidden" id="sysuserRoleIds_delete">
 <script src="${ctx}/resources/scripts/pages/sys/sysuserindex.js"
         type="text/javascript"></script>
 

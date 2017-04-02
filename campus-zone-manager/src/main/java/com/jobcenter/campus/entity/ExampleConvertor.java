@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.jobcenter.campus.entity.authority.role.SysRoleExample;
 import com.jobcenter.campus.entity.authority.school.SchoolExample;
 import com.jobcenter.campus.entity.authority.user.SysUserExample;
+import com.jobcenter.campus.entity.authority.user.SysUserRole;
+import com.jobcenter.campus.entity.authority.user.SysUserRoleExample;
 import com.jobcenter.campus.query.SchoolQuery;
 import com.jobcenter.campus.query.SysRoleQuery;
 import com.jobcenter.campus.query.SysUserQuery;
@@ -101,6 +103,26 @@ public class ExampleConvertor {
             }
             if (StringUtils.isNotBlank(schoolQuery.getOderByClause())){
                 example.setOrderByClause(schoolQuery.getOderByClause());
+            }
+        }
+        return example;
+    }
+
+    public static SysUserRoleExample convertSysUserExample(SysUserRole sysUserRole){
+        SysUserRoleExample example = new SysUserRoleExample();
+        SysUserRoleExample.Criteria criteria = example.createCriteria();
+        if (sysUserRole != null){
+            if (sysUserRole.getId() != null){
+                criteria.andIdEqualTo(sysUserRole.getId());
+            }
+            if (sysUserRole.getIsDeleted() != null){
+                criteria.andIsDeletedEqualTo(sysUserRole.getIsDeleted());
+            }
+            if (sysUserRole.getRoleId() != null){
+                criteria.andRoleIdEqualTo(sysUserRole.getRoleId());
+            }
+            if (sysUserRole.getUserId() != null){
+                criteria.andUserIdEqualTo(sysUserRole.getUserId());
             }
         }
         return example;

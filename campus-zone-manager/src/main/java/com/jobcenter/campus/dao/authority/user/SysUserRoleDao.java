@@ -23,4 +23,12 @@ public interface SysUserRoleDao {
      * @return
      */
     boolean createSysUserRole(SysUserRole sysUserRole);
+
+    /**
+     * 删除系统用户角色关联关系
+     * @param sysUserRole
+     * @return
+     */
+    boolean deleteSysUserRoleInfo(SysUserRole sysUserRole);
+
 }
