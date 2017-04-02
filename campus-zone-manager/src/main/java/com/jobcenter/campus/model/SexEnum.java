@@ -6,6 +6,7 @@ import com.jobcenter.campus.common.common.BaseEntity;
  * Created by xiayun on 30/3/17.
  */
 public enum  SexEnum {
+    UNKNOWN(-1,"未知"),
     MALE(0,"男"),
     FEMALE(1,"女");
 

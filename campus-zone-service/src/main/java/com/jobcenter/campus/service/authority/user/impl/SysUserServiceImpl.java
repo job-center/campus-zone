@@ -1,6 +1,7 @@
 package com.jobcenter.campus.service.authority.user.impl;
 
 import com.google.common.collect.Lists;
+import com.jobcenter.campus.common.utils.MD5Util;
 import com.jobcenter.campus.dao.authority.school.SchoolDao;
 import com.jobcenter.campus.dao.authority.user.SysUserDao;
 import com.jobcenter.campus.dao.authority.user.SysUserRoleDao;
@@ -10,6 +11,7 @@ import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.entity.authority.role.SysRole;
 import com.jobcenter.campus.entity.authority.user.SysUser;
 import com.jobcenter.campus.model.Page;
+import com.jobcenter.campus.model.SexEnum;
 import com.jobcenter.campus.query.SysUserQuery;
 import com.jobcenter.campus.service.authority.user.SysUserService;
 import org.apache.commons.collections.CollectionUtils;
@@ -67,6 +69,11 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public boolean createSysUser(SysUser sysUser) {
+        sysUser.setPassword(MD5Util.MD5(sysUser.getPassword()));
+        sysUser.setIsDeleted((byte) 0);
+        if (sysUser.getSex() == null){
+            sysUser.setSex((byte) SexEnum.UNKNOWN.getCode());
+        }
         return sysUserDao.createSysUser(sysUser);
     }
 

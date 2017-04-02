@@ -15,13 +15,13 @@ var SysUserList=function(){
             });
 
             $("a[name=editSysUser]").click(function(){
-                var url = "/v1/sysuser/" + $(this).attr("accountId");
+                var url = "/v1/sysuser/" + $(this).attr("data");
                 window.location.href=url;
             });
 
             $("#btnAddSysUser").click(function () {
                 var name = $("#name").val();
-                var passWord = $("#passWord").val();
+                var passWord = $("#password").val();
                 var realName = $("#realName").val();
                 var sex = $("#sex").val();
                 var phoneNumber = $("#phoneNumber").val();
@@ -46,7 +46,7 @@ var SysUserList=function(){
                 $.ajax({
                     url : "/v1/sysuser",
                     type : "POST",
-                    data : $("#IndexForm").serialize(),
+                    data : $("#add_admin_form").serialize(),
                     success : function(result) {
                         $.cookie.json = true;
                         if (result.success) {

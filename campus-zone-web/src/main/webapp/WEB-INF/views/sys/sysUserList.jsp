@@ -127,14 +127,14 @@
                     <tr style="height: 50px">
                         <td>姓名：</td>
                         <td>
-                            <input type="text" name="realName" id="realName"
+                            <input type="text" name="realname" id="realName"
                                    size="30" style="height: 35px"/>
                         </td>
                     </tr>
                     <tr style="height: 50px">
                         <td>密码：</td>
                         <td>
-                            <input type="text" name="passWord" id="passWord"
+                            <input type="text" name="password" id="password"
                                    size="30" style="height: 35px"/>
                         </td>
                     </tr>
@@ -152,7 +152,7 @@
                     <tr style="height: 50px">
                         <td>手机号：</td>
                         <td>
-                            <input type="text" name="phoneNumber" id="phoneNumber"
+                            <input type="text" name="phonenumber" id="phoneNumber"
                                    size="30" style="height: 35px"/>
                         </td>
                     </tr>
