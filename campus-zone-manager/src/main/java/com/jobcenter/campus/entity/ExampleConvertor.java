@@ -1,12 +1,14 @@
 package com.jobcenter.campus.entity;
 
 import com.google.common.collect.Lists;
+import com.jobcenter.campus.entity.account.StudentExample;
 import com.jobcenter.campus.entity.authority.role.SysRoleExample;
 import com.jobcenter.campus.entity.authority.school.SchoolExample;
 import com.jobcenter.campus.entity.authority.user.SysUserExample;
 import com.jobcenter.campus.entity.authority.user.SysUserRole;
 import com.jobcenter.campus.entity.authority.user.SysUserRoleExample;
 import com.jobcenter.campus.query.SchoolQuery;
+import com.jobcenter.campus.query.StudentQuery;
 import com.jobcenter.campus.query.SysRoleQuery;
 import com.jobcenter.campus.query.SysUserQuery;
 import org.apache.commons.collections.CollectionUtils;
@@ -123,6 +125,29 @@ public class ExampleConvertor {
             }
             if (sysUserRole.getUserId() != null){
                 criteria.andUserIdEqualTo(sysUserRole.getUserId());
+            }
+        }
+        return example;
+    }
+
+    public static StudentExample convertStudentExample(StudentQuery studentQuery){
+        StudentExample example = new StudentExample();
+        StudentExample.Criteria criteria = example.createCriteria();
+        if (studentQuery != null){
+            if (studentQuery.getId() != null){
+                criteria.andIdEqualTo(studentQuery.getId());
+            }
+            if (CollectionUtils.isNotEmpty(studentQuery.getIds())){
+                criteria.andIdIn(Lists.newArrayList(studentQuery.getIds()));
+            }
+            if (StringUtils.isNotBlank(studentQuery.getPhoneNumber())){
+                criteria.andPhoneNoLike(studentQuery.getPhoneNumber()+"%");
+            }
+            if (StringUtils.isNotBlank(studentQuery.getStudentName())){
+                criteria.andNameLike(studentQuery.getStudentName()+"%");
+            }
+            if (StringUtils.isNotBlank(studentQuery.getStudentNo())){
+                criteria.andStudentNoEqualTo(studentQuery.getStudentNo());
             }
         }
         return example;

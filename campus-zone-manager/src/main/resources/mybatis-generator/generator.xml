@@ -33,19 +33,23 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
-        <table tableName="sys_user" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
-        <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-        </table>
-        <table tableName="sys_role" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
-        <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-        </table>
-        <table tableName="sys_user_role" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-        </table>
-        <table tableName="geography" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-        </table>
-        <table tableName="school" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
+        <!--<table tableName="sys_user" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
+        <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="sys_role" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
+        <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="sys_user_role" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="geography" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="school" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
+
+        <table tableName="student" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
 

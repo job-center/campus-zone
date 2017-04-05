@@ -2,64 +2,44 @@
 	"name":"root",
 	"children":[
         {
-          "name": "用户管理",
+          "name": "系统用户管理",
           "url": "/v1/sysusers"
         },
         {
-          "name":"编码管理",
-          "url":"/code",
+          "name":"账户管理",
+          "url":"/account",
           "children":[
             {
-              "name":"地址管理",
-              "url":"/code/address/list"
+              "name":"学生账户",
+              "url":"/v1/account/students"
             },
             {
-              "name":"宠物类型管理",
-              "url":"/animal/typeList"
+              "name":"家长账户",
+              "url":"/v1/account/parents"
             },
             {
-              "name":"宠物品种管理",
-              "url":"/animal/listAnimals"
-            }
-          ]
-        },
-        {
-          "name": "寄养管理",
-          "url": "/code",
-          "children": [
-            {
-              "name":"房间类型管理",
-              "url":"/room/list"
-            }
-          ]
-        },
-        {
-          "name": "训练管理",
-          "url": "/course",
-          "children": [
-            {
-              "name":"课程管理",
-              "url":"/course/list"
-            }
-          ]
-        },
-        {
-          "name": "美容管理",
-          "url": "//hairdressing",
-          "children": [
-            {
-              "name":"类型管理",
-              "url":"//hairdressing/list"
+              "name":"政府账户",
+              "url":"/v1/account/governers"
             },
             {
-              "name":"服务时间管理",
-              "url":"/hairdressing_time/list"
+              "name":"食堂管理员账户",
+              "url":"/v1/account/chevies"
             }
           ]
         },
         {
-          "name":"订单管理",
-          "url":"/orders/list"
+          "name": "运营管理",
+          "url": "/operation",
+          "children": [
+            {
+              "name":"平台公告",
+              "url":"/v1/operation/announcementes"
+            },
+            {
+              "name":"卫生安全体系",
+              "url":"/v1/operation/health/system"
+            }
+          ]
         }
 	]
 }
