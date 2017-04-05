@@ -28,10 +28,12 @@ public class StudentController {
 
     @RequestMapping(value = "/v1/account/students")
     @ResponseBody
-    public Page<Student> listStudents(HttpServletRequest request, HttpServletResponse response, Seed seed){
-        ModelAndView mav = new ModelAndView("");
-//        return null;
+    public ModelAndView listStudents(HttpServletRequest request, HttpServletResponse response, Seed seed){
+        ModelAndView mav = new ModelAndView("account/students");
         Page<Student> result = studentService.listStudents(seed);
-        return result;
+        seed.setResult(result.getResult());
+        seed.setTotalSize(result.getTotal());
+        mav.addObject("seed",seed);
+        return mav;
     }
 }

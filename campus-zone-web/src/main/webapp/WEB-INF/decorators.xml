@@ -13,12 +13,7 @@
         <pattern>/v1/sysuser/*</pattern>
         <pattern>/v1/roleinfos</pattern>
         <pattern>/v1/schools</pattern>
-        <pattern>/animal/*</pattern>
-        <pattern>/room/*</pattern>
-        <pattern>/course/*</pattern>
-        <pattern>/hairdressing/*</pattern>
-        <pattern>/hairdressing_time/*</pattern>
-        <pattern>/orders/*</pattern>
+        <pattern>/v1/*</pattern>
         <!-- <pattern>/*</pattern> -->
     </decorator>
 </decorators>
