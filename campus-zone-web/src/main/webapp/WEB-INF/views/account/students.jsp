@@ -31,18 +31,21 @@
                   action="/v1/account/students" method="GET">
                 <div class="form-group">
 
+                    <label class="col-md-1 control-label">姓名:</label>
                     <div class="col-md-3">
                         <input type="text" id="studentName"
                                class="form-control input-medium input-inline" name="studentName"
                                placeholder="Input student name" value="${seed.queryData['studentName']}" />
                     </div>
 
+                    <label class="col-md-1 control-label">手机号:</label>
                     <div class="col-md-3">
                         <input type="text" id="phoneNum"
                                class="form-control input-medium input-inline" name="phoneNumber"
                                placeholder="Input student phone number" value="${seed.queryData['phoneNumber']}" />
                     </div>
 
+                    <label class="col-md-1 control-label">学号:</label>
                     <div class="col-md-3">
                         <input type="text" id="studentNo"
                                class="form-control input-medium input-inline" name="studentNo"
@@ -63,7 +66,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="blank-form-actions">
-            <a class="btn green" href="#" id="createsysuser"><i
+            <a class="btn green" href="#" id="createstudent"><i
                     class="fa fa-plus"></i>创建</a>
         </div>
     </div>
@@ -127,45 +130,62 @@
 </div>
 
 <!-- Modal 添加管理员 -->
-<div class="modal fade" id="div_sysuser_add">
+<div class="modal fade" id="div_student_add">
     <div class="modal-dialog" style="width: 500px">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"
                         aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalTitle">添加系统用户基本信息</h4>
+                <h4 class="modal-title" id="myModalTitle">添加学生基本信息</h4>
             </div>
             <form id="add_admin_form">
                 <table align="center">
                     <tr style="height: 50px">
-                        <td>昵称：</td>
+                        <td>姓名：</td>
                         <td>
                             <input type="text" name="name" id="name"
                                    size="30" style="height: 35px"/>
                         </td>
                     </tr>
                     <tr style="height: 50px">
-                        <td>姓名：</td>
-                        <td>
-                            <input type="text" name="realname" id="realName"
-                                   size="30" style="height: 35px"/>
-                        </td>
-                    </tr>
-                    <tr style="height: 50px">
                         <td>学校：</td>
                         <td>
-                            <select id="schoolId" name="schoolId">
+                            <select id="schoolId" name="schoolId" class="select2me">
                                 <option selected>-----------------请选择-------------------</option>
-                                <c:forEach items="${schools}" var="school">
-                                    <option value="${school.id}">${school.fullName}</option>
-                                </c:forEach>
                             </select>
                         </td>
                     </tr>
+
                     <tr style="height: 50px">
-                        <td>密码：</td>
+                        <td>年级：</td>
                         <td>
-                            <input type="text" name="password" id="password"
+                            <select id="gradId" name="gradId" class="select2me">
+                                <option selected>-----------------请选择-------------------</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr style="height: 50px">
+                        <td>班级：</td>
+                        <td>
+                            <select id="groupId" name="groupId" class="select2me">
+                                <option selected>-----------------请选择-------------------</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr style="height: 50px">
+                        <td>手机号：</td>
+                        <td>
+                            <input type="text" name="phoneNo" id="phoneNo"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+
+                    <tr style="height: 50px">
+                        <td>出生日期：</td>
+                        <td>
+                            <input type="text" name="birthday" id="birthday"
                                    size="30" style="height: 35px"/>
                         </td>
                     </tr>
@@ -181,14 +201,7 @@
                         </td>
                     </tr>
                     <tr style="height: 50px">
-                        <td>手机号：</td>
-                        <td>
-                            <input type="text" name="phonenumber" id="phoneNumber"
-                                   size="30" style="height: 35px"/>
-                        </td>
-                    </tr>
-                    <tr style="height: 50px">
-                        <td>email：</td>
+                        <td>微信号：</td>
                         <td>
                             <input type="text" name="email" id="email"
                                    size="30" style="height: 35px"/>
@@ -208,6 +221,6 @@
 
 <input type="hidden" id="ctxUrl" value="${ctx}" />
 <!-- PAGE LEVEL JS REFERENCES -->
-<script src="${ctx}/resources/scripts/pages/sys/sysuserlist.js"
+<script src="${ctx}/resources/scripts/pages/account/students.js"
         type="text/javascript"></script>
 </body>

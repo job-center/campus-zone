@@ -1,14 +1,22 @@
 package com.jobcenter.campus.web.controller.authority.school;
 
+import com.jobcenter.campus.common.common.ResultEnum;
 import com.jobcenter.campus.domin.page.Seed;
+import com.jobcenter.campus.entity.authority.grade.Grade;
 import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.service.authority.school.SchoolService;
+import com.jobcenter.campus.web.domin.APIResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 
 /**
@@ -36,5 +44,24 @@ public class SchoolController {
         modelAndView.setViewName("/sys/schoolList");
         modelAndView.addObject("seed",seed);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/v1/list/schools",method = RequestMethod.GET)
+    @ResponseBody
+    public APIResponse<List<School>> listAllSchools(){
+        List<School> schoolList = schoolService.listAllSchools();
+        APIResponse apiResponse = new APIResponse(ResultEnum.SUCCESS);
+        apiResponse.setData(schoolList);
+        return apiResponse;
+    }
+
+    @RequestMapping(value = "/v1/list/{schoolId}/grads")
+    @ResponseBody
+    public APIResponse<List<Grade>> listGradsOfSchool(@PathVariable(value = "schoolId",required = true)Integer schoolId){
+        Assert.notNull(schoolId,"查询参数不能为空");
+        List<Grade> gradeList = schoolService.listAllGradesBySchoolId(schoolId);
+        APIResponse apiResponse = new APIResponse(ResultEnum.SUCCESS);
+        apiResponse.setData(gradeList);
+        return apiResponse;
     }
 }

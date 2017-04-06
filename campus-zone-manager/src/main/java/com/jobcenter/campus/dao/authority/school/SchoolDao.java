@@ -1,5 +1,6 @@
 package com.jobcenter.campus.dao.authority.school;
 
+import com.jobcenter.campus.entity.authority.grade.Grade;
 import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SchoolQuery;
@@ -23,4 +24,6 @@ public interface SchoolDao {
     Page<School> listSchools(SchoolQuery query, boolean countAll);
 
     List<School> listAllSchools();
+
+    List<Grade> listAllGradesBySchoolId(Integer schoolId);
 }

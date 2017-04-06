@@ -3,6 +3,7 @@ package com.jobcenter.campus.service.authority.school.impl;
 import com.google.common.collect.Lists;
 import com.jobcenter.campus.dao.authority.school.SchoolDao;
 import com.jobcenter.campus.domin.page.Seed;
+import com.jobcenter.campus.entity.authority.grade.Grade;
 import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SchoolQuery;
@@ -53,5 +54,10 @@ public class SchoolServiceImpl implements SchoolService{
     @Override
     public List<School> listAllSchools() {
         return schoolDao.listAllSchools();
+    }
+
+    @Override
+    public List<Grade> listAllGradesBySchoolId(Integer schoolId) {
+        return schoolDao.listAllGradesBySchoolId(schoolId);
     }
 }

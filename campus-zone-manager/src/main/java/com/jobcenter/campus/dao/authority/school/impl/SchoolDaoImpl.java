@@ -2,9 +2,12 @@ package com.jobcenter.campus.dao.authority.school.impl;
 
 import com.jobcenter.campus.dao.authority.school.SchoolDao;
 import com.jobcenter.campus.entity.*;
+import com.jobcenter.campus.entity.authority.grade.Grade;
+import com.jobcenter.campus.entity.authority.grade.GradeExample;
 import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.entity.authority.school.SchoolExample;
 import com.jobcenter.campus.intercepter.PageMybtisIntercepter;
+import com.jobcenter.campus.mapper.GradeMapper;
 import com.jobcenter.campus.mapper.SchoolMapper;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SchoolQuery;
@@ -21,6 +24,9 @@ public class SchoolDaoImpl implements SchoolDao {
 
     @Autowired
     private SchoolMapper schoolMapper;
+
+    @Autowired
+    private GradeMapper gradeMapper;
 
     @Override
     public School getSchool(Integer schoolId) {
@@ -50,5 +56,14 @@ public class SchoolDaoImpl implements SchoolDao {
         SchoolExample example = new SchoolExample();
         example.setOrderByClause("name");
         return schoolMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<Grade> listAllGradesBySchoolId(Integer schoolId) {
+        GradeExample example = new GradeExample();
+        example.createCriteria().andSchoolIdEqualTo(schoolId);
+
+        List<Grade> result = gradeMapper.selectByExample(example);
+        return result;
     }
 }
