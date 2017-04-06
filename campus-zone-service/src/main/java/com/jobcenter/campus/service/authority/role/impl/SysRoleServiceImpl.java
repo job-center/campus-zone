@@ -57,4 +57,10 @@ public class SysRoleServiceImpl implements SysRoleService {
     public List<SysRole> listAllSysRole() {
         return sysRoleDao.listAllSysRoles();
     }
+
+    @Override
+    public boolean createSysRole(SysRole sysRole) {
+        sysRole.setIsDeleted((byte) 0);
+        return sysRoleDao.createSysRole(sysRole);
+    }
 }

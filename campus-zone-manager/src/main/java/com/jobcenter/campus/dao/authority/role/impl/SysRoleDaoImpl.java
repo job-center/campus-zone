@@ -42,6 +42,12 @@ public class SysRoleDaoImpl implements SysRoleDao {
         return sysRoleMapper.selectByExample(example);
     }
 
+    @Override
+    public boolean createSysRole(SysRole sysRole) {
+        int record = sysRoleMapper.insert(sysRole);
+        return record > 0;
+    }
+
     public Page<SysRole> listSysRoles(SysRoleQuery query, boolean countAll) {
         SysRoleExample sysRoleExample = ExampleConvertor.convertSysRoleExample(query);
         PageMybtisIntercepter.startPage(query.getPageNum(),query.getPageSize());

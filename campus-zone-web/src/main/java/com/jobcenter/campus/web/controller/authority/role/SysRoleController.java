@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -49,6 +50,34 @@ public class SysRoleController {
         modelAndView.setViewName("/sys/sysRoleList");
         modelAndView.addObject("seed", seed);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/v1/addrole",method = RequestMethod.POST)
+    @ResponseBody
+    public APIResponse createSysRole(SysRole sysRole){
+        Assert.notNull(sysRole,"添加角色不能为空");
+        boolean result = sysRoleService.createSysRole(sysRole);
+        APIResponse apiResponse = new APIResponse(ResultEnum.parseResultEnum(result));
+        return apiResponse;
+    }
+
+    @RequestMapping(value = "v1/roleinfos/batchdelete/{roleIds}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public APIResponse removeSysRole(@PathVariable(value = "roleIds") String roleIds) {
+        if (StringUtils.isNotBlank(roleIds)){
+            List<String> roleList = Splitter.on(",").splitToList(roleIds);
+            if (CollectionUtils.isNotEmpty(roleList)){
+                List<SysRole> sysUserRoles = roleList.stream().map(m -> {
+                    SysRole sysRole = new SysRole();
+                    sysRole.setIsDeleted((byte) 1);
+                    sysRole.setId(NumberUtils.toInt(m,0));
+                    return  sysRole;
+                }).collect(Collectors.toList());
+            }
+            return new APIResponse(ResultEnum.SUCCESS);
+        }else{
+            return new APIResponse(ResultEnum.FAIL).setMsg("要删除的角色信息不能为空");
+        }
     }
 
     @RequestMapping(value = "v1/sysuser/role", method = RequestMethod.POST)

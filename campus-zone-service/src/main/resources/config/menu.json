@@ -6,6 +6,20 @@
           "url": "/v1/sysusers"
         },
         {
+          "name": "编码管理",
+          "url": "/code",
+          "children":[
+            {
+              "name":"角色管理",
+              "url":"/v1/roleinfos"
+            },
+            {
+              "name":"学校管理",
+              "url":"/v1/schools"
+            }
+          ]
+        },
+        {
           "name":"账户管理",
           "url":"/account",
           "children":[
@@ -20,10 +34,6 @@
             {
               "name":"政府账户",
               "url":"/v1/account/governers"
-            },
-            {
-              "name":"食堂管理员账户",
-              "url":"/v1/account/chevies"
             }
           ]
         },

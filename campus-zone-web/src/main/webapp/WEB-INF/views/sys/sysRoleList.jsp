@@ -50,8 +50,9 @@
 <div class="row">
     <div class="col-md-12">
         <div class="blank-form-actions">
-            <a class="btn green" href="#" id="createAccount"><i
+            <a class="btn green" href="#" id="createRole"><i
                     class="fa fa-plus"></i>创建</a>
+            <a class="btn blue" href="#" id="removepower"><i class="fa fa-remove"></i>删除</a>
         </div>
     </div>
 </div>
@@ -66,9 +67,7 @@
             </div>
             <div class="portlet-body flip-scroll">
                 <campus:pagination position="above"></campus:pagination>
-                <table
-                        class="table table-bordered table-striped table-condensed flip-content"
-                        id="fromAccountTable">
+                <table class="table table-bordered table-striped table-condensed flip-content" id="fromAccountTable">
                     <thead class="flip-content">
                     <tr>
                         <th style="width: 42px;">
@@ -87,6 +86,7 @@
                         <tr>
                             <td>
                                 <div class="">
+                                    <span><input class="" type="checkbox" id="ids" value="${item.id}"> </span>
                                 </div>
                             </td>
                             <td><a href="/account/index?account_id=${item.id }">${item.id}</a></td>
@@ -94,7 +94,7 @@
                             <td>${item.roleDescription} </td>
                             <td><a class="btn default btn-xs blue-stripe" href="#"
                                    name="editSysRole" data="${item.id}"><i
-                                    class="fa fa-edit"></i> 查看详细</a></td>
+                                    class="fa fa-edit"></i> 详细</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -105,10 +105,47 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="div_sysrole_add">
+    <div class="modal-dialog" style="width: 500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalTitle">添加角色基本信息</h4>
+            </div>
+            <form id="add_admin_form">
+                <table align="center">
+                    <tr style="height: 50px">
+                        <td>角色名称：</td>
+                        <td>
+                            <input type="text" name="roleName" id="roleName"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>角色描述：</td>
+                        <td>
+                            <input type="text" name="roleDescription" id="roleDescription"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary do_audit"
+                            id="btnAddRole">添加
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <input type="hidden" id="setOptionUrl" value="${ctx}/account/" />
+<input type="hidden" id="sysroles_delete">
 
 <input type="hidden" id="ctxUrl" value="${ctx}" />
 <!-- PAGE LEVEL JS REFERENCES -->
-<script src="${ctx}/resources/scripts/pages/sys/sysrolelist.js"
-        type="text/javascript"></script>
+<script src="${ctx}/resources/scripts/pages/sys/sysrolelist.js" type="text/javascript"></script>
 </body>
