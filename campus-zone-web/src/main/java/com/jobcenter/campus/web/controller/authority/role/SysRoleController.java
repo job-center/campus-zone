@@ -99,11 +99,11 @@ public class SysRoleController {
                 List<SysUserRole> sysUserRoles = Lists.newArrayList();
                 roleIds.forEach(x->{
                     SysUserRole sysUserRole = new SysUserRole();
-                    sysUserRole.setIsDeleted((byte) 1);
                     sysUserRole.setRoleId(NumberUtils.toInt(x,0));
                     sysUserRole.setUserId(sysuserId);
                     sysUserRoles.add(sysUserRole);
                 });
+                sysUserRoleService.deleteBatchSysUserRoles(sysUserRoles);
             }
             return new APIResponse(ResultEnum.SUCCESS);
         }else{
