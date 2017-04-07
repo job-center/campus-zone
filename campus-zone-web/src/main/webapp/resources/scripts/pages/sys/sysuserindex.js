@@ -5,8 +5,7 @@ var SysUserIndex = function () {
         var sysuserId = $("#sysuserid").val();
         $.ajax({
             type: "DELETE",
-            url: "/v1/sysuser/"+sysuserId+"/role/batch",
-            data: {"sysuserRoleIds":sysuserRoleIds},
+            url: "/v1/sysuser/"+sysuserId+"/role/batch?sysuserRoleIds="+sysuserRoleIds,
             dataType: "json",
             success: function(result){
                 $.cookie.json = true;
