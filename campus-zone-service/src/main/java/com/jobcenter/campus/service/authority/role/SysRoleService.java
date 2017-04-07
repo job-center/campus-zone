@@ -24,4 +24,8 @@ public interface SysRoleService {
 
     boolean createSysRole(SysRole sysRole);
 
+    boolean updateSysRoleByPrimaryKey(List<SysRole> sysRoles);
+
+    SysRole getSysRoleById(Integer id);
+
 }

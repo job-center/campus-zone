@@ -23,4 +23,8 @@ public interface SysRoleDao {
     List<SysRole> listAllSysRoles();
 
     boolean createSysRole(SysRole sysRole);
+
+    boolean updateSysRole(List<SysRole> sysRoles);
+
+    SysRole getSysRoleById(Integer id);
 }

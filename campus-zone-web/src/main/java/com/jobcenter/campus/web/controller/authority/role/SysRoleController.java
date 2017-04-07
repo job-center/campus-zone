@@ -2,6 +2,7 @@ package com.jobcenter.campus.web.controller.authority.role;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import com.jobcenter.campus.common.common.CommonConstant;
 import com.jobcenter.campus.common.common.ResultEnum;
 import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.authority.role.SysRole;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,11 +54,25 @@ public class SysRoleController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/v1/addrole",method = RequestMethod.POST)
+    @RequestMapping(value = "v1/roleinfos/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public APIResponse createSysRole(SysRole sysRole){
+    public APIResponse sysRoleIndex(@PathVariable Integer id) {
+        Assert.notNull(id,"查询角色id不能为空");
+        SysRole sysRole = sysRoleService.getSysRoleById(id);
+        APIResponse apiResponse = new APIResponse(ResultEnum.SUCCESS);
+        apiResponse.setData(sysRole);
+        return apiResponse;
+    }
+
+    @RequestMapping(value = "/v1/insertUpdateRole",method = RequestMethod.POST)
+    @ResponseBody
+    public APIResponse insertUpdateRole(SysRole sysRole){
         Assert.notNull(sysRole,"添加角色不能为空");
-        boolean result = sysRoleService.createSysRole(sysRole);
+        boolean result = false;
+        if(sysRole.getId() == null)
+            result = sysRoleService.createSysRole(sysRole);
+        else
+            result = sysRoleService.updateSysRoleByPrimaryKey(Arrays.asList(sysRole));
         APIResponse apiResponse = new APIResponse(ResultEnum.parseResultEnum(result));
         return apiResponse;
     }
@@ -69,10 +85,15 @@ public class SysRoleController {
             if (CollectionUtils.isNotEmpty(roleList)){
                 List<SysRole> sysUserRoles = roleList.stream().map(m -> {
                     SysRole sysRole = new SysRole();
-                    sysRole.setIsDeleted((byte) 1);
+                    sysRole.setIsDeleted(CommonConstant.IS_DELETE_BYTE);
                     sysRole.setId(NumberUtils.toInt(m,0));
                     return  sysRole;
                 }).collect(Collectors.toList());
+                boolean flag = sysRoleService.updateSysRoleByPrimaryKey(sysUserRoles);
+                if(flag)
+                    return new APIResponse(ResultEnum.SUCCESS);
+                else
+                    return new APIResponse(ResultEnum.FAIL);
             }
             return new APIResponse(ResultEnum.SUCCESS);
         }else{

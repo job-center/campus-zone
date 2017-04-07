@@ -1,5 +1,6 @@
 package com.jobcenter.campus.service.authority.role.impl;
 
+import com.jobcenter.campus.common.common.CommonConstant;
 import com.jobcenter.campus.dao.authority.user.SysUserRoleDao;
 import com.jobcenter.campus.entity.authority.user.SysUserRole;
 import com.jobcenter.campus.service.authority.role.SysUserRoleService;
@@ -20,7 +21,7 @@ public class SysUserRoleImpl implements SysUserRoleService {
 
     @Override
     public boolean createSysUserRole(SysUserRole sysUserRole) {
-        sysUserRole.setIsDeleted((byte) 0);
+        sysUserRole.setIsDeleted(CommonConstant.IS_NOT_DELETE_BYTE);
 
         return sysUserRoleDao.createSysUserRole(sysUserRole);
     }

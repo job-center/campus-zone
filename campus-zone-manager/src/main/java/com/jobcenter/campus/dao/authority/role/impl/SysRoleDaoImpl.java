@@ -8,6 +8,7 @@ import com.jobcenter.campus.intercepter.PageMybtisIntercepter;
 import com.jobcenter.campus.mapper.SysRoleMapper;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SysRoleQuery;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -55,5 +56,20 @@ public class SysRoleDaoImpl implements SysRoleDao {
         sysRoleMapper.selectByExample(sysRoleExample);
         Page<SysRole> result = PageMybtisIntercepter.endPage();
         return result;
+    }
+
+    @Override
+    public boolean updateSysRole(List<SysRole> sysRoles) {
+        if(CollectionUtils.isNotEmpty(sysRoles)) {
+            sysRoles.stream().forEach(f -> sysRoleMapper.updateByPrimaryKeySelective(f));
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public SysRole getSysRoleById(Integer id) {
+        return sysRoleMapper.selectByPrimaryKey(id);
     }
 }
