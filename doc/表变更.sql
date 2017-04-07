@@ -1,0 +1,1 @@
+rename table `group` to groups;

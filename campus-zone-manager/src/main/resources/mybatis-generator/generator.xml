@@ -53,7 +53,11 @@
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
 
-        <table tableName="grade" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
+        <!--<table tableName="grade" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
+
+        <table tableName="groups" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
             <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
         </table>
 
