@@ -3,6 +3,7 @@ package com.jobcenter.campus.web.controller.authority.school;
 import com.jobcenter.campus.common.common.ResultEnum;
 import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.authority.grade.Grade;
+import com.jobcenter.campus.entity.authority.group.Groups;
 import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.service.authority.school.SchoolService;
@@ -55,13 +56,25 @@ public class SchoolController {
         return apiResponse;
     }
 
-    @RequestMapping(value = "/v1/list/{schoolId}/grads")
+    @RequestMapping(value = "/v1/school/{schoolId}/grads")
     @ResponseBody
     public APIResponse<List<Grade>> listGradsOfSchool(@PathVariable(value = "schoolId",required = true)Integer schoolId){
         Assert.notNull(schoolId,"查询参数不能为空");
         List<Grade> gradeList = schoolService.listAllGradesBySchoolId(schoolId);
         APIResponse apiResponse = new APIResponse(ResultEnum.SUCCESS);
         apiResponse.setData(gradeList);
+        return apiResponse;
+    }
+
+    @RequestMapping(value = "/v1/grade/{gradeId}/groups")
+    @ResponseBody
+    public APIResponse<List<Groups>> listGroupsOfGrade(@PathVariable(value = "gradeId",required = true)Integer gradeId){
+        Assert.notNull(gradeId,"查询参数不能为空");
+
+        List<Groups> groupsList = schoolService.listAllGroupsByGradeId(gradeId);
+        APIResponse apiResponse = new APIResponse(ResultEnum.SUCCESS);
+        apiResponse.setData(groupsList);
+
         return apiResponse;
     }
 }

@@ -138,7 +138,7 @@
                         aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalTitle">添加学生基本信息</h4>
             </div>
-            <form id="add_admin_form">
+            <form id="add_studnet_form">
                 <table align="center">
                     <tr style="height: 50px">
                         <td>姓名：</td>
@@ -160,7 +160,7 @@
                         <td>年级：</td>
                         <td>
                             <select id="gradId" name="gradId" class="select2me">
-                                <option selected>-----------------请选择-------------------</option>
+                                <option selected>请选择</option>
                             </select>
                         </td>
                     </tr>
@@ -169,7 +169,7 @@
                         <td>班级：</td>
                         <td>
                             <select id="groupId" name="groupId" class="select2me">
-                                <option selected>-----------------请选择-------------------</option>
+                                <option selected>请选择</option>
                             </select>
                         </td>
                     </tr>
@@ -203,14 +203,14 @@
                     <tr style="height: 50px">
                         <td>微信号：</td>
                         <td>
-                            <input type="text" name="email" id="email"
+                            <input type="text" name="wechatId" id="wechatId"
                                    size="30" style="height: 35px"/>
                         </td>
                     </tr>
                 </table>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary do_audit"
-                            id="btnAddSysUser">添加
+                            id="btnAddStudent">添加
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                 </div>

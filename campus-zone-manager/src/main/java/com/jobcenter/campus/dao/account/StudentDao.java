@@ -10,4 +10,6 @@ import com.jobcenter.campus.query.StudentQuery;
 public interface StudentDao {
 
     Page<Student> listStudents(StudentQuery query);
+
+    boolean createStudent(Student student);
 }

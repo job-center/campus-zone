@@ -28,4 +28,9 @@ public class StudentDaoImpl implements StudentDao {
         Page<Student> result = PageMybtisIntercepter.endPage();
         return result;
     }
+
+    @Override
+    public boolean createStudent(Student student) {
+        return studentMapper.insert(student)>0;
+    }
 }

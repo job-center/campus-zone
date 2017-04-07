@@ -10,4 +10,6 @@ import com.jobcenter.campus.model.Page;
 public interface StudentService {
 
     Page<Student> listStudents(Seed seed);
+
+    boolean createStudent(Student student);
 }

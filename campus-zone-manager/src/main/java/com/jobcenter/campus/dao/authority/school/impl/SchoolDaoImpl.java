@@ -4,10 +4,13 @@ import com.jobcenter.campus.dao.authority.school.SchoolDao;
 import com.jobcenter.campus.entity.*;
 import com.jobcenter.campus.entity.authority.grade.Grade;
 import com.jobcenter.campus.entity.authority.grade.GradeExample;
+import com.jobcenter.campus.entity.authority.group.Groups;
+import com.jobcenter.campus.entity.authority.group.GroupsExample;
 import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.entity.authority.school.SchoolExample;
 import com.jobcenter.campus.intercepter.PageMybtisIntercepter;
 import com.jobcenter.campus.mapper.GradeMapper;
+import com.jobcenter.campus.mapper.GroupsMapper;
 import com.jobcenter.campus.mapper.SchoolMapper;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SchoolQuery;
@@ -27,6 +30,9 @@ public class SchoolDaoImpl implements SchoolDao {
 
     @Autowired
     private GradeMapper gradeMapper;
+
+    @Autowired
+    private GroupsMapper groupsMapper;
 
     @Override
     public School getSchool(Integer schoolId) {
@@ -64,6 +70,16 @@ public class SchoolDaoImpl implements SchoolDao {
         example.createCriteria().andSchoolIdEqualTo(schoolId);
 
         List<Grade> result = gradeMapper.selectByExample(example);
+        return result;
+    }
+
+    @Override
+    public List<Groups> listAllGroupsByGradeId(Integer gradeId) {
+        GroupsExample example = new GroupsExample();
+        example.createCriteria().andGradIdEqualTo(gradeId)
+                .andIsDeletedEqualTo((byte) 0);
+
+        List<Groups> result = groupsMapper.selectByExample(example);
         return result;
     }
 }

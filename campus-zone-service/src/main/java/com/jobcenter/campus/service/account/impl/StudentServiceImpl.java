@@ -39,4 +39,9 @@ public class StudentServiceImpl implements StudentService {
 
         return studentDao.listStudents(query);
     }
+
+    @Override
+    public boolean createStudent(Student student) {
+        return studentDao.createStudent(student);
+    }
 }
