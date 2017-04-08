@@ -3,6 +3,7 @@ package com.jobcenter.campus.domin.account;
 import com.jobcenter.campus.common.common.BaseEntity;
 import com.jobcenter.campus.common.common.StatusEnum;
 import com.jobcenter.campus.domin.school.GroupsInfo;
+import com.jobcenter.campus.entity.account.Parent;
 import com.jobcenter.campus.entity.account.Student;
 import com.jobcenter.campus.model.SexEnum;
 
@@ -14,6 +15,10 @@ public class StudentInfo extends BaseEntity {
     private Student student;
 
     private GroupsInfo groupsInfo;
+
+    private Parent father;
+
+    private Parent mother;
 
     public Student getStudent() {
         return student;
@@ -45,4 +50,19 @@ public class StudentInfo extends BaseEntity {
         return SexEnum.parseSexEnum(student.getSex()).getDesc();
     }
 
+    public Parent getFather() {
+        return father;
+    }
+
+    public void setFather(Parent father) {
+        this.father = father;
+    }
+
+    public Parent getMother() {
+        return mother;
+    }
+
+    public void setMother(Parent mother) {
+        this.mother = mother;
+    }
 }

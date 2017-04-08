@@ -112,10 +112,10 @@
                             <td>${item.sex}</td>
                             <td>${item.student.phoneNo}</td>
                             <td>${item.student.wechatId}</td>
-                            <td>111</td>
-                            <td>111</td>
-                            <td>111</td>
-                            <td>111</td>
+                            <td>${item.father.name}</td>
+                            <td>${item.father.phoneNo}</td>
+                            <td>${item.mother.name}</td>
+                            <td>${item.mother.phoneNo}</td>
                             <td>${item.status}</td>
                             <td><a class="btn default btn-xs blue-stripe" href="#"
                                    name="changeStudentStatus" data="${item.student.id}"><i

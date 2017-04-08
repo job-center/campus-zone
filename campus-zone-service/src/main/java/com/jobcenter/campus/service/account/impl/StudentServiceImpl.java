@@ -2,12 +2,14 @@ package com.jobcenter.campus.service.account.impl;
 
 import com.google.common.collect.Lists;
 import com.jobcenter.campus.common.common.StatusEnum;
+import com.jobcenter.campus.dao.account.ParentDao;
 import com.jobcenter.campus.dao.account.StudentDao;
 import com.jobcenter.campus.dao.authority.school.SchoolDao;
 import com.jobcenter.campus.domin.account.StudentInfo;
 import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.domin.school.GradeInfo;
 import com.jobcenter.campus.domin.school.GroupsInfo;
+import com.jobcenter.campus.entity.account.Parent;
 import com.jobcenter.campus.entity.account.Student;
 import com.jobcenter.campus.entity.authority.grade.Grade;
 import com.jobcenter.campus.entity.authority.group.Groups;
@@ -33,6 +35,8 @@ public class StudentServiceImpl implements StudentService {
     private StudentDao studentDao;
     @Autowired
     private SchoolDao schoolDao;
+    @Autowired
+    private ParentDao parentDao;
 
     @Override
     public Page<StudentInfo> listStudents(Seed seed) {
@@ -69,6 +73,15 @@ public class StudentServiceImpl implements StudentService {
                 gradeInfo.setGrade(grade);
                 groupsInfo.setGradeInfo(gradeInfo);
                 studentInfo.setGroupsInfo(groupsInfo);
+
+                if (x.getFatherId() != null) {
+                    Parent father = parentDao.getParent(x.getFatherId());
+                    studentInfo.setFather(father);
+                }
+                if (x.getMotherId() != null){
+                    Parent mother = parentDao.getParent(x.getMotherId());
+                    studentInfo.setMother(mother);
+                }
                 studentInfos.add(studentInfo);
             });
             result.setResult(studentInfos);
