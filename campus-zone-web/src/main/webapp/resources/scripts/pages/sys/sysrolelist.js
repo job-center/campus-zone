@@ -38,7 +38,7 @@ var SysUserList=function(){
                 }
 
                 $.ajax({
-                    url : "/v1/addrole",
+                    url : "/v1/insertUpdateRole",
                     type : "POST",
                     data : $("#add_admin_form").serialize(),
                     success : function(result) {
@@ -63,9 +63,25 @@ var SysUserList=function(){
                 });
             });
 
-            $("a[name=editSysUser]").click(function(){
-                var url = "/v1/sysuser/" + $(this).attr("accountId");
-                window.location.href=url;
+            $("a[name=editSysRole]").click(function(){
+                var roleId = $(this).attr("data");
+                $.ajax({
+                    type: "GET",
+                    url: "/v1/roleinfos/" + roleId,
+                    dataType: "json",
+                    success: function(result){
+                        $.cookie.json = true;
+                        if(result.success){
+                            //$.cookie('action-message',{action:"success",message:"操作成功"});
+                            $("#roleName").val(result.data.roleName);
+                            $("#roleDescription").val(result.data.roleDescription);
+                            $("#id").val(roleId);
+                        }else{
+                            $.cookie('action-message',{action:"error",message:"操作失败"});
+                        }
+                        $("#div_sysrole_add").modal();
+                    }
+                });
             });
 
             $("#selectAll").change(function(){

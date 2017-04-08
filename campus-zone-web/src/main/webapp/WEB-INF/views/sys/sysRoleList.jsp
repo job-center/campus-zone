@@ -94,7 +94,7 @@
                             <td>${item.roleDescription} </td>
                             <td><a class="btn default btn-xs blue-stripe" href="#"
                                    name="editSysRole" data="${item.id}"><i
-                                    class="fa fa-edit"></i> 详细</a></td>
+                                    class="fa fa-edit"></i>详细</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -115,6 +115,7 @@
                 <h4 class="modal-title" id="myModalTitle">添加角色基本信息</h4>
             </div>
             <form id="add_admin_form">
+                <input type="hidden" name="id" id="id" />
                 <table align="center">
                     <tr style="height: 50px">
                         <td>角色名称：</td>
