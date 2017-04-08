@@ -1,5 +1,6 @@
 package com.jobcenter.campus.service.account.impl;
 
+import com.jobcenter.campus.common.common.StatusEnum;
 import com.jobcenter.campus.dao.account.StudentDao;
 import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.account.Student;
@@ -42,6 +43,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public boolean createStudent(Student student) {
+        student.setStatus(StatusEnum.STATUS_OPEN.getCode());
         return studentDao.createStudent(student);
     }
 }

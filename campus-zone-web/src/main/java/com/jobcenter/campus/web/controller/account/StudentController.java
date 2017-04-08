@@ -11,8 +11,11 @@ import com.jobcenter.campus.web.domin.APIResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +23,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,5 +62,12 @@ public class StudentController {
         boolean result = studentService.createStudent(student);
         APIResponse apiResponse = new APIResponse(ResultEnum.parseResultEnum(result));
         return apiResponse;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        df.setLenient(false);
+        binder.registerCustomEditor(Date.class,new CustomDateEditor(df,true));
     }
 }
