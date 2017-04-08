@@ -33,4 +33,14 @@ public class StudentDaoImpl implements StudentDao {
     public boolean createStudent(Student student) {
         return studentMapper.insert(student)>0;
     }
+
+    @Override
+    public Student getStudent(Integer studentId) {
+        return studentMapper.selectByPrimaryKey(studentId);
+    }
+
+    @Override
+    public boolean updateStudent(Student student) {
+        return studentMapper.updateByPrimaryKey(student)>0;
+    }
 }

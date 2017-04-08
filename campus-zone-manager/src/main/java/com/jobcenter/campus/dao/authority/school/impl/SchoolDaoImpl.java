@@ -82,4 +82,15 @@ public class SchoolDaoImpl implements SchoolDao {
         List<Groups> result = groupsMapper.selectByExample(example);
         return result;
     }
+
+    @Override
+    public Groups getGroup(Integer groupId) {
+        return groupsMapper.selectByPrimaryKey(groupId);
+    }
+
+    @Override
+    public Grade getGrade(Integer gradeId) {
+        return gradeMapper.selectByPrimaryKey(gradeId);
+    }
+
 }

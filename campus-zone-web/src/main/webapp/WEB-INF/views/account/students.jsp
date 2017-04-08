@@ -105,20 +105,22 @@
                     <tbody>
                     <c:forEach items="${seed.result }" var="item">
                         <tr>
-                            <td>${item.name}</td>
-                            <td>衡水一中 </td>
-                            <td>${item.studentNo}</td>
-                            <td>初一三班</td>
-                            <td>男</td>
-                            <td>${item.wechatId}</td>
+                            <td>${item.student.name}</td>
+                            <td>${item.groupsInfo.gradeInfo.school.name} </td>
+                            <td>${item.student.studentNo}</td>
+                            <td>${item.groupsInfo.gradeInfo.grade.name} ${item.groupsInfo.groups.name}</td>
+                            <td>${item.sex}</td>
+                            <td>${item.student.phoneNo}</td>
+                            <td>${item.student.wechatId}</td>
                             <td>111</td>
                             <td>111</td>
                             <td>111</td>
                             <td>111</td>
-                            <td>111</td>
+                            <td>${item.status}</td>
                             <td><a class="btn default btn-xs blue-stripe" href="#"
-                                   name="editSysUser" data="${item.sysUser.id}"><i
-                                    class="fa fa-edit"></i> </a></td>
+                                   name="changeStudentStatus" data="${item.student.id}"><i
+                                    class="fa fa-edit"></i> <c:if test="${item.student.status eq 1}">冻结</c:if>
+                                <c:if test="${item.student.status eq 0}">开启</c:if></a></td>
                         </tr>
                     </c:forEach>
                     </tbody>

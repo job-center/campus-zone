@@ -1,6 +1,7 @@
 package com.jobcenter.campus.web.controller.account;
 
 import com.jobcenter.campus.common.common.ResultEnum;
+import com.jobcenter.campus.domin.account.StudentInfo;
 import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.account.Student;
 import com.jobcenter.campus.entity.authority.school.School;
@@ -15,10 +16,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +43,7 @@ public class StudentController {
     @ResponseBody
     public ModelAndView listStudents(HttpServletRequest request, HttpServletResponse response, Seed seed){
         ModelAndView mav = new ModelAndView("account/students");
-        Page<Student> result = studentService.listStudents(seed);
+        Page<StudentInfo> result = studentService.listStudents(seed);
 
         seed.setResult(result.getResult());
         seed.setTotalSize(result.getTotal());
@@ -64,6 +62,20 @@ public class StudentController {
         return apiResponse;
     }
 
+    @RequestMapping(value = "/v1/student/{studentId}/status",method = RequestMethod.PUT)
+    @ResponseBody
+    public APIResponse changeStudentStatus(@PathVariable(value = "studentId",required = true)Integer studentId){
+        Assert.notNull(studentId,"更新的学生id不能为空");
+
+        boolean b = studentService.changeStudentStatus(studentId);
+        APIResponse apiResponse = new APIResponse(ResultEnum.parseResultEnum(b));
+        return apiResponse;
+    }
+
+    /**
+     * 绑定数据时设置时间格式为yyyy-MM-dd
+     * @param binder
+     */
     @InitBinder
     public void initBinder(WebDataBinder binder){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");

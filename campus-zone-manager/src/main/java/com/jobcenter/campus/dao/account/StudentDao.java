@@ -12,4 +12,8 @@ public interface StudentDao {
     Page<Student> listStudents(StudentQuery query);
 
     boolean createStudent(Student student);
+
+    Student getStudent(Integer studentId);
+
+    boolean updateStudent(Student student);
 }

@@ -77,6 +77,31 @@ var Students = function () {
         if (field == null || field == ""){
             throw new Error(message);
         }
+    };
+
+    var changeStudentStatus = function (studentId) {
+        $.ajax({
+            url:"/v1/student/"+studentId+"/status",
+            type:"PUT",
+            success:function (result) {
+                $.cookie.json = true;
+                if (result.success) {
+                    $.cookie('action-message', {
+                        action : "success",
+                        message : result.msg
+                    });
+                } else {
+                    $.cookie('action-message', {
+                        action : "error",
+                        message : result.msg
+                    });
+                }
+                window.location.reload();
+            },
+            failure:function (result) {
+                alert("操作失败", result.msg);
+            }
+        });
     }
 
     var createStudent = function () {
@@ -135,6 +160,12 @@ var Students = function () {
                 createStudent();
             })
 
+            $("a[name='changeStudentStatus']").click(function () {
+                var studentId = $(this).attr("data");
+                if (studentId != null && studentId != ''){
+                    changeStudentStatus(studentId);
+                }
+            })
         }
 
     }

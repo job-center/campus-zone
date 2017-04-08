@@ -29,4 +29,8 @@ public interface SchoolDao {
     List<Grade> listAllGradesBySchoolId(Integer schoolId);
 
     List<Groups> listAllGroupsByGradeId(Integer gradeId);
+
+    Groups getGroup(Integer groupId);
+
+    Grade getGrade(Integer gradeId);
 }

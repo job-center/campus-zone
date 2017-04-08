@@ -1,5 +1,6 @@
 package com.jobcenter.campus.service.account;
 
+import com.jobcenter.campus.domin.account.StudentInfo;
 import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.account.Student;
 import com.jobcenter.campus.model.Page;
@@ -9,7 +10,9 @@ import com.jobcenter.campus.model.Page;
  */
 public interface StudentService {
 
-    Page<Student> listStudents(Seed seed);
+    Page<StudentInfo> listStudents(Seed seed);
 
     boolean createStudent(Student student);
+
+    boolean changeStudentStatus(Integer studentId);
 }
