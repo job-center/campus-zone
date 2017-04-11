@@ -14,6 +14,7 @@ import com.jobcenter.campus.mapper.GroupsMapper;
 import com.jobcenter.campus.mapper.SchoolMapper;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SchoolQuery;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -45,6 +46,22 @@ public class SchoolDaoImpl implements SchoolDao {
     @Override
     public Page<School> listSchools(SchoolQuery query){
         return listSchools(query,true);
+    }
+
+    @Override
+    public boolean createSchool(School school) {
+        int record = schoolMapper.insert(school);
+        return record > 0;
+    }
+
+    @Override
+    public boolean updateSchool(List<School> schoolList) {
+        if(CollectionUtils.isNotEmpty(schoolList)) {
+            schoolList.stream().forEach(f -> schoolMapper.updateByPrimaryKeySelective(f));
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

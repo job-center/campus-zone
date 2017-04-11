@@ -50,7 +50,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="blank-form-actions">
-            <a class="btn green" href="#" id="createAccount"><i
+            <a class="btn green" href="#" id="createSchool"><i
                     class="fa fa-plus"></i>创建</a>
         </div>
     </div>
@@ -106,7 +106,7 @@
                             <td>${item.postcode} </td>
                             <td><a class="btn default btn-xs blue-stripe" href="#"
                                    name="editSysRole" data="${item.id}"><i
-                                    class="fa fa-edit"></i> 查看详细</a></td>
+                                    class="fa fa-edit"></i>详细</a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -117,10 +117,83 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="div_school_add">
+    <div class="modal-dialog" style="width: 500px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalTitle">添加学校基本信息</h4>
+            </div>
+            <form id="add_admin_form">
+                <input type="hidden" name="id" id="id" />
+                <table align="center">
+                    <tr style="height: 50px">
+                        <td>学校名称：</td>
+                        <td>
+                            <input type="text" name="name" id="name"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>学校全称：</td>
+                        <td>
+                            <input type="text" name="fullName" id="fullName"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>学校负责人：</td>
+                        <td>
+                            <input type="text" name="personCharge" id="personCharge"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>学校地址：</td>
+                        <td>
+                            <input type="text" name="address" id="address"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>学校类型：</td>
+                        <td>
+                            <input type="text" name="type" id="type"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>学校邮编：</td>
+                        <td>
+                            <input type="text" name="postcode" id="postcode"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                    <tr style="height: 50px">
+                        <td>学校描述：</td>
+                        <td>
+                            <input type="text" name="description" id="description"
+                                   size="30" style="height: 35px"/>
+                        </td>
+                    </tr>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary do_audit"
+                            id="btnAddSchool">添加
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <input type="hidden" id="setOptionUrl" value="${ctx}/account/" />
 
 <input type="hidden" id="ctxUrl" value="${ctx}" />
 <!-- PAGE LEVEL JS REFERENCES -->
-<script src="${ctx}/resources/scripts/pages/sys/sysrolelist.js"
+<script src="${ctx}/resources/scripts/pages/sys/school.js"
         type="text/javascript"></script>
 </body>

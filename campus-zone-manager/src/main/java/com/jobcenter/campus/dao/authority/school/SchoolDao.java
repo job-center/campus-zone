@@ -2,6 +2,7 @@ package com.jobcenter.campus.dao.authority.school;
 
 import com.jobcenter.campus.entity.authority.grade.Grade;
 import com.jobcenter.campus.entity.authority.group.Groups;
+import com.jobcenter.campus.entity.authority.role.SysRole;
 import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.query.SchoolQuery;
@@ -21,6 +22,10 @@ public interface SchoolDao {
     School getSchool(Integer schoolId);
 
     Page<School> listSchools(SchoolQuery query);
+
+    boolean createSchool(School school);
+
+    boolean updateSchool(List<School> schoolList);
 
     Page<School> listSchools(SchoolQuery query, boolean countAll);
 

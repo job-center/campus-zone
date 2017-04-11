@@ -4,6 +4,7 @@ import com.jobcenter.campus.common.common.ResultEnum;
 import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.authority.grade.Grade;
 import com.jobcenter.campus.entity.authority.group.Groups;
+import com.jobcenter.campus.entity.authority.role.SysRole;
 import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.service.authority.school.SchoolService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -39,12 +41,25 @@ public class SchoolController {
     public ModelAndView listSchoolInfo(Seed seed, ModelAndView modelAndView){
         Page<School> page = schoolService.listSchoolInfos(seed);
         seed.setResult(page.getResult());
-        seed.setActionPath("/v1/schools");
+        seed.setActionPath("v1/schools");
         seed.setTotalSize(page.getTotal());
 
         modelAndView.setViewName("/sys/schoolList");
         modelAndView.addObject("seed",seed);
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/v1/insertUpdateSchool",method = RequestMethod.POST)
+    @ResponseBody
+    public APIResponse insertUpdateSchool(School school){
+        Assert.notNull(school,"添加学校不能为空");
+        boolean result = false;
+        if(school.getId() == null)
+            result = schoolService.createSchool(school);
+        else
+            result = schoolService.updateSchoolByPrimaryKey(Arrays.asList(school));
+        APIResponse apiResponse = new APIResponse(ResultEnum.parseResultEnum(result));
+        return apiResponse;
     }
 
     @RequestMapping(value = "/v1/list/schools",method = RequestMethod.GET)
@@ -53,6 +68,16 @@ public class SchoolController {
         List<School> schoolList = schoolService.listAllSchools();
         APIResponse apiResponse = new APIResponse(ResultEnum.SUCCESS);
         apiResponse.setData(schoolList);
+        return apiResponse;
+    }
+
+    @RequestMapping(value = "v1/schoolinfos/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public APIResponse sysRoleIndex(@PathVariable Integer id) {
+        Assert.notNull(id,"查询学校id不能为空");
+        School school = schoolService.getSchoolById(id);
+        APIResponse apiResponse = new APIResponse(ResultEnum.SUCCESS);
+        apiResponse.setData(school);
         return apiResponse;
     }
 

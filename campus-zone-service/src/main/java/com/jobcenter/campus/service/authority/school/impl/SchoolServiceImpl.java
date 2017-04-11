@@ -1,6 +1,7 @@
 package com.jobcenter.campus.service.authority.school.impl;
 
 import com.google.common.collect.Lists;
+import com.jobcenter.campus.common.common.CommonConstant;
 import com.jobcenter.campus.dao.authority.school.SchoolDao;
 import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.authority.grade.Grade;
@@ -55,6 +56,26 @@ public class SchoolServiceImpl implements SchoolService{
     @Override
     public List<School> listAllSchools() {
         return schoolDao.listAllSchools();
+    }
+
+    @Override
+    public boolean createSchool(School school) {
+        return schoolDao.createSchool(school);
+    }
+
+    @Override
+    public boolean updateSchoolByPrimaryKey(List<School> schoolList) {
+        if(CollectionUtils.isNotEmpty(schoolList)) {
+            return schoolDao.updateSchool(schoolList);
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public School getSchoolById(Integer id) {
+        Assert.notNull(id,"查询参数不能为空");
+        return schoolDao.getSchool(id);
     }
 
     @Override
