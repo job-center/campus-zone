@@ -89,7 +89,7 @@
                                     <span><input class="" type="checkbox" id="ids" value="${item.id}"> </span>
                                 </div>
                             </td>
-                            <td><a href="/account/index?account_id=${item.id }">${item.id}</a></td>
+                            <td><a href="#" id="editID">${item.id}</a></td>
                             <td>${item.roleName}</td>
                             <td>${item.roleDescription} </td>
                             <td><a class="btn default btn-xs blue-stripe" href="#"

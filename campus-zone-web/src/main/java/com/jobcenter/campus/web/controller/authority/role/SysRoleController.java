@@ -47,7 +47,7 @@ public class SysRoleController {
     public ModelAndView listRoleInfo(Seed seed, ModelAndView modelAndView) {
         Page<SysRole> sysRolePage = sysRoleService.listSysRoleInfos(seed);
         seed.setResult(sysRolePage.getResult());
-        seed.setActionPath("");
+        seed.setActionPath("v1/roleinfos");
         seed.setTotalSize(sysRolePage.getTotal());
         modelAndView.setViewName("/sys/sysRoleList");
         modelAndView.addObject("seed", seed);

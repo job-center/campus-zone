@@ -19,12 +19,34 @@ var SysUserList=function(){
         });
     };
 
+    var modifyDetail = function(roleId) {
+        $.ajax({
+            type: "GET",
+            url: "/v1/roleinfos/" + roleId,
+            dataType: "json",
+            success: function(result){
+                $.cookie.json = true;
+                if(result.success){
+                    //$.cookie('action-message',{action:"success",message:"操作成功"});
+                    $("#roleName").val(result.data.roleName);
+                    $("#roleDescription").val(result.data.roleDescription);
+                    $("#id").val(roleId);
+                }else{
+                    $.cookie('action-message',{action:"error",message:"操作失败"});
+                }
+                $("#btnAddRole").text('修改');
+                $("#div_sysrole_add").modal();
+            }
+        });
+    }
+
 
     return{
         init:function(){
             //init page param
 
             $("#createRole").click(function(){
+                $("#btnAddRole").text("添加");
                 $("#div_sysrole_add").modal();
             });
 
@@ -63,25 +85,14 @@ var SysUserList=function(){
                 });
             });
 
+            $("#editID").click(function(){
+                var roleId = $(this).text();
+                modifyDetail(roleId);
+            })
+
             $("a[name=editSysRole]").click(function(){
                 var roleId = $(this).attr("data");
-                $.ajax({
-                    type: "GET",
-                    url: "/v1/roleinfos/" + roleId,
-                    dataType: "json",
-                    success: function(result){
-                        $.cookie.json = true;
-                        if(result.success){
-                            //$.cookie('action-message',{action:"success",message:"操作成功"});
-                            $("#roleName").val(result.data.roleName);
-                            $("#roleDescription").val(result.data.roleDescription);
-                            $("#id").val(roleId);
-                        }else{
-                            $.cookie('action-message',{action:"error",message:"操作失败"});
-                        }
-                        $("#div_sysrole_add").modal();
-                    }
-                });
+                modifyDetail(roleId);
             });
 
             $("#selectAll").change(function(){
