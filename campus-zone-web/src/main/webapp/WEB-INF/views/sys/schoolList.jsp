@@ -95,7 +95,7 @@
                                 <div class="">
                                 </div>
                             </td>
-                            <td><a href="/account/index?account_id=${item.id }">${item.id}</a></td>
+                            <td><a href="#" id="editID">${item.id}</a></td>
                             <td>${item.name}</td>
                             <td>${item.fullName} </td>
                             <td>${item.geographyId} </td>
@@ -105,7 +105,7 @@
                             <td>${item.description} </td>
                             <td>${item.postcode} </td>
                             <td><a class="btn default btn-xs blue-stripe" href="#"
-                                   name="editSysRole" data="${item.id}"><i
+                                   name="editSchool" data="${item.id}"><i
                                     class="fa fa-edit"></i>详细</a></td>
                         </tr>
                     </c:forEach>

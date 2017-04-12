@@ -1,11 +1,11 @@
 var SysUserList=function(){
 
     var batchDelete = function () {
-        var roleIds = $("#sysroles_delete").val();
+        var schoolIds = $("#sysroles_delete").val();
         $.ajax({
             type: "DELETE",
-            url: "/v1/roleinfos/batchdelete/" + roleIds,
-            //data: {"roleIds":roleIds},
+            url: "/v1/roleinfos/batchdelete/" + schoolIds,
+            //data: {"schoolIds":schoolIds},
             dataType: "json",
             success: function(result){
                 $.cookie.json = true;
@@ -19,18 +19,23 @@ var SysUserList=function(){
         });
     };
 
-    var modifyDetail = function(roleId) {
+    var modifyDetail = function(schoolId) {
         $.ajax({
             type: "GET",
-            url: "/v1/roleinfos/" + roleId,
+            url: "v1/schoolinfos/" + schoolId,
             dataType: "json",
             success: function(result){
                 $.cookie.json = true;
                 if(result.success){
                     //$.cookie('action-message',{action:"success",message:"操作成功"});
-                    $("#roleName").val(result.data.roleName);
-                    $("#roleDescription").val(result.data.roleDescription);
-                    $("#id").val(roleId);
+                    $("#name").val(result.data.name);
+                    $("#fullName").val(result.data.name);
+                    $("#name").val(result.data.name);
+                    $("#name").val(result.data.name);
+                    $("#name").val(result.data.name);
+                    $("#name").val(result.data.name);
+                    $("#name").val(result.data.name);
+                    $("#id").val(schoolId);
                 }else{
                     $.cookie('action-message',{action:"error",message:"操作失败"});
                 }
@@ -85,17 +90,16 @@ var SysUserList=function(){
             });
 
             $("#editID").click(function(){
-                var roleId = $(this).text();
-                modifyDetail(roleId);
+                var schoolId = $(this).text();
+                modifyDetail(schoolId);
             })
 
-            $("a[name=editSysRole]").click(function(){
-                var roleId = $(this).attr("data");
-                modifyDetail(roleId);
+            $("a[name=editSchool").click(function(){
+                var schoolId = $(this).attr("data");
+                modifyDetail(schoolId);
             });
 
             $("#selectAll").change(function(){
-                console.info('xxxxx');
                 if($(this).attr("checked")){
                     $("table#fromAccountTable tbody input[type='checkbox']").uniform().each(function(index, item){
                         $.uniform.update($(item).attr("checked", true));
@@ -108,15 +112,15 @@ var SysUserList=function(){
             });//全选结束")
 
             $("#removepower").click(function () {
-                var roleIds='';
+                var schoolIds='';
                 $("table#fromAccountTable tbody input[type='checkbox']").uniform().each(function(index, item){
                     if($(item).attr("checked")){
-                        roleIds+=$(item).val()+",";
+                        schoolIds+=$(item).val()+",";
                     }
                 });
-                if(roleIds!=''){
-                    roleIds=roleIds.substring(0,roleIds.length-1);
-                    $("#sysroles_delete").val(roleIds);
+                if(schoolIds!=''){
+                    schoolIds=schoolIds.substring(0,schoolIds.length-1);
+                    $("#sysroles_delete").val(schoolIds);
                     confirm("删除角色","确认删除这些角色?",batchDelete);
                 }else{
                     alert("删除角色","请选择需要删除的角色.");
