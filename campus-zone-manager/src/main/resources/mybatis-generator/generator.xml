@@ -48,7 +48,6 @@
         <!--<table tableName="school" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
-
         <!--<table tableName="student" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
@@ -61,9 +60,9 @@
             <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
         <!--</table>-->
 
-        <table tableName="parent" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">
-            <generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>
-        </table>
+        <!--<table tableName="parent" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" type="post" identity="true"/>-->
+        <!--</table>-->
 
     </context>
 </generatorConfiguration>  

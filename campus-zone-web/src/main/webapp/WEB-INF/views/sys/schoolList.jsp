@@ -93,6 +93,7 @@
                         <tr>
                             <td>
                                 <div class="">
+                                <span><input class="" type="checkbox" id="ids" value="${item.id}"> </span>
                                 </div>
                             </td>
                             <td><a href="#" id="editID">${item.id}</a></td>

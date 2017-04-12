@@ -96,7 +96,6 @@ var SysUserList=function(){
             });
 
             $("#selectAll").change(function(){
-                console.info('xxxxx');
                 if($(this).attr("checked")){
                     $("table#fromAccountTable tbody input[type='checkbox']").uniform().each(function(index, item){
                         $.uniform.update($(item).attr("checked", true));

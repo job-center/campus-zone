@@ -22,25 +22,25 @@ var SysUserList=function(){
     var modifyDetail = function(schoolId) {
         $.ajax({
             type: "GET",
-            url: "v1/schoolinfos/" + schoolId,
+            url: "/v1/schoolinfos/" + schoolId,
             dataType: "json",
             success: function(result){
                 $.cookie.json = true;
                 if(result.success){
                     //$.cookie('action-message',{action:"success",message:"操作成功"});
                     $("#name").val(result.data.name);
-                    $("#fullName").val(result.data.name);
-                    $("#name").val(result.data.name);
-                    $("#name").val(result.data.name);
-                    $("#name").val(result.data.name);
-                    $("#name").val(result.data.name);
-                    $("#name").val(result.data.name);
+                    $("#fullName").val(result.data.fullName);
+                    $("#address").val(result.data.address);
+                    $("#personCharge").val(result.data.personCharge);
+                    $("#type").val(result.data.type);
+                    $("#description").val(result.data.description);
+                    $("#postcode").val(result.data.postcode);
                     $("#id").val(schoolId);
                 }else{
                     $.cookie('action-message',{action:"error",message:"操作失败"});
                 }
-                $("#btnAddRole").text('修改');
-                $("#div_sysrole_add").modal();
+                $("#btnAddSchool").text('修改');
+                $("#div_school_add").modal();
             }
         });
     }
@@ -65,7 +65,7 @@ var SysUserList=function(){
 
                 $.ajax({
                     url : "/v1/insertUpdateSchool",
-                    type : "POST",
+                    type : 'post',
                     data : $("#add_admin_form").serialize(),
                     success : function(result) {
                         $.cookie.json = true;

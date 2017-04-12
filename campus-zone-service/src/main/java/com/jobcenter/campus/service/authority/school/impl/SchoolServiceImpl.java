@@ -60,6 +60,7 @@ public class SchoolServiceImpl implements SchoolService{
 
     @Override
     public boolean createSchool(School school) {
+        school.setIsDeleted(CommonConstant.IS_NOT_DELETE_BYTE);
         return schoolDao.createSchool(school);
     }
 

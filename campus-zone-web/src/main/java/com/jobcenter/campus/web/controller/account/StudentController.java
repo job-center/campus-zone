@@ -4,7 +4,6 @@ import com.jobcenter.campus.common.common.ResultEnum;
 import com.jobcenter.campus.domin.account.StudentInfo;
 import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.account.Student;
-import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.service.account.StudentService;
 import com.jobcenter.campus.service.authority.school.SchoolService;
@@ -24,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by xiayun on 5/4/17.
