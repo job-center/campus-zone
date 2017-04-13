@@ -14,6 +14,14 @@
               "url":"/v1/roleinfos"
             },
             {
+              "name":"菜单管理",
+              "url":"/v1/menus"
+            },
+            {
+              "name":"地区管理",
+              "url":"/v1/areas"
+            },
+            {
               "name":"学校管理",
               "url":"/v1/schools"
             }

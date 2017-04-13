@@ -103,6 +103,9 @@ public class ExampleConvertor {
             if (schoolQuery.getType() != null){
                 criteria.andTypeEqualTo(schoolQuery.getType());
             }
+            if (schoolQuery.getIsDeleted() != null) {
+                criteria.andIsDeletedEqualTo(schoolQuery.getIsDeleted().byteValue());
+            }
             if (StringUtils.isNotBlank(schoolQuery.getOderByClause())){
                 example.setOrderByClause(schoolQuery.getOderByClause());
             }

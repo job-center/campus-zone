@@ -42,7 +42,7 @@ public class SchoolServiceImpl implements SchoolService{
         if (StringUtils.isNotBlank(seed.getString("name"))){
             schoolQuery.setName(seed.getString("name"));
         }
-
+        schoolQuery.setIsDeleted(CommonConstant.IS_NOT_DELETE_INT);
         Page<School> schoolPage = schoolDao.listSchools(schoolQuery);
         Page<School> result = new Page<>(schoolPage.getPageNum(),schoolPage.getPageSize(),schoolPage.getTotal());
         List<School> list = Lists.newArrayList();

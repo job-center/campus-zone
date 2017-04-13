@@ -1,5 +1,6 @@
 package com.jobcenter.campus.dao.authority.school.impl;
 
+import com.jobcenter.campus.common.common.CommonConstant;
 import com.jobcenter.campus.dao.authority.school.SchoolDao;
 import com.jobcenter.campus.entity.*;
 import com.jobcenter.campus.entity.authority.grade.Grade;
@@ -78,6 +79,7 @@ public class SchoolDaoImpl implements SchoolDao {
     public List<School> listAllSchools() {
         SchoolExample example = new SchoolExample();
         example.setOrderByClause("name");
+        example.createCriteria().andIsDeletedEqualTo(CommonConstant.IS_NOT_DELETE_BYTE);
         return schoolMapper.selectByExample(example);
     }
 

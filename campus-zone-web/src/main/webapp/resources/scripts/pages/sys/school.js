@@ -1,10 +1,10 @@
 var SysUserList=function(){
 
     var batchDelete = function () {
-        var schoolIds = $("#sysroles_delete").val();
+        var schoolIds = $("#schools_delete").val();
         $.ajax({
             type: "DELETE",
-            url: "/v1/roleinfos/batchdelete/" + schoolIds,
+            url: "/v1/schoolinfos/batchdelete/" + schoolIds,
             //data: {"schoolIds":schoolIds},
             dataType: "json",
             success: function(result){
@@ -120,10 +120,10 @@ var SysUserList=function(){
                 });
                 if(schoolIds!=''){
                     schoolIds=schoolIds.substring(0,schoolIds.length-1);
-                    $("#sysroles_delete").val(schoolIds);
-                    confirm("删除角色","确认删除这些角色?",batchDelete);
+                    $("#schools_delete").val(schoolIds);
+                    confirm("删除学校","确认删除这些学校?",batchDelete);
                 }else{
-                    alert("删除角色","请选择需要删除的角色.");
+                    alert("删除学校","请选择需要删除的学校.");
                 }
             })
 

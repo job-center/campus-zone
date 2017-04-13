@@ -25,6 +25,16 @@ public class SchoolQuery extends BaseQuery {
 
     private String postcode;
 
+    private Integer isDeleted;
+
+    public Integer getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Integer isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
     public String getName() {
         return name;
     }

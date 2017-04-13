@@ -1,13 +1,19 @@
 package com.jobcenter.campus.web.controller.authority.school;
 
+import com.google.common.base.Splitter;
+import com.jobcenter.campus.common.common.CommonConstant;
 import com.jobcenter.campus.common.common.ResultEnum;
 import com.jobcenter.campus.domin.page.Seed;
 import com.jobcenter.campus.entity.authority.grade.Grade;
 import com.jobcenter.campus.entity.authority.group.Groups;
+import com.jobcenter.campus.entity.authority.role.SysRole;
 import com.jobcenter.campus.entity.authority.school.School;
 import com.jobcenter.campus.model.Page;
 import com.jobcenter.campus.service.authority.school.SchoolService;
 import com.jobcenter.campus.web.domin.APIResponse;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -19,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -79,6 +86,31 @@ public class SchoolController {
         apiResponse.setData(school);
         return apiResponse;
     }
+
+    @RequestMapping(value = "v1/schoolinfos/batchdelete/{schoolIds}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public APIResponse removeSchool(@PathVariable(value = "schoolIds") String schoolIds) {
+        if (StringUtils.isNotBlank(schoolIds)){
+            List<String> schoolList = Splitter.on(",").splitToList(schoolIds);
+            if (CollectionUtils.isNotEmpty(schoolList)){
+                List<School> schools = schoolList.stream().map(m -> {
+                    School school = new School();
+                    school.setIsDeleted(CommonConstant.IS_DELETE_BYTE);
+                    school.setId(NumberUtils.toInt(m,0));
+                    return  school;
+                }).collect(Collectors.toList());
+                boolean flag = schoolService.updateSchoolByPrimaryKey(schools);
+                if(flag)
+                    return new APIResponse(ResultEnum.SUCCESS);
+                else
+                    return new APIResponse(ResultEnum.FAIL);
+            }
+            return new APIResponse(ResultEnum.SUCCESS);
+        }else{
+            return new APIResponse(ResultEnum.FAIL).setMsg("要删除的学校信息不能为空");
+        }
+    }
+
 
     @RequestMapping(value = "/v1/school/{schoolId}/grads")
     @ResponseBody

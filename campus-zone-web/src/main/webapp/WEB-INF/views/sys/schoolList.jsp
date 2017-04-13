@@ -52,6 +52,7 @@
         <div class="blank-form-actions">
             <a class="btn green" href="#" id="createSchool"><i
                     class="fa fa-plus"></i>创建</a>
+            <a class="btn blue" href="#" id="removepower"><i class="fa fa-remove"></i>删除</a>
         </div>
     </div>
 </div>
@@ -191,6 +192,8 @@
     </div>
 </div>
 
+
+<input type="hidden" id="schools_delete">
 <input type="hidden" id="setOptionUrl" value="${ctx}/account/" />
 
 <input type="hidden" id="ctxUrl" value="${ctx}" />
